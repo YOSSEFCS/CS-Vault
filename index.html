@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>كلية علوم الحاسوب والرياضيات - ملازم</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <style>
+    :root {
+      --navy: #1a2e6e; --blue: #1e4db7; --teal: #00b8c4;
+      --teal-light: #67e8f9; --white: #ffffff; --off-white: #f0f6ff;
+      --gray-light: #e2eaf8; --text-dark: #0f1c4d;
+      --shadow: 0 4px 24px rgba(26,46,110,0.13);
+      --shadow-strong: 0 8px 40px rgba(26,46,110,0.22);
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family:'Cairo','Tajawal',sans-serif; background:var(--off-white); color:var(--text-dark); min-height:100vh; overflow-x:hidden; }
+    body::before {
+      content:''; position:fixed; inset:0;
+      background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(0,184,196,0.10) 0%, transparent 70%),
+                  repeating-linear-gradient(135deg, rgba(30,77,183,0.025) 0px, rgba(30,77,183,0.025) 1px, transparent 1px, transparent 60px);
+      pointer-events:none; z-index:0;
+    }
+
+    /* HEADER */
+    header {
+      background: linear-gradient(135deg, var(--navy) 0%, var(--blue) 60%, var(--teal) 100%);
+      padding:0 2rem; display:flex; align-items:center; justify-content:space-between;
+      height:80px; box-shadow:var(--shadow-strong); position:relative; z-index:100;
+    }
+    header::after { content:''; position:absolute; bottom:0; left:0; right:0; height:3px; background:linear-gradient(90deg,var(--teal),#60a5fa,var(--teal)); }
+    .header-logo { display:flex; align-items:center; gap:14px; }
+    .header-logo img { width:80px; height:80px; border-radius:50%; border:2px solid rgba(255,255,255,0.4); object-fit:cover; }
+    .header-text h1 { font-size:1.05rem; font-weight:900; color:#fff; line-height:1.3; }
+    .header-text p  { font-size:0.72rem; color:var(--teal-light); font-weight:500; }
+    .header-badge { background:rgba(255,255,255,0.12); border:1px solid rgba(255,255,255,0.25); color:#fff; font-size:0.75rem; font-weight:700; padding:6px 16px; border-radius:20px; }
+
+    /* HERO */
+    .hero { position:relative; z-index:1; display:flex; flex-direction:column; align-items:center; justify-content:center; min-height:calc(100vh - 80px); padding:3rem 1.5rem; text-align:center; }
+    .hero-icon { width:90px; height:90px; background:linear-gradient(135deg,var(--navy) 0%,var(--teal) 100%); border-radius:50%; display:flex; align-items:center; justify-content:center; margin-bottom:1.5rem; animation:pulse-ring 2.5s ease-in-out infinite; }
+    .hero-icon svg { width:44px; height:44px; }
+    @keyframes pulse-ring {
+      0%,100% { box-shadow:0 8px 32px rgba(0,184,196,0.3),0 0 0 8px rgba(0,184,196,0.08); }
+      50%      { box-shadow:0 8px 32px rgba(0,184,196,0.5),0 0 0 16px rgba(0,184,196,0.04); }
+    }
+    .hero-title { font-size:clamp(1.8rem,4vw,2.8rem); font-weight:900; color:var(--navy); margin-bottom:0.5rem; }
+    .hero-title span { color:var(--teal); }
+    .hero-subtitle { font-size:1rem; color:#5575a8; margin-bottom:2.5rem; max-width:480px; line-height:1.7; }
+
+    /* MAIN BUTTON */
+    #mainBtn {
+      background:linear-gradient(135deg,var(--navy) 0%,var(--blue) 60%,var(--teal) 100%);
+      color:#fff; border:none; padding:18px 52px; border-radius:14px;
+      font-family:'Cairo',sans-serif; font-size:1.15rem; font-weight:800; cursor:pointer;
+      box-shadow:0 6px 28px rgba(26,46,110,0.35); position:relative; overflow:hidden;
+      transition:transform 0.18s,box-shadow 0.18s; display:flex; align-items:center; gap:12px;
+    }
+    #mainBtn::before { content:''; position:absolute; inset:0; background:linear-gradient(135deg,rgba(255,255,255,0.18) 0%,transparent 60%); border-radius:inherit; }
+    #mainBtn:hover { transform:translateY(-3px); box-shadow:0 12px 36px rgba(26,46,110,0.45); }
+    #mainBtn svg { width:24px; height:24px; }
+    #mainBtn .btn-chevron { transition:transform 0.35s; }
+    #mainBtn.open .btn-chevron { transform:rotate(180deg); }
+
+    /* SUBJECTS GRID */
+    #subjectsGrid {
+      display:none; grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+      gap:16px; max-width:860px; width:100%; margin-top:2rem;
+      animation:fadeUp 0.4s ease;
+    }
+    #subjectsGrid.visible { display:grid; }
+    @keyframes fadeUp { from{opacity:0;transform:translateY(22px)} to{opacity:1;transform:translateY(0)} }
+
+    .subject-btn {
+      background:var(--white); border:2px solid var(--gray-light); border-radius:16px;
+      padding:20px 14px 16px; cursor:pointer; text-align:center;
+      font-family:'Cairo',sans-serif; font-size:0.92rem; font-weight:700; color:var(--navy);
+      box-shadow:var(--shadow); transition:all 0.22s;
+      display:flex; flex-direction:column; align-items:center; gap:10px;
+      position:relative; overflow:hidden;
+    }
+    .subject-btn::after { content:''; position:absolute; bottom:0; left:0; right:0; height:3px; background:linear-gradient(90deg,var(--blue),var(--teal)); transform:scaleX(0); transition:transform 0.25s; transform-origin:right; }
+    .subject-btn:hover { border-color:var(--teal); transform:translateY(-4px); box-shadow:0 10px 30px rgba(0,184,196,0.18); }
+    .subject-btn:hover::after { transform:scaleX(1); transform-origin:left; }
+    .subject-btn.active { background:linear-gradient(135deg,var(--navy) 0%,var(--blue) 70%,var(--teal) 100%); color:#fff; border-color:var(--teal); box-shadow:0 8px 28px rgba(26,46,110,0.35); }
+    .subject-btn.active::after { display:none; }
+    .subject-btn .subj-icon {
+      width:50px; height:50px; border-radius:14px;
+      background:linear-gradient(135deg,var(--off-white),var(--gray-light));
+      display:flex; align-items:center; justify-content:center; font-size:1.5rem;
+      transition: all 0.22s;
+    }
+    .subject-btn .subj-icon i { font-size:1.3rem; color:var(--blue); transition: color 0.22s; }
+    .subject-btn.active .subj-icon { background:rgba(255,255,255,0.18); }
+    .subject-btn.active .subj-icon i { color:#fff; }
+    .subject-btn .subj-count { font-size:0.70rem; font-weight:600; opacity:0.6; }
+
+    /* FILES PANEL */
+    #filesPanel {
+      display:none; max-width:720px; width:100%; margin-top:2rem;
+      background:var(--white); border-radius:20px; box-shadow:var(--shadow-strong);
+      overflow:hidden; animation:fadeUp 0.4s ease;
+    }
+    #filesPanel.visible { display:block; }
+    .files-header { background:linear-gradient(135deg,var(--navy) 0%,var(--blue) 70%,var(--teal) 100%); padding:18px 24px; display:flex; align-items:center; gap:12px; }
+    .files-header i { font-size:1.2rem; color:var(--teal-light); flex-shrink:0; }
+    .files-header-text h3 { color:#fff; font-size:1rem; font-weight:800; }
+    .files-header-text p  { color:var(--teal-light); font-size:0.75rem; margin-top:1px; }
+    .files-count { margin-right:auto; background:rgba(255,255,255,0.15); color:#fff; font-size:0.75rem; font-weight:700; padding:4px 12px; border-radius:20px; border:1px solid rgba(255,255,255,0.2); }
+    .files-list { padding:12px; display:flex; flex-direction:column; gap:8px; }
+    .file-item { display:flex; align-items:center; gap:14px; padding:14px 16px; border-radius:12px; border:1.5px solid var(--gray-light); background:var(--off-white); transition:all 0.2s; text-decoration:none; color:var(--text-dark); }
+    .file-item:hover { border-color:var(--teal); background:#e8f7ff; transform:translateX(-4px); box-shadow:0 4px 16px rgba(0,184,196,0.13); }
+    .file-icon { width:44px; height:44px; background:linear-gradient(135deg,#e53e3e 0%,#c53030 100%); border-radius:10px; display:flex; align-items:center; justify-content:center; flex-shrink:0; box-shadow:0 3px 10px rgba(229,62,62,0.3); }
+    .file-icon i { font-size:1.1rem; color:#fff; }
+    .file-info { flex:1; min-width:0; }
+    .file-name { font-size:0.9rem; font-weight:700; color:var(--navy); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+    .file-meta { font-size:0.72rem; color:#7a96c2; margin-top:2px; }
+    .file-download {
+      background:linear-gradient(135deg,var(--blue) 0%,var(--teal) 100%);
+      color:#fff; border:none; padding:8px 18px; border-radius:8px;
+      font-family:'Cairo',sans-serif; font-size:0.78rem; font-weight:700;
+      cursor:pointer; flex-shrink:0; transition:all 0.18s;
+      display:flex; align-items:center; gap:6px; text-decoration:none;
+    }
+    .file-download:hover { transform:scale(1.06); box-shadow:0 4px 14px rgba(30,77,183,0.35); }
+    .empty-state { text-align:center; padding:40px 20px; color:#9ab0d0; }
+    .empty-state i { font-size:2.5rem; margin-bottom:12px; opacity:0.4; display:block; }
+    .empty-state p { font-size:0.9rem; font-weight:600; }
+
+    footer { position:relative; z-index:1; text-align:center; padding:24px; color:#8099c2; font-size:0.78rem; border-top:1px solid var(--gray-light); background:rgba(255,255,255,0.6); }
+    footer span { color:var(--teal); font-weight:700; }
+    @media(max-width:600px){ #subjectsGrid{grid-template-columns:repeat(2,1fr)} .header-badge{display:none} }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-logo">
+    <img src="logo.png" alt="شعار الكلية" onerror="this.style.display='none'"/>
+    <div class="header-text">
+      <h1>كلية علوم الحاسوب والرياضيات</h1>
+      <p>جامعة الموصل — University of Mosul · CSM</p>
+    </div>
+  </div>
+  <div class="header-badge">1999 · CSM</div>
+</header>
+
+<section class="hero">
+  <div class="hero-icon">
+    <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+      <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+      <line x1="12" y1="6" x2="16" y2="6"/><line x1="12" y1="10" x2="16" y2="10"/>
+    </svg>
+  </div>
+  <h1 class="hero-title">مكتبة <span>الملازم</span> الدراسية</h1>
+  <p class="hero-subtitle">المرحلة الأولى — قسم علوم الحاسوب<br/>اختر المادة وحمّل ملازمك بضغطة واحدة</p>
+
+  <button id="mainBtn" onclick="toggleSubjects()">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/>
+    </svg>
+    المرحلة الأولى — قسم علوم الحاسوب
+    <svg class="btn-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+      <polyline points="6 9 12 15 18 9"/>
+    </svg>
+  </button>
+
+  <div id="subjectsGrid">
+
+    <button class="subject-btn" data-subject="prog" data-label="برمجة متقدمة" onclick="openSubject(this)">
+      <div class="subj-icon"><i class="fa-solid fa-laptop-code"></i></div>
+      <span>برمجة متقدمة</span>
+      <span class="subj-count" id="count-prog"></span>
+    </button>
+
+    <button class="subject-btn" data-subject="web" data-label="برمجة مواقع نظري" onclick="openSubject(this)">
+      <div class="subj-icon"><i class="fa-solid fa-code"></i></div>
+      <span>برمجة مواقع نظري</span>
+      <span class="subj-count" id="count-web"></span>
+    </button>
+
+    <button class="subject-btn" data-subject="computer1" data-label="حاسوب نظري" onclick="openSubject(this)">
+      <div class="subj-icon"><i class="fa-solid fa-book-open"></i></div>
+      <span>حاسوب نظري</span>
+      <span class="subj-count" id="count-computer1"></span>
+    </button>
+
+    <button class="subject-btn" data-subject="computer2" data-label="حاسوب عملي" onclick="openSubject(this)">
+      <div class="subj-icon"><i class="fa-solid fa-desktop"></i></div>
+      <span>حاسوب عملي</span>
+      <span class="subj-count" id="count-computer2"></span>
+    </button>
+
+    <button class="subject-btn" data-subject="statistics" data-label="مبادئ الاحصاء" onclick="openSubject(this)">
+      <div class="subj-icon"><i class="fa-solid fa-chart-bar"></i></div>
+      <span>مبادئ الاحصاء</span>
+      <span class="subj-count" id="count-statistics"></span>
+    </button>
+
+    <button class="subject-btn" data-subject="tca" data-label="تركيب حاسوب نظري" onclick="openSubject(this)">
+      <div class="subj-icon"><i class="fa-solid fa-microchip"></i></div>
+      <span>تركيب حاسوب نظري</span>
+      <span class="subj-count" id="count-tca"></span>
+    </button>
+
+    <button class="subject-btn" data-subject="pcac" data-label="تركيب حاسوب عملي" onclick="openSubject(this)">
+      <div class="subj-icon"><i class="fa-solid fa-screwdriver-wrench"></i></div>
+      <span>تركيب حاسوب عملي</span>
+      <span class="subj-count" id="count-pcac"></span>
+    </button>
+
+    <button class="subject-btn" data-subject="arbic" data-label="اللغة العربية" onclick="openSubject(this)">
+      <div class="subj-icon"><i class="fa-solid fa-pen-nib"></i></div>
+      <span>اللغة العربية</span>
+      <span class="subj-count" id="count-arbic"></span>
+    </button>
+
+  </div>
+
+  <!-- لوحة الملفات -->
+  <div id="filesPanel">
+    <div class="files-header">
+      <i class="fa-solid fa-file-pdf"></i>
+      <div class="files-header-text">
+        <h3 id="panelTitle">الملفات</h3>
+        <p id="panelSub">اختر ملفاً للتحميل</p>
+      </div>
+      <span class="files-count" id="filesCount">0 ملف</span>
+    </div>
+    <div class="files-list" id="filesList"></div>
+  </div>
+
+</section>
+
+<footer>
+  كلية علوم الحاسوب والرياضيات — جامعة الموصل &nbsp;|&nbsp;
+  <span>CSM · 1999</span> &nbsp;|&nbsp; جميع الحقوق محفوظة © 2026
+</footer>
+
+<script>
+/* ============================================================
+   📂 بيانات الملفات
+   
+   name  : الاسم الظاهر للطالب
+   file  : اسم الملف (يجب أن يكون في نفس مجلد index.html)
+   size  : الحجم للعرض فقط
+   ============================================================ */
+
+const subjectsData = {
+
+  // ✅ برمجة متقدمة — 5 ملفات
+  prog: [
+    { name: "ملزمة البرمجة المتقدمة — الأولى",   file: "prog1.pdf",  size: "847.9 KB" },
+    { name: "ملزمة البرمجة المتقدمة — الثانية",   file: "prog2.pdf",  size: "794.6 KB" },
+    { name: "ملزمة البرمجة المتقدمة — الثالثة",   file: "prog3.pdf",  size: "367.4 KB" },
+    { name: "ملزمة البرمجة المتقدمة — الرابعة",   file: "prog4.pdf",  size: "812.1 KB" },
+    { name: "ملزمة البرمجة المتقدمة — الخامسة",   file: "prog5.pdf",  size: "738.4 KB" },
+  ],
+
+  // ✅ برمجة مواقع نظري — 7 ملفات
+  web: [
+    { name: "ملزمة برمجة المواقع — الأولى",   file: "web1.pdf",  size: "1.2 MB" },
+    { name: "ملزمة برمجة المواقع — الثانية",   file: "web2.pdf",  size: "441.7 KB" },
+    { name: "ملزمة برمجة المواقع — الثالثة",   file: "web3.pdf",  size: "630.9 KB" },
+    { name: "ملزمة برمجة المواقع — الرابعة",   file: "web4.pdf",  size: "342.5 KB" },
+    { name: "ملزمة برمجة المواقع — الخامسة",   file: "web5.pdf",  size: "230.3 KB" },
+    { name: "ملزمة برمجة المواقع — السادسة",   file: "web6.pdf",  size: "399.7 KB" },
+    { name: "ملزمة برمجة المواقع — السابعة",   file: "web7.pdf",  size: "211.8 KB" },
+  ],
+
+  // ✅ حاسوب نظري — 7 ملفات
+  computer1: [
+    { name: "ملزمة حاسوب نظري — الأولى والثانية",  file: "ملزمة اولى وثانية computer 1.pdf",  size: "1.6 MB" },
+    { name: "ملزمة حاسوب نظري — الثالثة",           file: "ملزمة ثالثة computer 1.pdf",          size: "627.1 KB" },
+    { name: "ملزمة حاسوب نظري — الرابعة",           file: "ملزمة رابعة computer 1.pdf",          size: "621.6 KB" },
+    { name: "ملزمة حاسوب نظري — الخامسة",           file: "ملزمة computer 1 خامسة.pdf",          size: "661.6 KB" },
+    { name: "ملزمة حاسوب نظري — السادسة",           file: "ملزمة computer 1 سادسة.pdf",          size: "374.0 KB" },
+    { name: "ملزمة حاسوب نظري — السابعة",           file: "ملزمة سابعة computer 1.pdf",          size: "631.1 KB" },
+  ],
+
+  // ✅ حاسوب عملي — 6 ملفات
+  computer2: [
+    { name: "ملزمة حاسوب عملي — الأولى",    file: "computer 2ملزمة الاولى.pdf",       size: "1.3 MB" },
+    { name: "ملزمة حاسوب عملي — الثانية",   file: "ملزمة computer2 الثانية.pdf",      size: "1.7 MB" },
+    { name: "ملزمة حاسوب عملي — الثالثة",   file: "computer 2ملزمة ثالثة.pdf",        size: "1.8 MB" },
+    { name: "ملزمة حاسوب عملي — الرابعة",   file: "computer 2ملزمة رابعة.pdf",        size: "1.2 MB" },
+    { name: "ملزمة حاسوب عملي — الخامسة",   file: "ملزمة computer2 خامسة.pdf",        size: "1.5 MB" },
+    { name: "ملزمة حاسوب عملي — السادسة",   file: "ملزمة computer2 سادسة.pdf",        size: "1.9 MB" },
+  ],
+
+  // ✅ مبادئ الاحصاء — 10 ملفات (statistics1-6, 8-10 — لا يوجد 7)
+  statistics: [
+    { name: "ملزمة الاحصاء — 1",    file: "statistics1.pdf",   size: "868.3 KB" },
+    { name: "ملزمة الاحصاء — 2",    file: "statistics2.pdf",   size: "729.3 KB" },
+    { name: "ملزمة الاحصاء — 3",    file: "statistics3.pdf",   size: "712.6 KB" },
+    { name: "ملزمة الاحصاء — 4",    file: "statistics4.pdf",   size: "672.5 KB" },
+    { name: "ملزمة الاحصاء — 5",    file: "statistics5.pdf",   size: "1.1 MB" },
+    { name: "ملزمة الاحصاء — 6",    file: "statistics6.pdf",   size: "1.0 MB" },
+    { name: "ملزمة الاحصاء — 8",    file: "statistics8.pdf",   size: "1.2 MB" },
+    { name: "ملزمة الاحصاء — 9",    file: "statistics9.pdf",   size: "1.1 MB" },
+    { name: "ملزمة الاحصاء — 10",   file: "statistics10.pdf",  size: "1.1 MB" },
+  ],
+
+  // ✅ تركيب حاسوب نظري — 6 ملفات (tca1,2,4,5,6,7 — لا يوجد 3)
+  tca: [
+    { name: "ملزمة تركيب حاسوب نظري — 1",   file: "tca1.pdf",   size: "3.8 MB" },
+    { name: "ملزمة تركيب حاسوب نظري — 2",   file: "tca2.pdf",   size: "1.7 MB" },
+    { name: "ملزمة تركيب حاسوب نظري — 4",   file: "tca4.pdf",   size: "1.7 MB" },
+    { name: "ملزمة تركيب حاسوب نظري — 5",   file: "tca5.pdf",   size: "2.6 MB" },
+    { name: "ملزمة تركيب حاسوب نظري — 6",   file: "tca6.pdf",   size: "1.9 MB" },
+    { name: "ملزمة تركيب حاسوب نظري — 7",   file: "tca7.pdf",   size: "1.8 MB" },
+  ],
+
+  // ✅ تركيب حاسوب عملي — 5 ملفات
+  pcac: [
+    { name: "ملزمة تركيب حاسوب عملي — 1",   file: "pcac1.pdf",   size: "628.2 KB" },
+    { name: "ملزمة تركيب حاسوب عملي — 2",   file: "pcac2.pdf",   size: "933.9 KB" },
+    { name: "ملزمة تركيب حاسوب عملي — 3",   file: "pcac3.pdf",   size: "853.7 KB" },
+    { name: "ملزمة تركيب حاسوب عملي — 4",   file: "pcac4.pdf",   size: "885.3 KB" },
+    { name: "ملزمة تركيب حاسوب عملي — 5",   file: "pcac5.pdf",   size: "819.3 KB" },
+  ],
+
+  // ✅ اللغة العربية — 1 ملف
+  arbic: [
+    { name: "ملزمة اللغة العربية",   file: "arbic.pdf",   size: "8.3 MB" },
+  ],
+
+};
+
+/* ====== تحديث عداد الملفات ====== */
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('.subject-btn').forEach(btn => {
+    const key   = btn.dataset.subject;
+    const count = (subjectsData[key] || []).length;
+    const el    = document.getElementById('count-' + key);
+    if (el) el.textContent = count + ' ملف';
+  });
+});
+
+/* ====== فتح/إغلاق الشبكة ====== */
+function toggleSubjects() {
+  const btn   = document.getElementById('mainBtn');
+  const grid  = document.getElementById('subjectsGrid');
+  const panel = document.getElementById('filesPanel');
+  if (grid.classList.contains('visible')) {
+    grid.classList.remove('visible');
+    panel.classList.remove('visible');
+    btn.classList.remove('open');
+    document.querySelectorAll('.subject-btn').forEach(b => b.classList.remove('active'));
+  } else {
+    grid.classList.add('visible');
+    btn.classList.add('open');
+    setTimeout(() => grid.scrollIntoView({ behavior:'smooth', block:'center' }), 120);
+  }
+}
+
+/* ====== فتح قائمة ملفات مادة ====== */
+function openSubject(btn) {
+  document.querySelectorAll('.subject-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+
+  const key   = btn.dataset.subject;
+  const label = btn.dataset.label;
+  const files = subjectsData[key] || [];
+  const panel = document.getElementById('filesPanel');
+  const list  = document.getElementById('filesList');
+
+  document.getElementById('panelTitle').textContent  = 'مادة: ' + label;
+  document.getElementById('panelSub').textContent    = 'المرحلة الأولى — قسم علوم الحاسوب';
+  document.getElementById('filesCount').textContent  = files.length + ' ملف';
+
+  if (files.length === 0) {
+    list.innerHTML = `
+      <div class="empty-state">
+        <i class="fa-solid fa-circle-info"></i>
+        <p>لا توجد ملفات مضافة بعد لهذه المادة</p>
+      </div>`;
+  } else {
+    list.innerHTML = files.map(f => `
+      <div class="file-item">
+        <div class="file-icon">
+          <i class="fa-solid fa-file-pdf"></i>
+        </div>
+        <div class="file-info">
+          <div class="file-name">${f.name}</div>
+          <div class="file-meta">PDF &nbsp;·&nbsp; ${f.size || ''}</div>
+        </div>
+        <a class="file-download" href="${f.file}" download="${f.name}">
+          <i class="fa-solid fa-download"></i>
+          تحميل
+        </a>
+      </div>`).join('');
+  }
+
+  panel.classList.add('visible');
+  setTimeout(() => panel.scrollIntoView({ behavior:'smooth', block:'nearest' }), 100);
+}
+</script>
+</body>
+</html>
