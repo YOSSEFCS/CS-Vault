@@ -152,6 +152,14 @@
     .btn-submit{width:100%;background:linear-gradient(135deg,var(--navy),var(--blue),var(--teal));color:#fff;border:none;padding:15px;border-radius:12px;font-family:'Cairo',sans-serif;font-size:1rem;font-weight:800;cursor:pointer;margin-top:8px;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:10px;}
     .btn-submit:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(26,46,110,.35);}
     .btn-submit:disabled{opacity:.6;cursor:not-allowed;transform:none;}
+    #configNotice{display:none;position:fixed;inset:0;z-index:2000;background:rgba(10,20,60,.85);align-items:center;justify-content:center;padding:1rem;}
+    #configNotice.open{display:flex;}
+    .config-box{background:#fff;border-radius:20px;padding:32px;max-width:500px;width:100%;text-align:center;box-shadow:0 20px 60px rgba(26,46,110,.4);}
+    .config-box .ci{font-size:3rem;color:#f59e0b;display:block;margin-bottom:16px;}
+    .config-box h2{font-size:1.3rem;font-weight:900;color:var(--navy);margin-bottom:10px;}
+    .config-box p{color:#5575a8;font-size:.88rem;line-height:1.7;margin-bottom:14px;}
+    .config-box code{display:block;background:#f0f6ff;border-radius:8px;padding:14px;font-size:.75rem;text-align:left;direction:ltr;color:var(--navy);border:1px solid var(--gray-light);margin-bottom:14px;white-space:pre-wrap;line-height:1.6;}
+    .config-box .btn-ok{background:linear-gradient(135deg,var(--navy),var(--blue));color:#fff;border:none;padding:12px 32px;border-radius:10px;font-family:'Cairo',sans-serif;font-size:.9rem;font-weight:700;cursor:pointer;}
     #toast{position:fixed;bottom:2rem;left:50%;transform:translateX(-50%) translateY(100px);background:var(--navy);color:#fff;padding:14px 28px;border-radius:14px;font-size:.9rem;font-weight:700;z-index:3000;transition:transform .35s ease;display:flex;align-items:center;gap:10px;box-shadow:0 8px 28px rgba(26,46,110,.35);white-space:nowrap;}
     #toast.show{transform:translateX(-50%) translateY(0);}
     #toast.success{background:var(--green);}
@@ -163,469 +171,501 @@
 </head>
 <body>
 
+<!-- تنبيه الإعداد -->
+<div id="configNotice">
+  <div class="config-box">
+    <i class="fa-solid fa-triangle-exclamation ci"></i>
+    <h2>يجب إعداد Firebase أولاً</h2>
+    <p>افتح ملف <strong>index.html</strong> وابحث عن التعليق <strong>FIREBASE CONFIG</strong> واستبدل البيانات ببيانات مشروعك من لوحة Firebase:</p>
+    <code>const firebaseConfig = {
+  apiKey: "AIzaSy...",
+  authDomain: "project-id.firebaseapp.com",
+  projectId: "project-id",
+  storageBucket: "project-id.appspot.com",
+  messagingSenderId: "1234567890",
+  appId: "1:123...:web:abc..."
+};</code>
+    <p style="color:#e55;font-size:.8rem;">بعد التعديل احذف هذا التنبيه من الكود (div id="configNotice")</p>
+    <button class="btn-ok" onclick="document.getElementById('configNotice').classList.remove('open')">فهمت — أغلق</button>
+  </div>
+</div>
+
 <header>
   <div class="header-logo">
     <img src="logo.png" alt="شعار الكلية" onerror="this.style.display='none'"/>
     <div class="header-text">
       <h1>كلية علوم الحاسوب والرياضيات</h1>
-      <p>جامعة الموصل — قسم علوم الحاسوب</p>
+      <p>جامعة الموصل — University of Mosul · CSM</p>
     </div>
   </div>
   <div class="header-actions">
-    <span class="header-badge"><i class="fa-solid fa-graduation-cap" style="margin-left:5px"></i>ملازم الكلية</span>
     <button id="uploadFab" onclick="openUploadModal()">
-      <i class="fa-solid fa-cloud-arrow-up"></i> رفع ملف
+      <i class="fa-solid fa-cloud-arrow-up"></i> رفع ملزمة
     </button>
+    <div class="header-badge">1999 · CSM</div>
   </div>
 </header>
 
 <div class="nav-tabs">
-  <button class="nav-tab active" id="tabBrowse" onclick="switchTab('browse')">
-    <i class="fa-solid fa-folder-open"></i> تصفح الملازم
-    <span class="tab-badge" id="localBadge">0</span>
+  <button class="nav-tab active" onclick="switchTab('library')" id="tab-library">
+    <i class="fa-solid fa-book"></i> المكتبة الرسمية
   </button>
-  <button class="nav-tab" id="tabCommunity" onclick="switchTab('community')">
-    <i class="fa-solid fa-users"></i> ملازم الطلاب
+  <button class="nav-tab" onclick="switchTab('community')" id="tab-community">
+    <i class="fa-solid fa-users"></i> مشاركات الطلاب
     <span class="tab-badge" id="communityBadge">0</span>
   </button>
 </div>
 
-<!-- قسم التصفح المحلي -->
-<div class="hero" id="heroSection">
+<!-- LIBRARY -->
+<section class="hero" id="librarySection">
   <div class="hero-icon">
     <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/>
+      <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+      <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+      <line x1="12" y1="6" x2="16" y2="6"/><line x1="12" y1="10" x2="16" y2="10"/>
     </svg>
   </div>
-  <h1 class="hero-title">ملازم <span>كلية علوم الحاسوب</span></h1>
-  <p class="hero-subtitle">اختر المادة لعرض الملازم والملخصات المتاحة، أو ارفع ملفاتك الخاصة وشاركها مع زملائك</p>
+  <h1 class="hero-title">مكتبة <span>الملازم</span> الدراسية</h1>
+  <p class="hero-subtitle">المرحلة الأولى — قسم علوم الحاسوب<br/>اختر المادة وحمّل ملازمك بضغطة واحدة</p>
   <button id="mainBtn" onclick="toggleSubjects()">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M4 6h16M4 12h16M4 18h16"/>
-    </svg>
-    اختر المادة
-    <svg class="btn-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M6 9l6 6 6-6"/>
-    </svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+    المرحلة الأولى — قسم علوم الحاسوب
+    <svg class="btn-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
   </button>
-
-  <div id="subjectsGrid"></div>
+  <div id="subjectsGrid">
+    <button class="subject-btn" data-subject="prog" data-label="برمجة متقدمة" onclick="openSubject(this)"><div class="subj-icon"><i class="fa-solid fa-laptop-code"></i></div><span>برمجة متقدمة</span><span class="subj-count" id="count-prog"></span></button>
+    <button class="subject-btn" data-subject="web" data-label="برمجة مواقع نظري" onclick="openSubject(this)"><div class="subj-icon"><i class="fa-solid fa-code"></i></div><span>برمجة مواقع نظري</span><span class="subj-count" id="count-web"></span></button>
+    <button class="subject-btn" data-subject="computer1" data-label="حاسوب نظري" onclick="openSubject(this)"><div class="subj-icon"><i class="fa-solid fa-book-open"></i></div><span>حاسوب نظري</span><span class="subj-count" id="count-computer1"></span></button>
+    <button class="subject-btn" data-subject="computer2" data-label="حاسوب عملي" onclick="openSubject(this)"><div class="subj-icon"><i class="fa-solid fa-desktop"></i></div><span>حاسوب عملي</span><span class="subj-count" id="count-computer2"></span></button>
+    <button class="subject-btn" data-subject="statistics" data-label="مبادئ الاحصاء" onclick="openSubject(this)"><div class="subj-icon"><i class="fa-solid fa-chart-bar"></i></div><span>مبادئ الاحصاء</span><span class="subj-count" id="count-statistics"></span></button>
+    <button class="subject-btn" data-subject="tca" data-label="تركيب حاسوب نظري" onclick="openSubject(this)"><div class="subj-icon"><i class="fa-solid fa-microchip"></i></div><span>تركيب حاسوب نظري</span><span class="subj-count" id="count-tca"></span></button>
+    <button class="subject-btn" data-subject="pcac" data-label="تركيب حاسوب عملي" onclick="openSubject(this)"><div class="subj-icon"><i class="fa-solid fa-screwdriver-wrench"></i></div><span>تركيب حاسوب عملي</span><span class="subj-count" id="count-pcac"></span></button>
+    <button class="subject-btn" data-subject="arbic" data-label="اللغة العربية" onclick="openSubject(this)"><div class="subj-icon"><i class="fa-solid fa-pen-nib"></i></div><span>اللغة العربية</span><span class="subj-count" id="count-arbic"></span></button>
+  </div>
   <div id="filesPanel">
     <div class="files-header">
-      <i class="fa-solid fa-file-lines"></i>
-      <div class="files-header-text">
-        <h3 id="filesPanelTitle">ملفات المادة</h3>
-        <p id="filesPanelSub">اختر ملفاً للتحميل</p>
-      </div>
-      <span class="files-count" id="filesCountBadge">0 ملف</span>
+      <i class="fa-solid fa-file-pdf"></i>
+      <div class="files-header-text"><h3 id="panelTitle">الملفات</h3><p id="panelSub">اختر ملفاً للتحميل</p></div>
+      <span class="files-count" id="filesCount">0 ملف</span>
     </div>
     <div class="files-list" id="filesList"></div>
   </div>
-</div>
+</section>
 
-<!-- قسم ملازم الطلاب -->
+<!-- COMMUNITY -->
 <div id="communitySection">
   <div class="community-header">
-    <h2>ملازم <span>الطلاب</span></h2>
-    <p>ملفات رفعها طلاب الكلية وشاركوها مع الجميع</p>
+    <h2>مشاركات <span>الطلاب</span></h2>
+    <p>ملازم وملخصات رفعها زملاؤك — شارك أنت أيضاً بالضغط على "رفع ملزمة"</p>
   </div>
-  <div class="filter-bar" id="filterBar">
-    <button class="filter-chip active" onclick="filterCommunity('all', this)">الكل</button>
+  <div class="filter-bar">
+    <button class="filter-chip active" data-filter="all" onclick="filterCommunity(this)">الكل</button>
+    <button class="filter-chip" data-filter="prog" onclick="filterCommunity(this)">برمجة متقدمة</button>
+    <button class="filter-chip" data-filter="web" onclick="filterCommunity(this)">برمجة مواقع</button>
+    <button class="filter-chip" data-filter="computer1" onclick="filterCommunity(this)">حاسوب نظري</button>
+    <button class="filter-chip" data-filter="computer2" onclick="filterCommunity(this)">حاسوب عملي</button>
+    <button class="filter-chip" data-filter="statistics" onclick="filterCommunity(this)">إحصاء</button>
+    <button class="filter-chip" data-filter="tca" onclick="filterCommunity(this)">تركيب نظري</button>
+    <button class="filter-chip" data-filter="pcac" onclick="filterCommunity(this)">تركيب عملي</button>
+    <button class="filter-chip" data-filter="arbic" onclick="filterCommunity(this)">عربي</button>
+    <button class="filter-chip" data-filter="other" onclick="filterCommunity(this)">أخرى</button>
   </div>
-  <div id="communityList">
-    <div class="loading-spinner"><i class="fa-solid fa-spinner"></i><p>جاري تحميل الملفات...</p></div>
-  </div>
+  <div id="communityList"><div class="loading-spinner"><i class="fa-solid fa-spinner"></i><p>جاري التحميل...</p></div></div>
 </div>
 
-<!-- مودال الرفع -->
+<!-- UPLOAD MODAL -->
 <div id="uploadModal">
   <div class="modal-box">
     <div class="modal-header">
-      <h2><i class="fa-solid fa-cloud-arrow-up"></i> رفع ملف جديد</h2>
+      <h2><i class="fa-solid fa-cloud-arrow-up"></i> رفع ملزمة أو ملخص</h2>
       <button class="modal-close" onclick="closeUploadModal()"><i class="fa-solid fa-xmark"></i></button>
     </div>
     <div class="modal-body">
       <div class="form-group">
-        <label class="form-label">اسمك <span>*</span></label>
-        <input type="text" id="uploaderName" class="form-input" placeholder="مثال: أحمد محمد"/>
+        <label class="form-label">اسمك (سيظهر كمُرسِل) <span>*</span></label>
+        <input type="text" class="form-input" id="uploaderName" placeholder="مثال: أحمد محمد" maxlength="40"/>
+      </div>
+      <div class="form-group">
+        <label class="form-label">اسم الملزمة / الملخص <span>*</span></label>
+        <input type="text" class="form-input" id="uploadTitle" placeholder="مثال: ملخص البرمجة المتقدمة — الفصل الثاني" maxlength="80"/>
       </div>
       <div class="form-group">
         <label class="form-label">المادة <span>*</span></label>
-        <select id="uploadSubject" class="form-select">
-          <option value="">-- اختر المادة --</option>
+        <select class="form-select" id="uploadSubject">
+          <option value="">— اختر المادة —</option>
+          <option value="prog">برمجة متقدمة</option>
+          <option value="web">برمجة مواقع نظري</option>
+          <option value="computer1">حاسوب نظري</option>
+          <option value="computer2">حاسوب عملي</option>
+          <option value="statistics">مبادئ الاحصاء</option>
+          <option value="tca">تركيب حاسوب نظري</option>
+          <option value="pcac">تركيب حاسوب عملي</option>
+          <option value="arbic">اللغة العربية</option>
+          <option value="other">أخرى</option>
         </select>
-      </div>
-      <div class="form-group">
-        <label class="form-label">وصف الملف</label>
-        <input type="text" id="fileDesc" class="form-input" placeholder="مثال: ملزمة الفصل الأول كاملة"/>
       </div>
       <div class="form-group">
         <label class="form-label">الملف <span>*</span></label>
         <div class="drop-zone" id="dropZone">
-          <input type="file" id="fileInput" accept=".pdf,.doc,.docx,.ppt,.pptx,.xls,.xlsx,.zip,.rar" onchange="handleFileSelect(event)"/>
-          <div class="dz-icon"><i class="fa-solid fa-file-arrow-up"></i></div>
-          <div class="dz-text" id="dzText">اسحب الملف هنا أو اضغط للاختيار</div>
-          <div class="dz-sub">PDF, Word, PowerPoint, Excel, ZIP (حتى 50 ميغا)</div>
+          <input type="file" id="fileInput" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx" onchange="handleFileSelect(event)"/>
+          <i class="fa-solid fa-file-arrow-up dz-icon"></i>
+          <div class="dz-text">اسحب الملف هنا أو انقر للاختيار</div>
+          <div class="dz-sub" id="dzSub">PDF · صور · Word — حتى 50 ميغا</div>
+        </div>
+        <div class="upload-progress" id="uploadProgress">
+          <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+          <div class="progress-text" id="progressText">جاري الرفع...</div>
         </div>
       </div>
       <div class="form-group">
         <div class="share-toggle" id="shareToggle" onclick="toggleShare()">
           <div class="toggle-switch"></div>
           <div class="toggle-text">
-            <h4>مشاركة مع الجميع</h4>
-            <p>سيظهر الملف في قسم ملازم الطلاب ليستفيد منه الجميع</p>
+            <h4>نشر للعموم</h4>
+            <p>سيظهر ملفك في قسم مشاركات الطلاب لجميع الزوار</p>
           </div>
+          <i class="fa-solid fa-earth-americas" style="color:var(--teal);margin-right:auto;font-size:1.1rem;"></i>
         </div>
       </div>
-      <div class="upload-progress" id="uploadProgress">
-        <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
-        <div class="progress-text" id="progressText">جاري الرفع...</div>
-      </div>
-      <button class="btn-submit" id="submitBtn" onclick="uploadFile()">
-        <i class="fa-solid fa-cloud-arrow-up"></i> رفع الملف
+      <button class="btn-submit" id="submitBtn" onclick="submitUpload()">
+        <i class="fa-solid fa-cloud-arrow-up"></i> رفع الملزمة
       </button>
     </div>
   </div>
 </div>
 
-<div id="toast"><i class="fa-solid fa-check-circle"></i><span id="toastMsg"></span></div>
+<div id="toast"></div>
 
 <footer>
-  <p>كلية علوم الحاسوب والرياضيات — جامعة الموصل &nbsp;|&nbsp; مشروع <span>ملازم الكلية</span> 2024</p>
+  كلية علوم الحاسوب والرياضيات — جامعة الموصل &nbsp;|&nbsp;
+  <span>CSM · 1999</span> &nbsp;|&nbsp; جميع الحقوق محفوظة © 2026
 </footer>
 
-<!-- Firebase SDK -->
+<!-- ============================================================
+     🔥 FIREBASE SDK — لا تعدّل هذا القسم
+     ============================================================ -->
 <script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-  import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc, query, orderBy, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
-  import { getStorage, ref, uploadBytesResumable, getDownloadURL, deleteObject } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-storage.js";
+import { initializeApp }        from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc, query, where, orderBy }
+                                from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+import { getStorage, ref, uploadBytesResumable, getDownloadURL, deleteObject }
+                                from "https://www.gstatic.com/firebasejs/10.12.0/firebase-storage.js";
 
-  // ==================== FIREBASE CONFIG ====================
-  const firebaseConfig = {
-    apiKey: "AIzaSyCi0ic6y2_DT9vNCgLi7i_VoV81GSetBsM",
-    authDomain: "cs-mosul.firebaseapp.com",
-    projectId: "cs-mosul",
-    storageBucket: "cs-mosul.firebasestorage.app",
-    messagingSenderId: "585861498448",
-    appId: "1:585861498448:web:2bf507e94016fada4d3355",
-    measurementId: "G-098FYJYJW3"
-  };
-  // =========================================================
+/* ============================================================
+   🔧 FIREBASE CONFIG
+   ← ضع بياناتك هنا بعد إنشاء المشروع من console.firebase.google.com
+   ============================================================ */
+const firebaseConfig = {
+  apiKey:            "ضع-api-key-هنا",
+  authDomain:        "اسم-مشروعك.firebaseapp.com",
+  projectId:         "اسم-مشروعك",
+  storageBucket:     "اسم-مشروعك.appspot.com",
+  messagingSenderId: "ضع-الرقم-هنا",
+  appId:             "ضع-app-id-هنا"
+};
+/* ============================================================ */
 
-  const app = initializeApp(firebaseConfig);
-  const db = getFirestore(app);
-  const storage = getStorage(app);
+const configured = !firebaseConfig.apiKey.includes('ضع');
+if (!configured) document.getElementById('configNotice').classList.add('open');
 
-  // بيانات المواد الدراسية
-  const subjects = [
-    { id: 'math', name: 'الرياضيات', icon: 'fa-square-root-variable', files: [] },
-    { id: 'prog1', name: 'برمجة 1', icon: 'fa-code', files: [] },
-    { id: 'prog2', name: 'برمجة 2', icon: 'fa-laptop-code', files: [] },
-    { id: 'ds', name: 'هياكل البيانات', icon: 'fa-sitemap', files: [] },
-    { id: 'algo', name: 'الخوارزميات', icon: 'fa-diagram-project', files: [] },
-    { id: 'os', name: 'أنظمة التشغيل', icon: 'fa-server', files: [] },
-    { id: 'db', name: 'قواعد البيانات', icon: 'fa-database', files: [] },
-    { id: 'net', name: 'الشبكات', icon: 'fa-network-wired', files: [] },
-    { id: 'ai', name: 'الذكاء الاصطناعي', icon: 'fa-robot', files: [] },
-    { id: 'other', name: 'أخرى', icon: 'fa-folder', files: [] },
-  ];
+const app     = configured ? initializeApp(firebaseConfig) : null;
+const db      = configured ? getFirestore(app) : null;
+const storage = configured ? getStorage(app) : null;
 
-  let currentSubject = null;
-  let shareEnabled = false;
-  let selectedFile = null;
-  let communityFiles = [];
-  let currentFilter = 'all';
+/* ---- بيانات الملازم الرسمية ---- */
+const subjectsData = {
+  prog:[
+    {name:"ملزمة البرمجة المتقدمة — الأولى",  file:"prog1.pdf", size:"847.9 KB"},
+    {name:"ملزمة البرمجة المتقدمة — الثانية", file:"prog2.pdf", size:"794.6 KB"},
+    {name:"ملزمة البرمجة المتقدمة — الثالثة", file:"prog3.pdf", size:"367.4 KB"},
+    {name:"ملزمة البرمجة المتقدمة — الرابعة", file:"prog4.pdf", size:"812.1 KB"},
+    {name:"ملزمة البرمجة المتقدمة — الخامسة", file:"prog5.pdf", size:"738.4 KB"},
+  ],
+  web:[
+    {name:"ملزمة برمجة المواقع — الأولى",  file:"web1.pdf",size:"1.2 MB"},
+    {name:"ملزمة برمجة المواقع — الثانية", file:"web2.pdf",size:"441.7 KB"},
+    {name:"ملزمة برمجة المواقع — الثالثة", file:"web3.pdf",size:"630.9 KB"},
+    {name:"ملزمة برمجة المواقع — الرابعة", file:"web4.pdf",size:"342.5 KB"},
+    {name:"ملزمة برمجة المواقع — الخامسة", file:"web5.pdf",size:"230.3 KB"},
+    {name:"ملزمة برمجة المواقع — السادسة", file:"web6.pdf",size:"399.7 KB"},
+    {name:"ملزمة برمجة المواقع — السابعة", file:"web7.pdf",size:"211.8 KB"},
+  ],
+  computer1:[
+    {name:"ملزمة حاسوب نظري — الأولى والثانية",file:"computer 1ملزمة اولى وثانية.pdf",size:"1.6 MB"},
+    {name:"ملزمة حاسوب نظري — الثالثة",        file:"computer 1ملزمة ثالثة.pdf",       size:"627.1 KB"},
+    {name:"ملزمة حاسوب نظري — الرابعة",        file:"computer 1ملزمة رابعة.pdf",       size:"621.6 KB"},
+    {name:"ملزمة حاسوب نظري — الخامسة",        file:"computer 1ملزمة خامسة.pdf",       size:"661.6 KB"},
+    {name:"ملزمة حاسوب نظري — السادسة",        file:"computer 1ملزمة سادسة.pdf",       size:"374.0 KB"},
+    {name:"ملزمة حاسوب نظري — السابعة",        file:"computer 1ملزمة سابعة.pdf",       size:"631.1 KB"},
+  ],
+  computer2:[
+    {name:"ملزمة حاسوب عملي — الأولى",  file:"computer 2ملزمة الاولى.pdf", size:"1.3 MB"},
+    {name:"ملزمة حاسوب عملي — الثانية", file:"computer 2ملزمة الثانية.pdf",size:"1.7 MB"},
+    {name:"ملزمة حاسوب عملي — الثالثة", file:"computer 2ملزمة ثالثة.pdf",  size:"1.8 MB"},
+    {name:"ملزمة حاسوب عملي — الرابعة", file:"computer 2ملزمة رابعة.pdf",  size:"1.2 MB"},
+    {name:"ملزمة حاسوب عملي — الخامسة", file:"computer 2ملزمة خامسة.pdf",  size:"1.5 MB"},
+    {name:"ملزمة حاسوب عملي — السادسة", file:"computer 2ملزمة سادسة.pdf",  size:"1.9 MB"},
+  ],
+  statistics:[
+    {name:"ملزمة الاحصاء — 1", file:"statistics1.pdf", size:"868.3 KB"},
+    {name:"ملزمة الاحصاء — 2", file:"statistics2.pdf", size:"729.3 KB"},
+    {name:"ملزمة الاحصاء — 3", file:"statistics3.pdf", size:"712.6 KB"},
+    {name:"ملزمة الاحصاء — 4", file:"statistics4.pdf", size:"672.5 KB"},
+    {name:"ملزمة الاحصاء — 5", file:"statistics5.pdf", size:"1.1 MB"},
+    {name:"ملزمة الاحصاء — 6", file:"statistics6.pdf", size:"1.0 MB"},
+    {name:"ملزمة الاحصاء — 8", file:"statistics8.pdf", size:"1.2 MB"},
+    {name:"ملزمة الاحصاء — 9", file:"statistics9.pdf", size:"1.1 MB"},
+    {name:"ملزمة الاحصاء — 10",file:"statistics10.pdf",size:"1.1 MB"},
+  ],
+  tca:[
+    {name:"ملزمة تركيب حاسوب نظري — 1",file:"tca1.pdf",size:"3.8 MB"},
+    {name:"ملزمة تركيب حاسوب نظري — 2",file:"tca2.pdf",size:"1.7 MB"},
+    {name:"ملزمة تركيب حاسوب نظري — 4",file:"tca4.pdf",size:"1.7 MB"},
+    {name:"ملزمة تركيب حاسوب نظري — 5",file:"tca5.pdf",size:"2.6 MB"},
+    {name:"ملزمة تركيب حاسوب نظري — 6",file:"tca6.pdf",size:"1.9 MB"},
+    {name:"ملزمة تركيب حاسوب نظري — 7",file:"tca7.pdf",size:"1.8 MB"},
+  ],
+  pcac:[
+    {name:"ملزمة تركيب حاسوب عملي — 1",file:"pcac1.pdf",size:"628.2 KB"},
+    {name:"ملزمة تركيب حاسوب عملي — 2",file:"pcac2.pdf",size:"933.9 KB"},
+    {name:"ملزمة تركيب حاسوب عملي — 3",file:"pcac3.pdf",size:"853.7 KB"},
+    {name:"ملزمة تركيب حاسوب عملي — 4",file:"pcac4.pdf",size:"885.3 KB"},
+    {name:"ملزمة تركيب حاسوب عملي — 5",file:"pcac5.pdf",size:"819.3 KB"},
+  ],
+  arbic:[{name:"ملزمة اللغة العربية",file:"arbic.pdf",size:"8.3 MB"}],
+};
 
-  // ========== بناء شبكة المواد ==========
-  function buildSubjectsGrid() {
-    const grid = document.getElementById('subjectsGrid');
-    const select = document.getElementById('uploadSubject');
-    grid.innerHTML = '';
-    select.innerHTML = '<option value="">-- اختر المادة --</option>';
-    subjects.forEach(s => {
-      const btn = document.createElement('button');
-      btn.className = 'subject-btn';
-      btn.innerHTML = `<div class="subj-icon"><i class="fa-solid ${s.icon}"></i></div>${s.name}<span class="subj-count">اضغط للعرض</span>`;
-      btn.onclick = () => selectSubject(s, btn);
-      grid.appendChild(btn);
-      const opt = document.createElement('option');
-      opt.value = s.id;
-      opt.textContent = s.name;
-      select.appendChild(opt);
-    });
+const subjectLabels = {
+  prog:'برمجة متقدمة',web:'برمجة مواقع نظري',computer1:'حاسوب نظري',
+  computer2:'حاسوب عملي',statistics:'مبادئ الاحصاء',tca:'تركيب حاسوب نظري',
+  pcac:'تركيب حاسوب عملي',arbic:'اللغة العربية',other:'أخرى'
+};
+
+/* ---- STATE ---- */
+let selectedFile = null, shareEnabled = false, activeFilter = 'all';
+let allCommunityFiles = [];
+
+function getSid() {
+  let s = sessionStorage.getItem('csm_sid');
+  if (!s) { s='u_'+Date.now().toString(36)+Math.random().toString(36).slice(2); sessionStorage.setItem('csm_sid',s); }
+  return s;
+}
+
+function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+function showToast(msg,type=''){
+  const t=document.getElementById('toast');
+  t.textContent=msg; t.className='show '+type;
+  setTimeout(()=>t.className='',3500);
+}
+
+/* ---- عدادات الملازم الرسمية ---- */
+document.querySelectorAll('.subject-btn').forEach(btn=>{
+  const el=document.getElementById('count-'+btn.dataset.subject);
+  if(el) el.textContent=(subjectsData[btn.dataset.subject]||[]).length+' ملف';
+});
+
+/* ---- Drag & Drop ---- */
+const dz=document.getElementById('dropZone');
+dz.addEventListener('dragover',e=>{e.preventDefault();dz.classList.add('dragover');});
+dz.addEventListener('dragleave',()=>dz.classList.remove('dragover'));
+dz.addEventListener('drop',e=>{e.preventDefault();dz.classList.remove('dragover');const f=e.dataTransfer.files[0];if(f)processFile(f);});
+
+/* ========== FIRESTORE — تحميل ملفات المجتمع ========== */
+async function loadCommunity(){
+  if(!db){renderCommunity([]);return;}
+  try{
+    const q=query(collection(db,'uploads'),where('shared','==',true),orderBy('ts','desc'));
+    const snap=await getDocs(q);
+    allCommunityFiles=snap.docs.map(d=>({id:d.id,...d.data()}));
+    document.getElementById('communityBadge').textContent=allCommunityFiles.length;
+    renderCommunity(allCommunityFiles);
+  }catch(e){
+    document.getElementById('communityList').innerHTML=`<div class="community-empty"><i class="fa-solid fa-circle-exclamation"></i><h3>تعذر التحميل</h3><p>تأكد من إعداد Firebase بشكل صحيح وتفعيل Firestore و Storage</p></div>`;
   }
+}
 
-  // ========== تبديل التبويبات ==========
-  window.switchTab = function(tab) {
-    document.getElementById('tabBrowse').classList.toggle('active', tab === 'browse');
-    document.getElementById('tabCommunity').classList.toggle('active', tab === 'community');
-    document.getElementById('heroSection').style.display = tab === 'browse' ? '' : 'none';
-    const cs = document.getElementById('communitySection');
-    if (tab === 'community') { cs.classList.add('visible'); loadCommunityFiles(); }
-    else cs.classList.remove('visible');
-  };
-
-  // ========== فتح/إغلاق قائمة المواد ==========
-  window.toggleSubjects = function() {
-    const grid = document.getElementById('subjectsGrid');
-    const btn = document.getElementById('mainBtn');
-    const panel = document.getElementById('filesPanel');
-    grid.classList.toggle('visible');
-    btn.classList.toggle('open');
-    if (!grid.classList.contains('visible')) { panel.classList.remove('visible'); currentSubject = null; }
-  };
-
-  // ========== اختيار مادة ==========
-  async function selectSubject(subject, btn) {
-    document.querySelectorAll('.subject-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    currentSubject = subject;
-    document.getElementById('filesPanelTitle').textContent = `ملفات مادة ${subject.name}`;
-    document.getElementById('filesPanelSub').textContent = 'جاري التحميل...';
-    document.getElementById('filesPanel').classList.add('visible');
-    document.getElementById('filesList').innerHTML = '<div class="loading-spinner"><i class="fa-solid fa-spinner"></i></div>';
-    await loadSubjectFiles(subject.id);
+function renderCommunity(files){
+  const container=document.getElementById('communityList');
+  let list=activeFilter==='all'?files:files.filter(f=>f.subject===activeFilter);
+  if(!list.length){
+    container.innerHTML=`<div class="community-empty"><i class="fa-solid fa-box-open"></i><h3>لا توجد مشاركات بعد</h3><p>كن أول من يشارك ملزمة! اضغط على "رفع ملزمة" في الأعلى</p></div>`;
+    return;
   }
-
-  // ========== تحميل ملفات مادة من Firestore ==========
-  async function loadSubjectFiles(subjectId) {
-    const list = document.getElementById('filesList');
-    try {
-      const q = query(collection(db, 'files_' + subjectId), orderBy('uploadedAt', 'desc'));
-      const snap = await getDocs(q);
-      const files = [];
-      snap.forEach(d => files.push({ id: d.id, ...d.data() }));
-      document.getElementById('filesCountBadge').textContent = files.length + ' ملف';
-      document.getElementById('filesPanelSub').textContent = files.length === 0 ? 'لا توجد ملفات بعد' : 'اختر ملفاً للتحميل';
-      document.getElementById('localBadge').textContent = files.length;
-      if (files.length === 0) {
-        list.innerHTML = `<div class="empty-state"><i class="fa-solid fa-folder-open"></i><p>لا توجد ملفات لهذه المادة حتى الآن</p></div>`;
-        return;
-      }
-      list.innerHTML = '';
-      files.forEach(f => {
-        const ext = f.fileName ? f.fileName.split('.').pop().toLowerCase() : 'file';
-        const iconClass = ext === 'pdf' ? '' : 'green';
-        const iconName = ext === 'pdf' ? 'fa-file-pdf' : ext.includes('doc') ? 'fa-file-word' : ext.includes('ppt') ? 'fa-file-powerpoint' : 'fa-file';
-        const item = document.createElement('div');
-        item.className = 'file-item';
-        item.innerHTML = `
-          <div class="file-icon ${iconClass}"><i class="fa-solid ${iconName}"></i></div>
-          <div class="file-info">
-            <div class="file-name">${f.fileName || 'ملف'}</div>
-            <div class="file-meta">${f.uploaderName || 'مجهول'} • ${f.description || ''} • ${f.uploadedAt ? new Date(f.uploadedAt.toDate()).toLocaleDateString('ar-IQ') : ''}</div>
-          </div>
-          <a href="${f.downloadURL}" target="_blank" class="file-download"><i class="fa-solid fa-download"></i> تحميل</a>`;
-        list.appendChild(item);
-      });
-    } catch(e) {
-      list.innerHTML = `<div class="empty-state"><i class="fa-solid fa-triangle-exclamation"></i><p>حدث خطأ في تحميل الملفات</p></div>`;
-    }
-  }
-
-  // ========== تحميل ملفات الطلاب (المشتركة) ==========
-  async function loadCommunityFiles() {
-    const list = document.getElementById('communityList');
-    list.innerHTML = '<div class="loading-spinner"><i class="fa-solid fa-spinner"></i><p>جاري التحميل...</p></div>';
-    try {
-      const q = query(collection(db, 'community_files'), orderBy('uploadedAt', 'desc'));
-      const snap = await getDocs(q);
-      communityFiles = [];
-      snap.forEach(d => communityFiles.push({ id: d.id, ...d.data() }));
-      document.getElementById('communityBadge').textContent = communityFiles.length;
-      buildFilterBar();
-      renderCommunity(currentFilter);
-    } catch(e) {
-      list.innerHTML = `<div class="community-empty"><i class="fa-solid fa-triangle-exclamation"></i><h3>خطأ في التحميل</h3></div>`;
-    }
-  }
-
-  function buildFilterBar() {
-    const bar = document.getElementById('filterBar');
-    const subjectIds = [...new Set(communityFiles.map(f => f.subjectId))];
-    bar.innerHTML = `<button class="filter-chip ${currentFilter==='all'?'active':''}" onclick="filterCommunity('all', this)">الكل</button>`;
-    subjectIds.forEach(sid => {
-      const s = subjects.find(x => x.id === sid);
-      if (s) {
-        const chip = document.createElement('button');
-        chip.className = 'filter-chip' + (currentFilter === sid ? ' active' : '');
-        chip.textContent = s.name;
-        chip.onclick = () => filterCommunity(sid, chip);
-        bar.appendChild(chip);
-      }
-    });
-  }
-
-  window.filterCommunity = function(filter, el) {
-    currentFilter = filter;
-    document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
-    el.classList.add('active');
-    renderCommunity(filter);
-  };
-
-  function renderCommunity(filter) {
-    const list = document.getElementById('communityList');
-    const filtered = filter === 'all' ? communityFiles : communityFiles.filter(f => f.subjectId === filter);
-    if (filtered.length === 0) {
-      list.innerHTML = `<div class="community-empty"><i class="fa-solid fa-inbox"></i><h3>لا توجد ملفات</h3><p>لم يتم رفع ملفات مشتركة لهذه المادة بعد</p></div>`;
-      return;
-    }
-    list.innerHTML = '';
-    filtered.forEach(f => {
-      const ext = f.fileName ? f.fileName.split('.').pop().toLowerCase() : 'file';
-      const iconClass = ext === 'pdf' ? '' : 'green';
-      const iconName = ext === 'pdf' ? 'fa-file-pdf' : ext.includes('doc') ? 'fa-file-word' : ext.includes('ppt') ? 'fa-file-powerpoint' : 'fa-file';
-      const s = subjects.find(x => x.id === f.subjectId);
-      const card = document.createElement('div');
-      card.className = 'community-file-card';
-      card.innerHTML = `
-        <div class="file-icon ${iconClass}"><i class="fa-solid ${iconName}"></i></div>
-        <div class="card-body">
-          <div class="card-title">${f.fileName || 'ملف'}</div>
-          <div class="card-meta">
-            ${s ? `<span class="meta-badge badge-subject"><i class="fa-solid ${s.icon}"></i> ${s.name}</span>` : ''}
-            <span class="meta-badge badge-uploader"><i class="fa-solid fa-user"></i> ${f.uploaderName || 'مجهول'}</span>
-            <span class="meta-badge badge-date"><i class="fa-regular fa-calendar"></i> ${f.uploadedAt ? new Date(f.uploadedAt.toDate()).toLocaleDateString('ar-IQ') : ''}</span>
-            ${f.description ? `<span class="meta-badge badge-size">${f.description}</span>` : ''}
-          </div>
+  const sid=getSid();
+  container.innerHTML=list.map(f=>`
+    <div class="community-file-card" id="card-${f.id}">
+      <div class="file-icon green"><i class="fa-solid fa-file-pdf"></i></div>
+      <div class="card-body">
+        <div class="card-title">${esc(f.title)}</div>
+        <div class="card-meta">
+          <span class="meta-badge badge-subject"><i class="fa-solid fa-tag"></i> ${subjectLabels[f.subject]||f.subject}</span>
+          <span class="meta-badge badge-uploader"><i class="fa-solid fa-user"></i> ${esc(f.uploader)}</span>
+          <span class="meta-badge badge-date"><i class="fa-regular fa-calendar"></i> ${f.date}</span>
+          <span class="meta-badge badge-size"><i class="fa-solid fa-weight-hanging"></i> ${f.size}</span>
         </div>
-        <div class="card-actions">
-          <a href="${f.downloadURL}" target="_blank" class="btn-dl-community"><i class="fa-solid fa-download"></i> تحميل</a>
-        </div>`;
-      list.appendChild(card);
-    });
-  }
+      </div>
+      <div class="card-actions">
+        <a class="btn-dl-community" href="${f.downloadUrl}" target="_blank" rel="noopener">
+          <i class="fa-solid fa-download"></i> تحميل
+        </a>
+        ${f.sessionId===sid?`<button class="btn-delete-community" onclick="window.__del('${f.id}','${f.storagePath}')" title="حذف"><i class="fa-solid fa-trash"></i></button>`:''}
+      </div>
+    </div>`).join('');
+}
 
-  // ========== مودال الرفع ==========
-  window.openUploadModal = function() { document.getElementById('uploadModal').classList.add('open'); };
-  window.closeUploadModal = function() { document.getElementById('uploadModal').classList.remove('open'); resetForm(); };
+/* ========== FIREBASE STORAGE — رفع ملف ========== */
+async function submitUpload(){
+  const name   =document.getElementById('uploaderName').value.trim();
+  const title  =document.getElementById('uploadTitle').value.trim();
+  const subject=document.getElementById('uploadSubject').value;
+  if(!name)   {showToast('الرجاء كتابة اسمك','error');return;}
+  if(!title)  {showToast('الرجاء كتابة اسم الملزمة','error');return;}
+  if(!subject){showToast('الرجاء اختيار المادة','error');return;}
+  if(!selectedFile){showToast('الرجاء اختيار ملف','error');return;}
+  if(!configured){showToast('يجب إعداد Firebase أولاً!','error');return;}
 
-  window.toggleShare = function() {
-    shareEnabled = !shareEnabled;
-    document.getElementById('shareToggle').classList.toggle('enabled', shareEnabled);
-  };
+  const btn=document.getElementById('submitBtn');
+  btn.disabled=true;
+  btn.innerHTML='<i class="fa-solid fa-spinner fa-spin"></i> جاري الرفع...';
+  document.getElementById('uploadProgress').classList.add('visible');
+  const fill=document.getElementById('progressFill');
+  const pText=document.getElementById('progressText');
 
-  window.handleFileSelect = function(e) {
-    selectedFile = e.target.files[0];
-    if (selectedFile) {
-      document.getElementById('dropZone').classList.add('has-file');
-      document.getElementById('dzText').textContent = selectedFile.name;
-    }
-  };
+  try{
+    const safeName=Date.now()+'_'+selectedFile.name.replace(/[^\w.\-]/g,'_');
+    const path='uploads/'+subject+'/'+safeName;
+    const task=uploadBytesResumable(ref(storage,path),selectedFile);
 
-  // Drag & Drop
-  const dz = document.getElementById('dropZone');
-  dz.addEventListener('dragover', e => { e.preventDefault(); dz.classList.add('dragover'); });
-  dz.addEventListener('dragleave', () => dz.classList.remove('dragover'));
-  dz.addEventListener('drop', e => {
-    e.preventDefault(); dz.classList.remove('dragover');
-    const f = e.dataTransfer.files[0];
-    if (f) { selectedFile = f; dz.classList.add('has-file'); document.getElementById('dzText').textContent = f.name; }
-  });
-
-  // ========== رفع الملف ==========
-  window.uploadFile = async function() {
-    const name = document.getElementById('uploaderName').value.trim();
-    const subjectId = document.getElementById('uploadSubject').value;
-    const desc = document.getElementById('fileDesc').value.trim();
-
-    if (!name) { showToast('يرجى إدخال اسمك', 'error'); return; }
-    if (!subjectId) { showToast('يرجى اختيار المادة', 'error'); return; }
-    if (!selectedFile) { showToast('يرجى اختيار ملف', 'error'); return; }
-    if (selectedFile.size > 50 * 1024 * 1024) { showToast('حجم الملف يتجاوز 50 ميغا', 'error'); return; }
-
-    const btn = document.getElementById('submitBtn');
-    btn.disabled = true;
-    btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> جاري الرفع...';
-
-    const progress = document.getElementById('uploadProgress');
-    const fill = document.getElementById('progressFill');
-    const pText = document.getElementById('progressText');
-    progress.classList.add('visible');
-
-    try {
-      // رفع الملف إلى Firebase Storage
-      const storageRef = ref(storage, `uploads/${subjectId}/${Date.now()}_${selectedFile.name}`);
-      const uploadTask = uploadBytesResumable(storageRef, selectedFile);
-
-      uploadTask.on('state_changed',
-        snapshot => {
-          const pct = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
-          fill.style.width = pct + '%';
-          pText.textContent = `جاري الرفع... ${pct}%`;
-        },
-        error => { showToast('فشل الرفع: ' + error.message, 'error'); resetBtn(); },
-        async () => {
-          const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
-
-          const fileData = {
-            fileName: selectedFile.name,
-            uploaderName: name,
-            description: desc,
-            subjectId,
-            downloadURL,
-            uploadedAt: serverTimestamp(),
-            fileSize: selectedFile.size,
-          };
-
-          // حفظ في مجموعة المادة
-          await addDoc(collection(db, 'files_' + subjectId), fileData);
-
-          // إذا اختار المشاركة العامة
-          if (shareEnabled) {
-            await addDoc(collection(db, 'community_files'), fileData);
-          }
-
-          showToast('تم رفع الملف بنجاح! ✓', 'success');
-          closeUploadModal();
-
-          // تحديث العرض
-          if (currentSubject && currentSubject.id === subjectId) await loadSubjectFiles(subjectId);
-          if (document.getElementById('tabCommunity').classList.contains('active')) await loadCommunityFiles();
-        }
+    await new Promise((res,rej)=>{
+      task.on('state_changed',
+        s=>{const p=Math.round(s.bytesTransferred/s.totalBytes*100);fill.style.width=p+'%';pText.textContent='جاري الرفع... '+p+'%';},
+        rej, res
       );
-    } catch(e) {
-      showToast('حدث خطأ: ' + e.message, 'error');
-      resetBtn();
-    }
-  };
+    });
 
-  function resetBtn() {
-    const btn = document.getElementById('submitBtn');
-    btn.disabled = false;
-    btn.innerHTML = '<i class="fa-solid fa-cloud-arrow-up"></i> رفع الملف';
-    document.getElementById('uploadProgress').classList.remove('visible');
+    fill.style.width='100%'; pText.textContent='اكتمل الرفع ✓';
+    const url=await getDownloadURL(task.snapshot.ref);
+    const sz=selectedFile.size>1048576?(selectedFile.size/1048576).toFixed(1)+' MB':Math.round(selectedFile.size/1024)+' KB';
+    const date=new Date().toLocaleDateString('ar-IQ',{year:'numeric',month:'short',day:'numeric'});
+
+    await addDoc(collection(db,'uploads'),{
+      sessionId:getSid(), uploader:name, title, subject,
+      fileName:selectedFile.name, size:sz, date,
+      downloadUrl:url, storagePath:path,
+      shared:shareEnabled, ts:Date.now()
+    });
+
+    setTimeout(async()=>{
+      closeUploadModal();
+      showToast(shareEnabled?'تم الرفع ونشر الملزمة بنجاح! 🎉':'تم حفظ الملزمة بنجاح','success');
+      if(shareEnabled){switchTab('community');}
+      await loadCommunity();
+    },500);
+
+  }catch(err){
+    console.error(err);
+    showToast('فشل الرفع — '+err.message,'error');
+    btn.disabled=false;
+    btn.innerHTML='<i class="fa-solid fa-cloud-arrow-up"></i> رفع الملزمة';
   }
+}
 
-  function resetForm() {
-    document.getElementById('uploaderName').value = '';
-    document.getElementById('uploadSubject').value = '';
-    document.getElementById('fileDesc').value = '';
-    document.getElementById('fileInput').value = '';
-    document.getElementById('dropZone').classList.remove('has-file');
-    document.getElementById('dzText').textContent = 'اسحب الملف هنا أو اضغط للاختيار';
-    shareEnabled = false;
-    document.getElementById('shareToggle').classList.remove('enabled');
-    selectedFile = null;
-    document.getElementById('uploadProgress').classList.remove('visible');
-    document.getElementById('progressFill').style.width = '0%';
-    resetBtn();
+/* ========== حذف ملف ========== */
+async function deleteFile(docId,storagePath){
+  if(!confirm('هل تريد حذف هذه الملزمة نهائياً؟'))return;
+  try{
+    await deleteDoc(doc(db,'uploads',docId));
+    try{await deleteObject(ref(storage,storagePath));}catch(_){}
+    document.getElementById('card-'+docId)?.remove();
+    showToast('تم الحذف بنجاح','success');
+    await loadCommunity();
+  }catch(err){showToast('فشل الحذف: '+err.message,'error');}
+}
+window.__del=deleteFile;
+
+/* ========== UI HELPERS ========== */
+function processFile(f){
+  if(f.size>52428800){showToast('حجم الملف يتجاوز 50 ميغا!','error');return;}
+  selectedFile=f;
+  document.getElementById('dropZone').classList.add('has-file');
+  const s=f.size>1048576?(f.size/1048576).toFixed(1)+' MB':Math.round(f.size/1024)+' KB';
+  document.getElementById('dzSub').textContent='✓ '+f.name+' · '+s;
+}
+
+function resetModal(){
+  ['uploaderName','uploadTitle'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('uploadSubject').value='';
+  document.getElementById('fileInput').value='';
+  selectedFile=null; shareEnabled=false;
+  document.getElementById('dropZone').classList.remove('has-file');
+  document.getElementById('dzSub').textContent='PDF · صور · Word — حتى 50 ميغا';
+  document.getElementById('shareToggle').classList.remove('enabled');
+  document.getElementById('uploadProgress').classList.remove('visible');
+  document.getElementById('progressFill').style.width='0%';
+  const b=document.getElementById('submitBtn');
+  b.disabled=false; b.innerHTML='<i class="fa-solid fa-cloud-arrow-up"></i> رفع الملزمة';
+}
+
+/* ========== GLOBAL FUNCTIONS (مستدعاة من HTML) ========== */
+window.handleFileSelect = e=>{const f=e.target.files[0];if(f)processFile(f);};
+window.submitUpload     = submitUpload;
+window.toggleShare      = ()=>{shareEnabled=!shareEnabled;document.getElementById('shareToggle').classList.toggle('enabled',shareEnabled);};
+window.openUploadModal  = ()=>{document.getElementById('uploadModal').classList.add('open');document.body.style.overflow='hidden';};
+window.closeUploadModal = ()=>{document.getElementById('uploadModal').classList.remove('open');document.body.style.overflow='';resetModal();};
+
+window.switchTab = tab=>{
+  document.getElementById('librarySection').style.display=tab==='library'?'':'none';
+  document.getElementById('communitySection').classList.toggle('visible',tab==='community');
+  document.getElementById('tab-library').classList.toggle('active',tab==='library');
+  document.getElementById('tab-community').classList.toggle('active',tab==='community');
+  if(tab==='community')loadCommunity();
+};
+
+window.filterCommunity = chip=>{
+  document.querySelectorAll('.filter-chip').forEach(c=>c.classList.remove('active'));
+  chip.classList.add('active');
+  activeFilter=chip.dataset.filter;
+  renderCommunity(allCommunityFiles);
+};
+
+window.toggleSubjects = ()=>{
+  const btn=document.getElementById('mainBtn');
+  const grid=document.getElementById('subjectsGrid');
+  const panel=document.getElementById('filesPanel');
+  if(grid.classList.contains('visible')){
+    grid.classList.remove('visible');panel.classList.remove('visible');btn.classList.remove('open');
+    document.querySelectorAll('.subject-btn').forEach(b=>b.classList.remove('active'));
+  }else{
+    grid.classList.add('visible');btn.classList.add('open');
+    setTimeout(()=>grid.scrollIntoView({behavior:'smooth',block:'center'}),120);
   }
+};
 
-  // ========== Toast ==========
-  function showToast(msg, type = '') {
-    const t = document.getElementById('toast');
-    const m = document.getElementById('toastMsg');
-    t.className = type ? `show ${type}` : 'show';
-    m.textContent = msg;
-    setTimeout(() => t.className = '', 3500);
-  }
-  window.showToast = showToast;
+window.openSubject = btn=>{
+  document.querySelectorAll('.subject-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  const key=btn.dataset.subject, files=subjectsData[key]||[];
+  const panel=document.getElementById('filesPanel');
+  document.getElementById('panelTitle').textContent='مادة: '+btn.dataset.label;
+  document.getElementById('panelSub').textContent='المرحلة الأولى — قسم علوم الحاسوب';
+  document.getElementById('filesCount').textContent=files.length+' ملف';
+  document.getElementById('filesList').innerHTML=files.length===0
+    ?`<div class="empty-state"><i class="fa-solid fa-circle-info"></i><p>لا توجد ملفات بعد</p></div>`
+    :files.map(f=>`
+      <div class="file-item">
+        <div class="file-icon"><i class="fa-solid fa-file-pdf"></i></div>
+        <div class="file-info"><div class="file-name">${f.name}</div><div class="file-meta">PDF &nbsp;·&nbsp; ${f.size||''}</div></div>
+        <a class="file-download" href="${f.file}" download="${f.name}"><i class="fa-solid fa-download"></i> تحميل</a>
+      </div>`).join('');
+  panel.classList.add('visible');
+  setTimeout(()=>panel.scrollIntoView({behavior:'smooth',block:'nearest'}),100);
+};
 
-  // ========== Init ==========
-  buildSubjectsGrid();
-  loadCommunityFiles();
+document.getElementById('uploadModal').addEventListener('click',e=>{if(e.target===document.getElementById('uploadModal'))window.closeUploadModal();});
+
+/* ---- تحميل مشاركات الطلاب عند البدء ---- */
+loadCommunity();
 </script>
-
 </body>
 </html>
