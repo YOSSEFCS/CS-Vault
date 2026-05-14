@@ -13,6 +13,9 @@
       --gray-light: #e2eaf8; --text-dark: #0f1c4d;
       --shadow: 0 4px 24px rgba(26,46,110,0.13);
       --shadow-strong: 0 8px 40px rgba(26,46,110,0.22);
+      --green: #16a34a; --green-light: #dcfce7;
+      --orange: #ea580c; --orange-light: #fff7ed;
+      --red: #dc2626; --red-light: #fee2e2;
     }
     * { margin:0; padding:0; box-sizing:border-box; }
     body { font-family:'Cairo','Tajawal',sans-serif; background:var(--off-white); color:var(--text-dark); min-height:100vh; overflow-x:hidden; }
@@ -34,10 +37,35 @@
     .header-logo img { width:80px; height:80px; border-radius:50%; border:2px solid rgba(255,255,255,0.4); object-fit:cover; }
     .header-text h1 { font-size:1.05rem; font-weight:900; color:#fff; line-height:1.3; }
     .header-text p  { font-size:0.72rem; color:var(--teal-light); font-weight:500; }
+    .header-actions { display:flex; align-items:center; gap:10px; }
     .header-badge { background:rgba(255,255,255,0.12); border:1px solid rgba(255,255,255,0.25); color:#fff; font-size:0.75rem; font-weight:700; padding:6px 16px; border-radius:20px; }
+    
+    /* UPLOAD FAB BUTTON */
+    #uploadFab {
+      background: linear-gradient(135deg, var(--green) 0%, #15803d 100%);
+      color:#fff; border:none; padding:9px 20px; border-radius:22px;
+      font-family:'Cairo',sans-serif; font-size:0.82rem; font-weight:700;
+      cursor:pointer; display:flex; align-items:center; gap:8px;
+      box-shadow:0 4px 16px rgba(22,163,74,0.4); transition:all 0.2s;
+      white-space:nowrap;
+    }
+    #uploadFab:hover { transform:translateY(-2px); box-shadow:0 6px 22px rgba(22,163,74,0.55); }
+    #uploadFab i { font-size:1rem; }
+
+    /* NAV TABS */
+    .nav-tabs { display:flex; justify-content:center; gap:8px; padding:1.5rem 1rem 0; position:relative; z-index:1; }
+    .nav-tab {
+      background:var(--white); border:2px solid var(--gray-light); border-radius:12px;
+      padding:10px 24px; font-family:'Cairo',sans-serif; font-size:0.9rem; font-weight:700;
+      color:#5575a8; cursor:pointer; transition:all 0.22s; display:flex; align-items:center; gap:8px;
+    }
+    .nav-tab.active { background:linear-gradient(135deg,var(--navy),var(--blue)); color:#fff; border-color:var(--navy); box-shadow:var(--shadow); }
+    .nav-tab:hover:not(.active) { border-color:var(--teal); color:var(--navy); }
+    .nav-tab .tab-badge { background:rgba(255,255,255,0.25); font-size:0.7rem; padding:2px 8px; border-radius:10px; }
+    .nav-tab:not(.active) .tab-badge { background:var(--gray-light); color:var(--navy); }
 
     /* HERO */
-    .hero { position:relative; z-index:1; display:flex; flex-direction:column; align-items:center; justify-content:center; min-height:calc(100vh - 80px); padding:3rem 1.5rem; text-align:center; }
+    .hero { position:relative; z-index:1; display:flex; flex-direction:column; align-items:center; justify-content:center; min-height:calc(100vh - 145px); padding:3rem 1.5rem; text-align:center; }
     .hero-icon { width:90px; height:90px; background:linear-gradient(135deg,var(--navy) 0%,var(--teal) 100%); border-radius:50%; display:flex; align-items:center; justify-content:center; margin-bottom:1.5rem; animation:pulse-ring 2.5s ease-in-out infinite; }
     .hero-icon svg { width:44px; height:44px; }
     @keyframes pulse-ring {
@@ -112,9 +140,11 @@
     .file-item:hover { border-color:var(--teal); background:#e8f7ff; transform:translateX(-4px); box-shadow:0 4px 16px rgba(0,184,196,0.13); }
     .file-icon { width:44px; height:44px; background:linear-gradient(135deg,#e53e3e 0%,#c53030 100%); border-radius:10px; display:flex; align-items:center; justify-content:center; flex-shrink:0; box-shadow:0 3px 10px rgba(229,62,62,0.3); }
     .file-icon i { font-size:1.1rem; color:#fff; }
+    .file-icon.green { background:linear-gradient(135deg,var(--green),#15803d); box-shadow:0 3px 10px rgba(22,163,74,0.3); }
     .file-info { flex:1; min-width:0; }
     .file-name { font-size:0.9rem; font-weight:700; color:var(--navy); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
     .file-meta { font-size:0.72rem; color:#7a96c2; margin-top:2px; }
+    .file-uploader-tag { display:inline-flex; align-items:center; gap:4px; background:var(--green-light); color:var(--green); font-size:0.65rem; font-weight:700; padding:2px 8px; border-radius:8px; margin-top:4px; }
     .file-download {
       background:linear-gradient(135deg,var(--blue) 0%,var(--teal) 100%);
       color:#fff; border:none; padding:8px 18px; border-radius:8px;
@@ -127,9 +157,152 @@
     .empty-state i { font-size:2.5rem; margin-bottom:12px; opacity:0.4; display:block; }
     .empty-state p { font-size:0.9rem; font-weight:600; }
 
+    /* ===================== COMMUNITY SECTION ===================== */
+    #communitySection { display:none; padding:2rem 1.5rem 3rem; max-width:860px; margin:0 auto; position:relative; z-index:1; }
+    #communitySection.visible { display:block; }
+    
+    .community-header { text-align:center; margin-bottom:2rem; }
+    .community-header h2 { font-size:1.8rem; font-weight:900; color:var(--navy); margin-bottom:0.4rem; }
+    .community-header h2 span { color:var(--teal); }
+    .community-header p { color:#5575a8; font-size:0.9rem; }
+
+    /* Filter bar */
+    .filter-bar { display:flex; gap:8px; flex-wrap:wrap; justify-content:center; margin-bottom:1.5rem; }
+    .filter-chip {
+      background:var(--white); border:1.5px solid var(--gray-light); border-radius:20px;
+      padding:6px 16px; font-family:'Cairo',sans-serif; font-size:0.8rem; font-weight:700;
+      color:#5575a8; cursor:pointer; transition:all 0.18s;
+    }
+    .filter-chip:hover { border-color:var(--teal); color:var(--navy); }
+    .filter-chip.active { background:var(--navy); color:#fff; border-color:var(--navy); }
+
+    /* Community files grid */
+    #communityList { display:flex; flex-direction:column; gap:12px; }
+    .community-file-card {
+      background:var(--white); border:1.5px solid var(--gray-light); border-radius:16px;
+      padding:16px 20px; display:flex; align-items:center; gap:16px;
+      box-shadow:var(--shadow); transition:all 0.22s;
+    }
+    .community-file-card:hover { border-color:var(--teal); box-shadow:0 8px 28px rgba(0,184,196,0.15); transform:translateY(-2px); }
+    .community-file-card .file-icon { width:50px; height:50px; border-radius:12px; flex-shrink:0; }
+    .community-file-card .card-body { flex:1; min-width:0; }
+    .community-file-card .card-title { font-size:0.95rem; font-weight:800; color:var(--navy); margin-bottom:4px; }
+    .community-file-card .card-meta { display:flex; flex-wrap:wrap; gap:8px; align-items:center; }
+    .community-file-card .meta-badge {
+      display:inline-flex; align-items:center; gap:4px; font-size:0.7rem; font-weight:700;
+      padding:3px 10px; border-radius:8px;
+    }
+    .badge-subject { background:#e0edff; color:var(--blue); }
+    .badge-uploader { background:var(--green-light); color:var(--green); }
+    .badge-date { background:var(--gray-light); color:#5575a8; }
+    .badge-size { background:#f0f6ff; color:var(--navy); }
+    .community-file-card .card-actions { display:flex; gap:8px; flex-shrink:0; }
+    .btn-dl-community {
+      background:linear-gradient(135deg,var(--blue),var(--teal)); color:#fff;
+      border:none; padding:10px 20px; border-radius:10px;
+      font-family:'Cairo',sans-serif; font-size:0.82rem; font-weight:700;
+      cursor:pointer; transition:all 0.18s; display:flex; align-items:center; gap:6px;
+      text-decoration:none;
+    }
+    .btn-dl-community:hover { transform:scale(1.05); box-shadow:0 4px 14px rgba(30,77,183,0.35); }
+    .btn-delete-community {
+      background:#fee2e2; color:var(--red); border:none; padding:10px 14px;
+      border-radius:10px; cursor:pointer; font-size:0.85rem; transition:all 0.18s;
+    }
+    .btn-delete-community:hover { background:var(--red); color:#fff; }
+    
+    /* ===================== UPLOAD MODAL ===================== */
+    #uploadModal {
+      display:none; position:fixed; inset:0; z-index:1000;
+      background:rgba(10,20,60,0.65); backdrop-filter:blur(6px);
+      align-items:center; justify-content:center; padding:1rem;
+    }
+    #uploadModal.open { display:flex; }
+    .modal-box {
+      background:var(--white); border-radius:24px; width:100%; max-width:520px;
+      box-shadow:0 20px 60px rgba(26,46,110,0.35); overflow:hidden;
+      animation:modalIn 0.3s ease;
+    }
+    @keyframes modalIn { from{opacity:0;transform:scale(0.92) translateY(20px)} to{opacity:1;transform:scale(1) translateY(0)} }
+    .modal-header { background:linear-gradient(135deg,var(--navy),var(--blue),var(--teal)); padding:22px 24px; display:flex; align-items:center; justify-content:space-between; }
+    .modal-header h2 { color:#fff; font-size:1.05rem; font-weight:900; display:flex; align-items:center; gap:10px; }
+    .modal-header h2 i { color:var(--teal-light); }
+    .modal-close { background:rgba(255,255,255,0.15); border:none; color:#fff; width:34px; height:34px; border-radius:50%; cursor:pointer; font-size:1rem; transition:background 0.18s; display:flex; align-items:center; justify-content:center; }
+    .modal-close:hover { background:rgba(255,255,255,0.3); }
+    .modal-body { padding:24px; }
+    
+    .form-group { margin-bottom:18px; }
+    .form-label { display:block; font-size:0.85rem; font-weight:700; color:var(--navy); margin-bottom:7px; }
+    .form-label span { color:var(--red); }
+    .form-input, .form-select {
+      width:100%; padding:11px 14px; border:2px solid var(--gray-light); border-radius:10px;
+      font-family:'Cairo',sans-serif; font-size:0.9rem; color:var(--text-dark);
+      background:var(--off-white); transition:border-color 0.18s; outline:none;
+    }
+    .form-input:focus, .form-select:focus { border-color:var(--teal); background:#fff; }
+    
+    /* Drop Zone */
+    .drop-zone {
+      border:2.5px dashed var(--gray-light); border-radius:14px; padding:32px 20px;
+      text-align:center; cursor:pointer; transition:all 0.22s; background:var(--off-white);
+      position:relative;
+    }
+    .drop-zone:hover, .drop-zone.dragover { border-color:var(--teal); background:#e8f7ff; }
+    .drop-zone input[type=file] { position:absolute; inset:0; opacity:0; cursor:pointer; width:100%; height:100%; }
+    .drop-zone .dz-icon { font-size:2.2rem; color:var(--blue); margin-bottom:10px; opacity:0.7; }
+    .drop-zone .dz-text { font-size:0.9rem; font-weight:700; color:var(--navy); margin-bottom:4px; }
+    .drop-zone .dz-sub { font-size:0.75rem; color:#7a96c2; }
+    .drop-zone.has-file { border-color:var(--green); background:var(--green-light); }
+    .drop-zone.has-file .dz-icon { color:var(--green); }
+    
+    /* Share Toggle */
+    .share-toggle { display:flex; align-items:center; gap:12px; padding:14px 16px; border:2px solid var(--gray-light); border-radius:12px; background:var(--off-white); cursor:pointer; transition:all 0.2s; }
+    .share-toggle:hover { border-color:var(--teal); }
+    .share-toggle.enabled { border-color:var(--green); background:var(--green-light); }
+    .toggle-switch { width:44px; height:24px; background:var(--gray-light); border-radius:12px; position:relative; transition:background 0.2s; flex-shrink:0; }
+    .toggle-switch::after { content:''; position:absolute; top:3px; right:3px; width:18px; height:18px; border-radius:50%; background:#fff; transition:transform 0.22s; box-shadow:0 2px 6px rgba(0,0,0,0.2); }
+    .share-toggle.enabled .toggle-switch { background:var(--green); }
+    .share-toggle.enabled .toggle-switch::after { transform:translateX(-20px); }
+    .toggle-text h4 { font-size:0.88rem; font-weight:800; color:var(--navy); }
+    .toggle-text p { font-size:0.72rem; color:#7a96c2; margin-top:2px; }
+    
+    /* Progress */
+    .upload-progress { display:none; margin-top:14px; }
+    .upload-progress.visible { display:block; }
+    .progress-bar { height:8px; background:var(--gray-light); border-radius:4px; overflow:hidden; margin:8px 0; }
+    .progress-fill { height:100%; background:linear-gradient(90deg,var(--blue),var(--teal)); border-radius:4px; transition:width 0.3s; width:0%; }
+    .progress-text { font-size:0.78rem; color:#7a96c2; text-align:center; }
+    
+    .btn-submit {
+      width:100%; background:linear-gradient(135deg,var(--navy),var(--blue),var(--teal));
+      color:#fff; border:none; padding:15px; border-radius:12px;
+      font-family:'Cairo',sans-serif; font-size:1rem; font-weight:800;
+      cursor:pointer; margin-top:8px; transition:all 0.2s;
+      display:flex; align-items:center; justify-content:center; gap:10px;
+    }
+    .btn-submit:hover { transform:translateY(-2px); box-shadow:0 8px 24px rgba(26,46,110,0.35); }
+    .btn-submit:disabled { opacity:0.6; cursor:not-allowed; transform:none; }
+    
+    /* Toast */
+    #toast {
+      position:fixed; bottom:2rem; left:50%; transform:translateX(-50%) translateY(100px);
+      background:var(--navy); color:#fff; padding:14px 28px; border-radius:14px;
+      font-size:0.9rem; font-weight:700; z-index:2000; transition:transform 0.35s ease;
+      display:flex; align-items:center; gap:10px; box-shadow:0 8px 28px rgba(26,46,110,0.35);
+    }
+    #toast.show { transform:translateX(-50%) translateY(0); }
+    #toast.success { background:var(--green); }
+    #toast.error { background:var(--red); }
+    
+    /* Empty community */
+    .community-empty { text-align:center; padding:60px 20px; color:#9ab0d0; }
+    .community-empty i { font-size:3rem; margin-bottom:16px; opacity:0.3; display:block; }
+    .community-empty h3 { font-size:1.1rem; font-weight:800; margin-bottom:8px; color:#7a96c2; }
+    .community-empty p { font-size:0.85rem; }
+
     footer { position:relative; z-index:1; text-align:center; padding:24px; color:#8099c2; font-size:0.78rem; border-top:1px solid var(--gray-light); background:rgba(255,255,255,0.6); }
     footer span { color:var(--teal); font-weight:700; }
-    @media(max-width:600px){ #subjectsGrid{grid-template-columns:repeat(2,1fr)} .header-badge{display:none} }
+    @media(max-width:600px){ #subjectsGrid{grid-template-columns:repeat(2,1fr)} .header-badge{display:none} .community-file-card{flex-direction:column;align-items:flex-start} .card-actions{width:100%;justify-content:stretch} .btn-dl-community{flex:1;justify-content:center} }
   </style>
 </head>
 <body>
@@ -142,10 +315,30 @@
       <p>جامعة الموصل — University of Mosul · CSM</p>
     </div>
   </div>
-  <div class="header-badge">1999 · CSM</div>
+  <div class="header-actions">
+    <button id="uploadFab" onclick="openUploadModal()">
+      <i class="fa-solid fa-cloud-arrow-up"></i>
+      رفع ملزمة
+    </button>
+    <div class="header-badge">1999 · CSM</div>
+  </div>
 </header>
 
-<section class="hero">
+<!-- TABS -->
+<div class="nav-tabs">
+  <button class="nav-tab active" onclick="switchTab('library')" id="tab-library">
+    <i class="fa-solid fa-book"></i>
+    المكتبة الرسمية
+  </button>
+  <button class="nav-tab" onclick="switchTab('community')" id="tab-community">
+    <i class="fa-solid fa-users"></i>
+    مشاركات الطلاب
+    <span class="tab-badge" id="communityBadge">0</span>
+  </button>
+</div>
+
+<!-- ==================== LIBRARY SECTION ==================== -->
+<section class="hero" id="librarySection">
   <div class="hero-icon">
     <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
       <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
@@ -167,58 +360,48 @@
   </button>
 
   <div id="subjectsGrid">
-
     <button class="subject-btn" data-subject="prog" data-label="برمجة متقدمة" onclick="openSubject(this)">
       <div class="subj-icon"><i class="fa-solid fa-laptop-code"></i></div>
       <span>برمجة متقدمة</span>
       <span class="subj-count" id="count-prog"></span>
     </button>
-
     <button class="subject-btn" data-subject="web" data-label="برمجة مواقع نظري" onclick="openSubject(this)">
       <div class="subj-icon"><i class="fa-solid fa-code"></i></div>
       <span>برمجة مواقع نظري</span>
       <span class="subj-count" id="count-web"></span>
     </button>
-
     <button class="subject-btn" data-subject="computer1" data-label="حاسوب نظري" onclick="openSubject(this)">
       <div class="subj-icon"><i class="fa-solid fa-book-open"></i></div>
       <span>حاسوب نظري</span>
       <span class="subj-count" id="count-computer1"></span>
     </button>
-
     <button class="subject-btn" data-subject="computer2" data-label="حاسوب عملي" onclick="openSubject(this)">
       <div class="subj-icon"><i class="fa-solid fa-desktop"></i></div>
       <span>حاسوب عملي</span>
       <span class="subj-count" id="count-computer2"></span>
     </button>
-
     <button class="subject-btn" data-subject="statistics" data-label="مبادئ الاحصاء" onclick="openSubject(this)">
       <div class="subj-icon"><i class="fa-solid fa-chart-bar"></i></div>
       <span>مبادئ الاحصاء</span>
       <span class="subj-count" id="count-statistics"></span>
     </button>
-
     <button class="subject-btn" data-subject="tca" data-label="تركيب حاسوب نظري" onclick="openSubject(this)">
       <div class="subj-icon"><i class="fa-solid fa-microchip"></i></div>
       <span>تركيب حاسوب نظري</span>
       <span class="subj-count" id="count-tca"></span>
     </button>
-
     <button class="subject-btn" data-subject="pcac" data-label="تركيب حاسوب عملي" onclick="openSubject(this)">
       <div class="subj-icon"><i class="fa-solid fa-screwdriver-wrench"></i></div>
       <span>تركيب حاسوب عملي</span>
       <span class="subj-count" id="count-pcac"></span>
     </button>
-
     <button class="subject-btn" data-subject="arbic" data-label="اللغة العربية" onclick="openSubject(this)">
       <div class="subj-icon"><i class="fa-solid fa-pen-nib"></i></div>
       <span>اللغة العربية</span>
       <span class="subj-count" id="count-arbic"></span>
     </button>
-
   </div>
 
-  <!-- لوحة الملفات -->
   <div id="filesPanel">
     <div class="files-header">
       <i class="fa-solid fa-file-pdf"></i>
@@ -230,8 +413,101 @@
     </div>
     <div class="files-list" id="filesList"></div>
   </div>
-
 </section>
+
+<!-- ==================== COMMUNITY SECTION ==================== -->
+<div id="communitySection">
+  <div class="community-header">
+    <h2>مشاركات <span>الطلاب</span></h2>
+    <p>ملازم وملخصات رفعها زملاؤك — شارك أنت أيضاً بالضغط على "رفع ملزمة"</p>
+  </div>
+
+  <div class="filter-bar">
+    <button class="filter-chip active" data-filter="all" onclick="filterCommunity(this)">الكل</button>
+    <button class="filter-chip" data-filter="prog" onclick="filterCommunity(this)">برمجة متقدمة</button>
+    <button class="filter-chip" data-filter="web" onclick="filterCommunity(this)">برمجة مواقع</button>
+    <button class="filter-chip" data-filter="computer1" onclick="filterCommunity(this)">حاسوب نظري</button>
+    <button class="filter-chip" data-filter="computer2" onclick="filterCommunity(this)">حاسوب عملي</button>
+    <button class="filter-chip" data-filter="statistics" onclick="filterCommunity(this)">إحصاء</button>
+    <button class="filter-chip" data-filter="tca" onclick="filterCommunity(this)">تركيب نظري</button>
+    <button class="filter-chip" data-filter="pcac" onclick="filterCommunity(this)">تركيب عملي</button>
+    <button class="filter-chip" data-filter="arbic" onclick="filterCommunity(this)">عربي</button>
+    <button class="filter-chip" data-filter="other" onclick="filterCommunity(this)">أخرى</button>
+  </div>
+
+  <div id="communityList"></div>
+</div>
+
+<!-- ==================== UPLOAD MODAL ==================== -->
+<div id="uploadModal">
+  <div class="modal-box">
+    <div class="modal-header">
+      <h2><i class="fa-solid fa-cloud-arrow-up"></i> رفع ملزمة أو ملخص</h2>
+      <button class="modal-close" onclick="closeUploadModal()"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="modal-body">
+
+      <div class="form-group">
+        <label class="form-label">اسمك (سيظهر كمُرسِل) <span>*</span></label>
+        <input type="text" class="form-input" id="uploaderName" placeholder="مثال: أحمد محمد" maxlength="40"/>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">اسم الملزمة / الملخص <span>*</span></label>
+        <input type="text" class="form-input" id="uploadTitle" placeholder="مثال: ملخص البرمجة المتقدمة — الفصل الثاني" maxlength="80"/>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">المادة <span>*</span></label>
+        <select class="form-select" id="uploadSubject">
+          <option value="">— اختر المادة —</option>
+          <option value="prog">برمجة متقدمة</option>
+          <option value="web">برمجة مواقع نظري</option>
+          <option value="computer1">حاسوب نظري</option>
+          <option value="computer2">حاسوب عملي</option>
+          <option value="statistics">مبادئ الاحصاء</option>
+          <option value="tca">تركيب حاسوب نظري</option>
+          <option value="pcac">تركيب حاسوب عملي</option>
+          <option value="arbic">اللغة العربية</option>
+          <option value="other">أخرى</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">الملف (PDF أو صور) <span>*</span></label>
+        <div class="drop-zone" id="dropZone">
+          <input type="file" id="fileInput" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx" onchange="handleFileSelect(event)"/>
+          <i class="fa-solid fa-file-arrow-up dz-icon"></i>
+          <div class="dz-text">اسحب الملف هنا أو انقر للاختيار</div>
+          <div class="dz-sub" id="dzSub">PDF · صور · Word — حتى 50 ميغا</div>
+        </div>
+        <div class="upload-progress" id="uploadProgress">
+          <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+          <div class="progress-text" id="progressText">جاري الرفع...</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="share-toggle" id="shareToggle" onclick="toggleShare()">
+          <div class="toggle-switch" id="toggleSwitch"></div>
+          <div class="toggle-text">
+            <h4>نشر للعموم</h4>
+            <p>سيظهر ملفك في قسم مشاركات الطلاب لجميع الزوار</p>
+          </div>
+          <i class="fa-solid fa-earth-americas" style="color:var(--teal);margin-right:auto;font-size:1.1rem;"></i>
+        </div>
+      </div>
+
+      <button class="btn-submit" id="submitBtn" onclick="submitUpload()">
+        <i class="fa-solid fa-cloud-arrow-up"></i>
+        رفع الملزمة
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div id="toast"></div>
 
 <footer>
   كلية علوم الحاسوب والرياضيات — جامعة الموصل &nbsp;|&nbsp;
@@ -240,16 +516,9 @@
 
 <script>
 /* ============================================================
-   📂 بيانات الملفات
-   
-   name  : الاسم الظاهر للطالب
-   file  : اسم الملف (يجب أن يكون في نفس مجلد index.html)
-   size  : الحجم للعرض فقط
+   📂 بيانات الملفات الرسمية
    ============================================================ */
-
 const subjectsData = {
-
-  // ✅ برمجة متقدمة — 5 ملفات
   prog: [
     { name: "ملزمة البرمجة المتقدمة — الأولى",   file: "prog1.pdf",  size: "847.9 KB" },
     { name: "ملزمة البرمجة المتقدمة — الثانية",   file: "prog2.pdf",  size: "794.6 KB" },
@@ -257,8 +526,6 @@ const subjectsData = {
     { name: "ملزمة البرمجة المتقدمة — الرابعة",   file: "prog4.pdf",  size: "812.1 KB" },
     { name: "ملزمة البرمجة المتقدمة — الخامسة",   file: "prog5.pdf",  size: "738.4 KB" },
   ],
-
-  // ✅ برمجة مواقع نظري — 7 ملفات
   web: [
     { name: "ملزمة برمجة المواقع — الأولى",   file: "web1.pdf",  size: "1.2 MB" },
     { name: "ملزمة برمجة المواقع — الثانية",   file: "web2.pdf",  size: "441.7 KB" },
@@ -268,18 +535,14 @@ const subjectsData = {
     { name: "ملزمة برمجة المواقع — السادسة",   file: "web6.pdf",  size: "399.7 KB" },
     { name: "ملزمة برمجة المواقع — السابعة",   file: "web7.pdf",  size: "211.8 KB" },
   ],
-
-  // ✅ حاسوب نظري — 7 ملفات
   computer1: [
     { name: "ملزمة حاسوب نظري — الأولى والثانية",  file: "computer 1ملزمة اولى وثانية.pdf",  size: "1.6 MB" },
     { name: "ملزمة حاسوب نظري — الثالثة",           file: "computer 1ملزمة ثالثة.pdf",          size: "627.1 KB" },
     { name: "ملزمة حاسوب نظري — الرابعة",           file: "computer 1ملزمة رابعة.pdf",          size: "621.6 KB" },
-    { name: "ملزمة حاسوب نظري — الخامسة",           file:"computer 1ملزمة خامسة.pdf"  ,         size: "661.6 KB" },
-    { name: "ملزمة حاسوب نظري — السادسة",           file:"computer 1ملزمة سادسة.pdf",          size: "374.0 KB" },
+    { name: "ملزمة حاسوب نظري — الخامسة",           file: "computer 1ملزمة خامسة.pdf",          size: "661.6 KB" },
+    { name: "ملزمة حاسوب نظري — السادسة",           file: "computer 1ملزمة سادسة.pdf",         size: "374.0 KB" },
     { name: "ملزمة حاسوب نظري — السابعة",           file: "computer 1ملزمة سابعة.pdf",          size: "631.1 KB" },
   ],
-
-  // ✅ حاسوب عملي — 6 ملفات
   computer2: [
     { name: "ملزمة حاسوب عملي — الأولى",    file: "computer 2ملزمة الاولى.pdf",       size: "1.3 MB" },
     { name: "ملزمة حاسوب عملي — الثانية",   file: "computer 2ملزمة الثانية.pdf",      size: "1.7 MB" },
@@ -288,8 +551,6 @@ const subjectsData = {
     { name: "ملزمة حاسوب عملي — الخامسة",   file: "computer 2ملزمة خامسة.pdf",        size: "1.5 MB" },
     { name: "ملزمة حاسوب عملي — السادسة",   file: "computer 2ملزمة سادسة.pdf",        size: "1.9 MB" },
   ],
-
-  // ✅ مبادئ الاحصاء — 10 ملفات (statistics1-6, 8-10 — لا يوجد 7)
   statistics: [
     { name: "ملزمة الاحصاء — 1",    file: "statistics1.pdf",   size: "868.3 KB" },
     { name: "ملزمة الاحصاء — 2",    file: "statistics2.pdf",   size: "729.3 KB" },
@@ -301,8 +562,6 @@ const subjectsData = {
     { name: "ملزمة الاحصاء — 9",    file: "statistics9.pdf",   size: "1.1 MB" },
     { name: "ملزمة الاحصاء — 10",   file: "statistics10.pdf",  size: "1.1 MB" },
   ],
-
-  // ✅ تركيب حاسوب نظري — 6 ملفات (tca1,2,4,5,6,7 — لا يوجد 3)
   tca: [
     { name: "ملزمة تركيب حاسوب نظري — 1",   file: "tca1.pdf",   size: "3.8 MB" },
     { name: "ملزمة تركيب حاسوب نظري — 2",   file: "tca2.pdf",   size: "1.7 MB" },
@@ -311,8 +570,6 @@ const subjectsData = {
     { name: "ملزمة تركيب حاسوب نظري — 6",   file: "tca6.pdf",   size: "1.9 MB" },
     { name: "ملزمة تركيب حاسوب نظري — 7",   file: "tca7.pdf",   size: "1.8 MB" },
   ],
-
-  // ✅ تركيب حاسوب عملي — 5 ملفات
   pcac: [
     { name: "ملزمة تركيب حاسوب عملي — 1",   file: "pcac1.pdf",   size: "628.2 KB" },
     { name: "ملزمة تركيب حاسوب عملي — 2",   file: "pcac2.pdf",   size: "933.9 KB" },
@@ -320,28 +577,91 @@ const subjectsData = {
     { name: "ملزمة تركيب حاسوب عملي — 4",   file: "pcac4.pdf",   size: "885.3 KB" },
     { name: "ملزمة تركيب حاسوب عملي — 5",   file: "pcac5.pdf",   size: "819.3 KB" },
   ],
-
-  // ✅ اللغة العربية — 1 ملف
   arbic: [
     { name: "ملزمة اللغة العربية",   file: "arbic.pdf",   size: "8.3 MB" },
   ],
-
 };
 
-/* ====== تحديث عداد الملفات ====== */
-document.addEventListener('DOMContentLoaded', () => {
+const subjectLabels = {
+  prog:'برمجة متقدمة', web:'برمجة مواقع نظري', computer1:'حاسوب نظري',
+  computer2:'حاسوب عملي', statistics:'مبادئ الاحصاء', tca:'تركيب حاسوب نظري',
+  pcac:'تركيب حاسوب عملي', arbic:'اللغة العربية', other:'أخرى'
+};
+
+/* ============================================================
+   🗄️ STORAGE — يحفظ الملفات المرفوعة بشكل دائم
+   ستُرفع الملفات كـ base64 وتُخزَّن مشتركة بين الجميع
+   ============================================================ */
+const STORAGE_KEY = 'csm_community_files';
+
+async function getCommunityFiles() {
+  try {
+    const result = await window.storage.get(STORAGE_KEY, true);
+    return result ? JSON.parse(result.value) : [];
+  } catch(e) { return []; }
+}
+
+async function saveCommunityFiles(files) {
+  try {
+    await window.storage.set(STORAGE_KEY, JSON.stringify(files), true);
+  } catch(e) { console.error('Storage error:', e); }
+}
+
+/* ============================================================
+   STATE
+   ============================================================ */
+let communityFiles = [];
+let selectedFile = null;
+let shareEnabled = false;
+let activeFilter = 'all';
+let currentTab = 'library';
+
+/* ============================================================
+   INIT
+   ============================================================ */
+document.addEventListener('DOMContentLoaded', async () => {
+  // Official file counts
   document.querySelectorAll('.subject-btn').forEach(btn => {
-    const key   = btn.dataset.subject;
+    const key = btn.dataset.subject;
     const count = (subjectsData[key] || []).length;
-    const el    = document.getElementById('count-' + key);
+    const el = document.getElementById('count-' + key);
     if (el) el.textContent = count + ' ملف';
+  });
+
+  // Load community files
+  communityFiles = await getCommunityFiles();
+  updateCommunityBadge();
+  renderCommunityList();
+
+  // Drag & Drop
+  const dz = document.getElementById('dropZone');
+  dz.addEventListener('dragover', e => { e.preventDefault(); dz.classList.add('dragover'); });
+  dz.addEventListener('dragleave', () => dz.classList.remove('dragover'));
+  dz.addEventListener('drop', e => {
+    e.preventDefault(); dz.classList.remove('dragover');
+    const f = e.dataTransfer.files[0];
+    if (f) processFile(f);
   });
 });
 
-/* ====== فتح/إغلاق الشبكة ====== */
+/* ============================================================
+   TABS
+   ============================================================ */
+function switchTab(tab) {
+  currentTab = tab;
+  document.getElementById('librarySection').style.display = tab === 'library' ? '' : 'none';
+  document.getElementById('communitySection').classList.toggle('visible', tab === 'community');
+  document.getElementById('tab-library').classList.toggle('active', tab === 'library');
+  document.getElementById('tab-community').classList.toggle('active', tab === 'community');
+  if (tab === 'community') renderCommunityList();
+}
+
+/* ============================================================
+   LIBRARY
+   ============================================================ */
 function toggleSubjects() {
-  const btn   = document.getElementById('mainBtn');
-  const grid  = document.getElementById('subjectsGrid');
+  const btn = document.getElementById('mainBtn');
+  const grid = document.getElementById('subjectsGrid');
   const panel = document.getElementById('filesPanel');
   if (grid.classList.contains('visible')) {
     grid.classList.remove('visible');
@@ -355,40 +675,31 @@ function toggleSubjects() {
   }
 }
 
-/* ====== فتح قائمة ملفات مادة ====== */
 function openSubject(btn) {
   document.querySelectorAll('.subject-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
-
-  const key   = btn.dataset.subject;
+  const key = btn.dataset.subject;
   const label = btn.dataset.label;
   const files = subjectsData[key] || [];
   const panel = document.getElementById('filesPanel');
-  const list  = document.getElementById('filesList');
+  const list = document.getElementById('filesList');
 
-  document.getElementById('panelTitle').textContent  = 'مادة: ' + label;
-  document.getElementById('panelSub').textContent    = 'المرحلة الأولى — قسم علوم الحاسوب';
-  document.getElementById('filesCount').textContent  = files.length + ' ملف';
+  document.getElementById('panelTitle').textContent = 'مادة: ' + label;
+  document.getElementById('panelSub').textContent = 'المرحلة الأولى — قسم علوم الحاسوب';
+  document.getElementById('filesCount').textContent = files.length + ' ملف';
 
   if (files.length === 0) {
-    list.innerHTML = `
-      <div class="empty-state">
-        <i class="fa-solid fa-circle-info"></i>
-        <p>لا توجد ملفات مضافة بعد لهذه المادة</p>
-      </div>`;
+    list.innerHTML = `<div class="empty-state"><i class="fa-solid fa-circle-info"></i><p>لا توجد ملفات مضافة بعد لهذه المادة</p></div>`;
   } else {
     list.innerHTML = files.map(f => `
       <div class="file-item">
-        <div class="file-icon">
-          <i class="fa-solid fa-file-pdf"></i>
-        </div>
+        <div class="file-icon"><i class="fa-solid fa-file-pdf"></i></div>
         <div class="file-info">
           <div class="file-name">${f.name}</div>
           <div class="file-meta">PDF &nbsp;·&nbsp; ${f.size || ''}</div>
         </div>
         <a class="file-download" href="${f.file}" download="${f.name}">
-          <i class="fa-solid fa-download"></i>
-          تحميل
+          <i class="fa-solid fa-download"></i> تحميل
         </a>
       </div>`).join('');
   }
@@ -396,6 +707,229 @@ function openSubject(btn) {
   panel.classList.add('visible');
   setTimeout(() => panel.scrollIntoView({ behavior:'smooth', block:'nearest' }), 100);
 }
+
+/* ============================================================
+   COMMUNITY
+   ============================================================ */
+function updateCommunityBadge() {
+  const shared = communityFiles.filter(f => f.shared);
+  document.getElementById('communityBadge').textContent = shared.length;
+}
+
+function filterCommunity(chip) {
+  document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+  chip.classList.add('active');
+  activeFilter = chip.dataset.filter;
+  renderCommunityList();
+}
+
+function renderCommunityList() {
+  const container = document.getElementById('communityList');
+  let files = communityFiles.filter(f => f.shared);
+  if (activeFilter !== 'all') files = files.filter(f => f.subject === activeFilter);
+  files = [...files].reverse(); // newest first
+
+  if (files.length === 0) {
+    container.innerHTML = `
+      <div class="community-empty">
+        <i class="fa-solid fa-box-open"></i>
+        <h3>لا توجد مشاركات بعد</h3>
+        <p>كن أول من يشارك ملزمة! اضغط على "رفع ملزمة" في الأعلى</p>
+      </div>`;
+    return;
+  }
+
+  container.innerHTML = files.map(f => {
+    const isOwner = f.sessionId === getSessionId();
+    const subLabel = subjectLabels[f.subject] || f.subject;
+    const ext = f.fileName.split('.').pop().toUpperCase();
+    return `
+    <div class="community-file-card" id="card-${f.id}">
+      <div class="file-icon green"><i class="fa-solid fa-file-${ext==='PDF'?'pdf':'alt'}"></i></div>
+      <div class="card-body">
+        <div class="card-title">${escHtml(f.title)}</div>
+        <div class="card-meta">
+          <span class="meta-badge badge-subject"><i class="fa-solid fa-tag"></i> ${subLabel}</span>
+          <span class="meta-badge badge-uploader"><i class="fa-solid fa-user"></i> ${escHtml(f.uploader)}</span>
+          <span class="meta-badge badge-date"><i class="fa-regular fa-calendar"></i> ${f.date}</span>
+          <span class="meta-badge badge-size"><i class="fa-solid fa-weight-hanging"></i> ${f.size}</span>
+        </div>
+      </div>
+      <div class="card-actions">
+        <a class="btn-dl-community" href="${f.dataUrl}" download="${escHtml(f.fileName)}">
+          <i class="fa-solid fa-download"></i> تحميل
+        </a>
+        ${isOwner ? `<button class="btn-delete-community" onclick="deleteFile('${f.id}')" title="حذف"><i class="fa-solid fa-trash"></i></button>` : ''}
+      </div>
+    </div>`;
+  }).join('');
+}
+
+async function deleteFile(id) {
+  if (!confirm('هل تريد حذف هذه الملزمة؟')) return;
+  communityFiles = communityFiles.filter(f => f.id !== id);
+  await saveCommunityFiles(communityFiles);
+  updateCommunityBadge();
+  renderCommunityList();
+  showToast('تم حذف الملزمة', 'success');
+}
+
+function escHtml(s) {
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+/* ============================================================
+   SESSION ID (لتمييز صاحب الملف)
+   ============================================================ */
+function getSessionId() {
+  let sid = sessionStorage.getItem('csm_sid');
+  if (!sid) { sid = Math.random().toString(36).slice(2)+Date.now().toString(36); sessionStorage.setItem('csm_sid', sid); }
+  return sid;
+}
+
+/* ============================================================
+   UPLOAD MODAL
+   ============================================================ */
+function openUploadModal() {
+  document.getElementById('uploadModal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeUploadModal() {
+  document.getElementById('uploadModal').classList.remove('open');
+  document.body.style.overflow = '';
+  resetModal();
+}
+
+function resetModal() {
+  document.getElementById('uploaderName').value = '';
+  document.getElementById('uploadTitle').value = '';
+  document.getElementById('uploadSubject').value = '';
+  document.getElementById('fileInput').value = '';
+  selectedFile = null;
+  shareEnabled = false;
+  document.getElementById('dropZone').classList.remove('has-file');
+  document.getElementById('dzSub').textContent = 'PDF · صور · Word — حتى 50 ميغا';
+  document.getElementById('shareToggle').classList.remove('enabled');
+  document.getElementById('uploadProgress').classList.remove('visible');
+  document.getElementById('submitBtn').disabled = false;
+}
+
+function toggleShare() {
+  shareEnabled = !shareEnabled;
+  document.getElementById('shareToggle').classList.toggle('enabled', shareEnabled);
+}
+
+function handleFileSelect(e) {
+  const f = e.target.files[0];
+  if (f) processFile(f);
+}
+
+function processFile(f) {
+  const maxSize = 50 * 1024 * 1024;
+  if (f.size > maxSize) { showToast('حجم الملف يتجاوز 50 ميغا!', 'error'); return; }
+  selectedFile = f;
+  const dz = document.getElementById('dropZone');
+  dz.classList.add('has-file');
+  const sizeStr = f.size > 1024*1024 ? (f.size/1024/1024).toFixed(1)+' MB' : Math.round(f.size/1024)+' KB';
+  document.getElementById('dzSub').textContent = '✓ ' + f.name + ' · ' + sizeStr;
+}
+
+async function submitUpload() {
+  const name = document.getElementById('uploaderName').value.trim();
+  const title = document.getElementById('uploadTitle').value.trim();
+  const subject = document.getElementById('uploadSubject').value;
+
+  if (!name) { showToast('الرجاء كتابة اسمك', 'error'); return; }
+  if (!title) { showToast('الرجاء كتابة اسم الملزمة', 'error'); return; }
+  if (!subject) { showToast('الرجاء اختيار المادة', 'error'); return; }
+  if (!selectedFile) { showToast('الرجاء اختيار ملف', 'error'); return; }
+
+  const btn = document.getElementById('submitBtn');
+  btn.disabled = true;
+  btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> جاري الرفع...';
+
+  const progress = document.getElementById('uploadProgress');
+  const fill = document.getElementById('progressFill');
+  const pText = document.getElementById('progressText');
+  progress.classList.add('visible');
+
+  // Simulate progress + read file as base64
+  let prog = 0;
+  const interval = setInterval(() => {
+    prog = Math.min(prog + Math.random() * 15, 85);
+    fill.style.width = prog + '%';
+    pText.textContent = 'جاري الرفع... ' + Math.round(prog) + '%';
+  }, 120);
+
+  try {
+    const dataUrl = await readFileAsDataURL(selectedFile);
+    clearInterval(interval);
+    fill.style.width = '100%';
+    pText.textContent = 'اكتمل الرفع ✓';
+
+    const sizeStr = selectedFile.size > 1024*1024
+      ? (selectedFile.size/1024/1024).toFixed(1)+' MB'
+      : Math.round(selectedFile.size/1024)+' KB';
+
+    const now = new Date();
+    const dateStr = now.toLocaleDateString('ar-IQ', { year:'numeric', month:'short', day:'numeric' });
+
+    const entry = {
+      id: Date.now().toString(36) + Math.random().toString(36).slice(2),
+      sessionId: getSessionId(),
+      uploader: name,
+      title: title,
+      subject: subject,
+      fileName: selectedFile.name,
+      size: sizeStr,
+      date: dateStr,
+      dataUrl: dataUrl,
+      shared: shareEnabled,
+      ts: Date.now()
+    };
+
+    communityFiles.push(entry);
+    await saveCommunityFiles(communityFiles);
+    updateCommunityBadge();
+
+    setTimeout(() => {
+      closeUploadModal();
+      showToast(shareEnabled ? 'تم الرفع ونشر الملزمة بنجاح! 🎉' : 'تم حفظ الملزمة (خاصة فقط)', 'success');
+      if (shareEnabled) { switchTab('community'); }
+    }, 600);
+
+  } catch(e) {
+    clearInterval(interval);
+    showToast('حدث خطأ أثناء الرفع، حاول مجدداً', 'error');
+    btn.disabled = false;
+    btn.innerHTML = '<i class="fa-solid fa-cloud-arrow-up"></i> رفع الملزمة';
+  }
+}
+
+function readFileAsDataURL(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = e => resolve(e.target.result);
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
+  });
+}
+
+/* ============================================================
+   TOAST
+   ============================================================ */
+function showToast(msg, type = '') {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'show ' + type;
+  setTimeout(() => t.className = '', 3200);
+}
+
+/* Close modal on backdrop click */
+document.getElementById('uploadModal').addEventListener('click', function(e) {
+  if (e.target === this) closeUploadModal();
+});
 </script>
 </body>
 </html>
