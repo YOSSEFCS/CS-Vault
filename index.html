@@ -16,6 +16,8 @@
     *{margin:0;padding:0;box-sizing:border-box;}
     body{font-family:'Cairo','Tajawal',sans-serif;background:var(--off-white);color:var(--text-dark);min-height:100vh;overflow-x:hidden;}
     body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 0%,rgba(0,184,196,.10) 0%,transparent 70%),repeating-linear-gradient(135deg,rgba(30,77,183,.025) 0px,rgba(30,77,183,.025) 1px,transparent 1px,transparent 60px);pointer-events:none;z-index:0;}
+
+    /* HEADER */
     header{background:linear-gradient(135deg,var(--navy) 0%,var(--blue) 60%,var(--teal) 100%);padding:0 2rem;display:flex;align-items:center;justify-content:space-between;height:80px;box-shadow:var(--shadow-strong);position:relative;z-index:100;}
     header::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--teal),#60a5fa,var(--teal));}
     .header-logo{display:flex;align-items:center;gap:14px;}
@@ -26,12 +28,16 @@
     .header-badge{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);color:#fff;font-size:.75rem;font-weight:700;padding:6px 16px;border-radius:20px;}
     #uploadFab{background:linear-gradient(135deg,var(--green),#15803d);color:#fff;border:none;padding:9px 20px;border-radius:22px;font-family:'Cairo',sans-serif;font-size:.82rem;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:8px;box-shadow:0 4px 16px rgba(22,163,74,.4);transition:all .2s;white-space:nowrap;}
     #uploadFab:hover{transform:translateY(-2px);box-shadow:0 6px 22px rgba(22,163,74,.55);}
+
+    /* NAV TABS */
     .nav-tabs{display:flex;justify-content:center;gap:8px;padding:1.5rem 1rem 0;position:relative;z-index:1;}
     .nav-tab{background:var(--white);border:2px solid var(--gray-light);border-radius:12px;padding:10px 24px;font-family:'Cairo',sans-serif;font-size:.9rem;font-weight:700;color:#5575a8;cursor:pointer;transition:all .22s;display:flex;align-items:center;gap:8px;}
     .nav-tab.active{background:linear-gradient(135deg,var(--navy),var(--blue));color:#fff;border-color:var(--navy);box-shadow:var(--shadow);}
     .nav-tab:hover:not(.active){border-color:var(--teal);color:var(--navy);}
     .tab-badge{background:rgba(255,255,255,.25);font-size:.7rem;padding:2px 8px;border-radius:10px;}
     .nav-tab:not(.active) .tab-badge{background:var(--gray-light);color:var(--navy);}
+
+    /* HERO */
     .hero{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:calc(100vh - 145px);padding:3rem 1.5rem;text-align:center;}
     .hero-icon{width:90px;height:90px;background:linear-gradient(135deg,var(--navy),var(--teal));border-radius:50%;display:flex;align-items:center;justify-content:center;margin-bottom:1.5rem;animation:pulse-ring 2.5s ease-in-out infinite;}
     .hero-icon svg{width:44px;height:44px;}
@@ -39,12 +45,16 @@
     .hero-title{font-size:clamp(1.8rem,4vw,2.8rem);font-weight:900;color:var(--navy);margin-bottom:.5rem;}
     .hero-title span{color:var(--teal);}
     .hero-subtitle{font-size:1rem;color:#5575a8;margin-bottom:2.5rem;max-width:480px;line-height:1.7;}
+
+    /* MAIN BUTTON */
     #mainBtn{background:linear-gradient(135deg,var(--navy),var(--blue) 60%,var(--teal));color:#fff;border:none;padding:18px 52px;border-radius:14px;font-family:'Cairo',sans-serif;font-size:1.15rem;font-weight:800;cursor:pointer;box-shadow:0 6px 28px rgba(26,46,110,.35);position:relative;overflow:hidden;transition:transform .18s,box-shadow .18s;display:flex;align-items:center;gap:12px;}
     #mainBtn::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,.18),transparent 60%);border-radius:inherit;}
     #mainBtn:hover{transform:translateY(-3px);box-shadow:0 12px 36px rgba(26,46,110,.45);}
     #mainBtn svg{width:24px;height:24px;}
     #mainBtn .btn-chevron{transition:transform .35s;}
     #mainBtn.open .btn-chevron{transform:rotate(180deg);}
+
+    /* SUBJECTS GRID */
     #subjectsGrid{display:none;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:16px;max-width:860px;width:100%;margin-top:2rem;animation:fadeUp .4s ease;}
     #subjectsGrid.visible{display:grid;}
     @keyframes fadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
@@ -59,6 +69,8 @@
     .subject-btn.active .subj-icon{background:rgba(255,255,255,.18);}
     .subject-btn.active .subj-icon i{color:#fff;}
     .subj-count{font-size:.70rem;font-weight:600;opacity:.6;}
+
+    /* FILES PANEL */
     #filesPanel{display:none;max-width:720px;width:100%;margin-top:2rem;background:var(--white);border-radius:20px;box-shadow:var(--shadow-strong);overflow:hidden;animation:fadeUp .4s ease;}
     #filesPanel.visible{display:block;}
     .files-header{background:linear-gradient(135deg,var(--navy),var(--blue) 70%,var(--teal));padding:18px 24px;display:flex;align-items:center;gap:12px;}
@@ -79,6 +91,8 @@
     .file-download:hover{transform:scale(1.06);box-shadow:0 4px 14px rgba(30,77,183,.35);}
     .empty-state{text-align:center;padding:40px 20px;color:#9ab0d0;}
     .empty-state i{font-size:2.5rem;margin-bottom:12px;opacity:.4;display:block;}
+
+    /* COMMUNITY SECTION */
     #communitySection{display:none;padding:2rem 1.5rem 3rem;max-width:860px;margin:0 auto;position:relative;z-index:1;}
     #communitySection.visible{display:block;}
     .community-header{text-align:center;margin-bottom:2rem;}
@@ -112,6 +126,8 @@
     .loading-spinner{text-align:center;padding:40px;color:#7a96c2;}
     .loading-spinner i{font-size:2rem;animation:spin 1s linear infinite;display:block;margin-bottom:12px;}
     @keyframes spin{to{transform:rotate(360deg);}}
+
+    /* UPLOAD MODAL */
     #uploadModal{display:none;position:fixed;inset:0;z-index:1000;background:rgba(10,20,60,.65);backdrop-filter:blur(6px);align-items:center;justify-content:center;padding:1rem;}
     #uploadModal.open{display:flex;}
     .modal-box{background:var(--white);border-radius:24px;width:100%;max-width:520px;box-shadow:0 20px 60px rgba(26,46,110,.35);overflow:hidden;animation:modalIn .3s ease;max-height:90vh;overflow-y:auto;}
@@ -152,43 +168,19 @@
     .btn-submit{width:100%;background:linear-gradient(135deg,var(--navy),var(--blue),var(--teal));color:#fff;border:none;padding:15px;border-radius:12px;font-family:'Cairo',sans-serif;font-size:1rem;font-weight:800;cursor:pointer;margin-top:8px;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:10px;}
     .btn-submit:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(26,46,110,.35);}
     .btn-submit:disabled{opacity:.6;cursor:not-allowed;transform:none;}
-    #configNotice{display:none;position:fixed;inset:0;z-index:2000;background:rgba(10,20,60,.85);align-items:center;justify-content:center;padding:1rem;}
-    #configNotice.open{display:flex;}
-    .config-box{background:#fff;border-radius:20px;padding:32px;max-width:500px;width:100%;text-align:center;box-shadow:0 20px 60px rgba(26,46,110,.4);}
-    .config-box .ci{font-size:3rem;color:#f59e0b;display:block;margin-bottom:16px;}
-    .config-box h2{font-size:1.3rem;font-weight:900;color:var(--navy);margin-bottom:10px;}
-    .config-box p{color:#5575a8;font-size:.88rem;line-height:1.7;margin-bottom:14px;}
-    .config-box code{display:block;background:#f0f6ff;border-radius:8px;padding:14px;font-size:.75rem;text-align:left;direction:ltr;color:var(--navy);border:1px solid var(--gray-light);margin-bottom:14px;white-space:pre-wrap;line-height:1.6;}
-    .config-box .btn-ok{background:linear-gradient(135deg,var(--navy),var(--blue));color:#fff;border:none;padding:12px 32px;border-radius:10px;font-family:'Cairo',sans-serif;font-size:.9rem;font-weight:700;cursor:pointer;}
+
+    /* TOAST */
     #toast{position:fixed;bottom:2rem;left:50%;transform:translateX(-50%) translateY(100px);background:var(--navy);color:#fff;padding:14px 28px;border-radius:14px;font-size:.9rem;font-weight:700;z-index:3000;transition:transform .35s ease;display:flex;align-items:center;gap:10px;box-shadow:0 8px 28px rgba(26,46,110,.35);white-space:nowrap;}
     #toast.show{transform:translateX(-50%) translateY(0);}
     #toast.success{background:var(--green);}
     #toast.error{background:var(--red);}
+
     footer{position:relative;z-index:1;text-align:center;padding:24px;color:#8099c2;font-size:.78rem;border-top:1px solid var(--gray-light);background:rgba(255,255,255,.6);}
     footer span{color:var(--teal);font-weight:700;}
     @media(max-width:600px){#subjectsGrid{grid-template-columns:repeat(2,1fr)}.header-badge{display:none}.community-file-card{flex-direction:column;align-items:flex-start}.card-actions{width:100%}.btn-dl-community{flex:1;justify-content:center}}
   </style>
 </head>
 <body>
-
-<!-- تنبيه الإعداد -->
-<div id="configNotice">
-  <div class="config-box">
-    <i class="fa-solid fa-triangle-exclamation ci"></i>
-    <h2>يجب إعداد Firebase أولاً</h2>
-    <p>افتح ملف <strong>index.html</strong> وابحث عن التعليق <strong>FIREBASE CONFIG</strong> واستبدل البيانات ببيانات مشروعك من لوحة Firebase:</p>
-    <code>const firebaseConfig = {
-  apiKey: "AIzaSy...",
-  authDomain: "project-id.firebaseapp.com",
-  projectId: "project-id",
-  storageBucket: "project-id.appspot.com",
-  messagingSenderId: "1234567890",
-  appId: "1:123...:web:abc..."
-};</code>
-    <p style="color:#e55;font-size:.8rem;">بعد التعديل احذف هذا التنبيه من الكود (div id="configNotice")</p>
-    <button class="btn-ok" onclick="document.getElementById('configNotice').classList.remove('open')">فهمت — أغلق</button>
-  </div>
-</div>
 
 <header>
   <div class="header-logo">
@@ -232,16 +224,50 @@
     المرحلة الأولى — قسم علوم الحاسوب
     <svg class="btn-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
   </button>
+
   <div id="subjectsGrid">
-    <button class="subject-btn" data-subject="prog" data-label="برمجة متقدمة" onclick="openSubject(this)"><div class="subj-icon"><i class="fa-solid fa-laptop-code"></i></div><span>برمجة متقدمة</span><span class="subj-count" id="count-prog"></span></button>
-    <button class="subject-btn" data-subject="web" data-label="برمجة مواقع نظري" onclick="openSubject(this)"><div class="subj-icon"><i class="fa-solid fa-code"></i></div><span>برمجة مواقع نظري</span><span class="subj-count" id="count-web"></span></button>
-    <button class="subject-btn" data-subject="computer1" data-label="حاسوب نظري" onclick="openSubject(this)"><div class="subj-icon"><i class="fa-solid fa-book-open"></i></div><span>حاسوب نظري</span><span class="subj-count" id="count-computer1"></span></button>
-    <button class="subject-btn" data-subject="computer2" data-label="حاسوب عملي" onclick="openSubject(this)"><div class="subj-icon"><i class="fa-solid fa-desktop"></i></div><span>حاسوب عملي</span><span class="subj-count" id="count-computer2"></span></button>
-    <button class="subject-btn" data-subject="statistics" data-label="مبادئ الاحصاء" onclick="openSubject(this)"><div class="subj-icon"><i class="fa-solid fa-chart-bar"></i></div><span>مبادئ الاحصاء</span><span class="subj-count" id="count-statistics"></span></button>
-    <button class="subject-btn" data-subject="tca" data-label="تركيب حاسوب نظري" onclick="openSubject(this)"><div class="subj-icon"><i class="fa-solid fa-microchip"></i></div><span>تركيب حاسوب نظري</span><span class="subj-count" id="count-tca"></span></button>
-    <button class="subject-btn" data-subject="pcac" data-label="تركيب حاسوب عملي" onclick="openSubject(this)"><div class="subj-icon"><i class="fa-solid fa-screwdriver-wrench"></i></div><span>تركيب حاسوب عملي</span><span class="subj-count" id="count-pcac"></span></button>
-    <button class="subject-btn" data-subject="arbic" data-label="اللغة العربية" onclick="openSubject(this)"><div class="subj-icon"><i class="fa-solid fa-pen-nib"></i></div><span>اللغة العربية</span><span class="subj-count" id="count-arbic"></span></button>
+    <button class="subject-btn" data-subject="prog" data-label="برمجة متقدمة" onclick="openSubject(this)">
+      <div class="subj-icon"><i class="fa-solid fa-laptop-code"></i></div>
+      <span>برمجة متقدمة</span>
+      <span class="subj-count" id="count-prog"></span>
+    </button>
+    <button class="subject-btn" data-subject="web" data-label="برمجة مواقع نظري" onclick="openSubject(this)">
+      <div class="subj-icon"><i class="fa-solid fa-code"></i></div>
+      <span>برمجة مواقع نظري</span>
+      <span class="subj-count" id="count-web"></span>
+    </button>
+    <button class="subject-btn" data-subject="computer1" data-label="حاسوب نظري" onclick="openSubject(this)">
+      <div class="subj-icon"><i class="fa-solid fa-book-open"></i></div>
+      <span>حاسوب نظري</span>
+      <span class="subj-count" id="count-computer1"></span>
+    </button>
+    <button class="subject-btn" data-subject="computer2" data-label="حاسوب عملي" onclick="openSubject(this)">
+      <div class="subj-icon"><i class="fa-solid fa-desktop"></i></div>
+      <span>حاسوب عملي</span>
+      <span class="subj-count" id="count-computer2"></span>
+    </button>
+    <button class="subject-btn" data-subject="statistics" data-label="مبادئ الاحصاء" onclick="openSubject(this)">
+      <div class="subj-icon"><i class="fa-solid fa-chart-bar"></i></div>
+      <span>مبادئ الاحصاء</span>
+      <span class="subj-count" id="count-statistics"></span>
+    </button>
+    <button class="subject-btn" data-subject="tca" data-label="تركيب حاسوب نظري" onclick="openSubject(this)">
+      <div class="subj-icon"><i class="fa-solid fa-microchip"></i></div>
+      <span>تركيب حاسوب نظري</span>
+      <span class="subj-count" id="count-tca"></span>
+    </button>
+    <button class="subject-btn" data-subject="pcac" data-label="تركيب حاسوب عملي" onclick="openSubject(this)">
+      <div class="subj-icon"><i class="fa-solid fa-screwdriver-wrench"></i></div>
+      <span>تركيب حاسوب عملي</span>
+      <span class="subj-count" id="count-pcac"></span>
+    </button>
+    <button class="subject-btn" data-subject="arbic" data-label="اللغة العربية" onclick="openSubject(this)">
+      <div class="subj-icon"><i class="fa-solid fa-pen-nib"></i></div>
+      <span>اللغة العربية</span>
+      <span class="subj-count" id="count-arbic"></span>
+    </button>
   </div>
+
   <div id="filesPanel">
     <div class="files-header">
       <i class="fa-solid fa-file-pdf"></i>
@@ -342,7 +368,7 @@
 </footer>
 
 <!-- ============================================================
-     🔥 FIREBASE SDK — لا تعدّل هذا القسم
+     🔥 FIREBASE SDK
      ============================================================ -->
 <script type="module">
 import { initializeApp }        from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
@@ -352,154 +378,172 @@ import { getStorage, ref, uploadBytesResumable, getDownloadURL, deleteObject }
                                 from "https://www.gstatic.com/firebasejs/10.12.0/firebase-storage.js";
 
 /* ============================================================
-   🔧 FIREBASE CONFIG
-   ← ضع بياناتك هنا بعد إنشاء المشروع من console.firebase.google.com
+   🔧 FIREBASE CONFIG — مأخوذة من مشروعك cs-mosul
    ============================================================ */
 const firebaseConfig = {
-  apiKey:            "ضع-api-key-هنا",
-  authDomain:        "اسم-مشروعك.firebaseapp.com",
-  projectId:         "اسم-مشروعك",
-  storageBucket:     "اسم-مشروعك.appspot.com",
-  messagingSenderId: "ضع-الرقم-هنا",
-  appId:             "ضع-app-id-هنا"
+  apiKey:            "AIzaSyCi0ic6y2_DT9vNCgLi7i_VoV81GSetBsM",
+  authDomain:        "cs-mosul.firebaseapp.com",
+  projectId:         "cs-mosul",
+  storageBucket:     "cs-mosul.firebasestorage.app",
+  messagingSenderId: "585861498448",
+  appId:             "1:585861498448:web:2bf507e94016fada4d3355"
 };
 /* ============================================================ */
 
-const configured = !firebaseConfig.apiKey.includes('ضع');
-if (!configured) document.getElementById('configNotice').classList.add('open');
+const app     = initializeApp(firebaseConfig);
+const db      = getFirestore(app);
+const storage = getStorage(app);
 
-const app     = configured ? initializeApp(firebaseConfig) : null;
-const db      = configured ? getFirestore(app) : null;
-const storage = configured ? getStorage(app) : null;
-
-/* ---- بيانات الملازم الرسمية ---- */
+/* ============================================================
+   📂 بيانات الملازم الرسمية
+   ============================================================ */
 const subjectsData = {
-  prog:[
-    {name:"ملزمة البرمجة المتقدمة — الأولى",  file:"prog1.pdf", size:"847.9 KB"},
-    {name:"ملزمة البرمجة المتقدمة — الثانية", file:"prog2.pdf", size:"794.6 KB"},
-    {name:"ملزمة البرمجة المتقدمة — الثالثة", file:"prog3.pdf", size:"367.4 KB"},
-    {name:"ملزمة البرمجة المتقدمة — الرابعة", file:"prog4.pdf", size:"812.1 KB"},
-    {name:"ملزمة البرمجة المتقدمة — الخامسة", file:"prog5.pdf", size:"738.4 KB"},
+
+  // ✅ برمجة متقدمة — 5 ملفات
+  prog: [
+    { name: "ملزمة البرمجة المتقدمة — الأولى",   file: "prog1.pdf",  size: "847.9 KB" },
+    { name: "ملزمة البرمجة المتقدمة — الثانية",  file: "prog2.pdf",  size: "794.6 KB" },
+    { name: "ملزمة البرمجة المتقدمة — الثالثة",  file: "prog3.pdf",  size: "367.4 KB" },
+    { name: "ملزمة البرمجة المتقدمة — الرابعة",  file: "prog4.pdf",  size: "812.1 KB" },
+    { name: "ملزمة البرمجة المتقدمة — الخامسة",  file: "prog5.pdf",  size: "738.4 KB" },
   ],
-  web:[
-    {name:"ملزمة برمجة المواقع — الأولى",  file:"web1.pdf",size:"1.2 MB"},
-    {name:"ملزمة برمجة المواقع — الثانية", file:"web2.pdf",size:"441.7 KB"},
-    {name:"ملزمة برمجة المواقع — الثالثة", file:"web3.pdf",size:"630.9 KB"},
-    {name:"ملزمة برمجة المواقع — الرابعة", file:"web4.pdf",size:"342.5 KB"},
-    {name:"ملزمة برمجة المواقع — الخامسة", file:"web5.pdf",size:"230.3 KB"},
-    {name:"ملزمة برمجة المواقع — السادسة", file:"web6.pdf",size:"399.7 KB"},
-    {name:"ملزمة برمجة المواقع — السابعة", file:"web7.pdf",size:"211.8 KB"},
+
+  // ✅ برمجة مواقع نظري — 7 ملفات
+  web: [
+    { name: "ملزمة برمجة المواقع — الأولى",   file: "web1.pdf",  size: "1.2 MB" },
+    { name: "ملزمة برمجة المواقع — الثانية",  file: "web2.pdf",  size: "441.7 KB" },
+    { name: "ملزمة برمجة المواقع — الثالثة",  file: "web3.pdf",  size: "630.9 KB" },
+    { name: "ملزمة برمجة المواقع — الرابعة",  file: "web4.pdf",  size: "342.5 KB" },
+    { name: "ملزمة برمجة المواقع — الخامسة",  file: "web5.pdf",  size: "230.3 KB" },
+    { name: "ملزمة برمجة المواقع — السادسة",  file: "web6.pdf",  size: "399.7 KB" },
+    { name: "ملزمة برمجة المواقع — السابعة",  file: "web7.pdf",  size: "211.8 KB" },
   ],
-  computer1:[
-    {name:"ملزمة حاسوب نظري — الأولى والثانية",file:"computer 1ملزمة اولى وثانية.pdf",size:"1.6 MB"},
-    {name:"ملزمة حاسوب نظري — الثالثة",        file:"computer 1ملزمة ثالثة.pdf",       size:"627.1 KB"},
-    {name:"ملزمة حاسوب نظري — الرابعة",        file:"computer 1ملزمة رابعة.pdf",       size:"621.6 KB"},
-    {name:"ملزمة حاسوب نظري — الخامسة",        file:"computer 1ملزمة خامسة.pdf",       size:"661.6 KB"},
-    {name:"ملزمة حاسوب نظري — السادسة",        file:"computer 1ملزمة سادسة.pdf",       size:"374.0 KB"},
-    {name:"ملزمة حاسوب نظري — السابعة",        file:"computer 1ملزمة سابعة.pdf",       size:"631.1 KB"},
+
+  // ✅ حاسوب نظري — 6 ملفات
+  computer1: [
+    { name: "ملزمة حاسوب نظري — الأولى والثانية", file: "computer 1ملزمة اولى وثانية.pdf", size: "1.6 MB" },
+    { name: "ملزمة حاسوب نظري — الثالثة",          file: "computer 1ملزمة ثالثة.pdf",        size: "627.1 KB" },
+    { name: "ملزمة حاسوب نظري — الرابعة",          file: "computer 1ملزمة رابعة.pdf",        size: "621.6 KB" },
+    { name: "ملزمة حاسوب نظري — الخامسة",          file: "computer 1ملزمة خامسة.pdf",        size: "661.6 KB" },
+    { name: "ملزمة حاسوب نظري — السادسة",          file: "computer 1ملزمة سادسة.pdf",        size: "374.0 KB" },
+    { name: "ملزمة حاسوب نظري — السابعة",          file: "computer 1ملزمة سابعة.pdf",        size: "631.1 KB" },
   ],
-  computer2:[
-    {name:"ملزمة حاسوب عملي — الأولى",  file:"computer 2ملزمة الاولى.pdf", size:"1.3 MB"},
-    {name:"ملزمة حاسوب عملي — الثانية", file:"computer 2ملزمة الثانية.pdf",size:"1.7 MB"},
-    {name:"ملزمة حاسوب عملي — الثالثة", file:"computer 2ملزمة ثالثة.pdf",  size:"1.8 MB"},
-    {name:"ملزمة حاسوب عملي — الرابعة", file:"computer 2ملزمة رابعة.pdf",  size:"1.2 MB"},
-    {name:"ملزمة حاسوب عملي — الخامسة", file:"computer 2ملزمة خامسة.pdf",  size:"1.5 MB"},
-    {name:"ملزمة حاسوب عملي — السادسة", file:"computer 2ملزمة سادسة.pdf",  size:"1.9 MB"},
+
+  // ✅ حاسوب عملي — 6 ملفات
+  computer2: [
+    { name: "ملزمة حاسوب عملي — الأولى",   file: "computer 2ملزمة الاولى.pdf",  size: "1.3 MB" },
+    { name: "ملزمة حاسوب عملي — الثانية",  file: "computer 2ملزمة الثانية.pdf", size: "1.7 MB" },
+    { name: "ملزمة حاسوب عملي — الثالثة",  file: "computer 2ملزمة ثالثة.pdf",   size: "1.8 MB" },
+    { name: "ملزمة حاسوب عملي — الرابعة",  file: "computer 2ملزمة رابعة.pdf",   size: "1.2 MB" },
+    { name: "ملزمة حاسوب عملي — الخامسة",  file: "computer 2ملزمة خامسة.pdf",   size: "1.5 MB" },
+    { name: "ملزمة حاسوب عملي — السادسة",  file: "computer 2ملزمة سادسة.pdf",   size: "1.9 MB" },
   ],
-  statistics:[
-    {name:"ملزمة الاحصاء — 1", file:"statistics1.pdf", size:"868.3 KB"},
-    {name:"ملزمة الاحصاء — 2", file:"statistics2.pdf", size:"729.3 KB"},
-    {name:"ملزمة الاحصاء — 3", file:"statistics3.pdf", size:"712.6 KB"},
-    {name:"ملزمة الاحصاء — 4", file:"statistics4.pdf", size:"672.5 KB"},
-    {name:"ملزمة الاحصاء — 5", file:"statistics5.pdf", size:"1.1 MB"},
-    {name:"ملزمة الاحصاء — 6", file:"statistics6.pdf", size:"1.0 MB"},
-    {name:"ملزمة الاحصاء — 8", file:"statistics8.pdf", size:"1.2 MB"},
-    {name:"ملزمة الاحصاء — 9", file:"statistics9.pdf", size:"1.1 MB"},
-    {name:"ملزمة الاحصاء — 10",file:"statistics10.pdf",size:"1.1 MB"},
+
+  // ✅ مبادئ الاحصاء — 9 ملفات (لا يوجد 7)
+  statistics: [
+    { name: "ملزمة الاحصاء — 1",  file: "statistics1.pdf",  size: "868.3 KB" },
+    { name: "ملزمة الاحصاء — 2",  file: "statistics2.pdf",  size: "729.3 KB" },
+    { name: "ملزمة الاحصاء — 3",  file: "statistics3.pdf",  size: "712.6 KB" },
+    { name: "ملزمة الاحصاء — 4",  file: "statistics4.pdf",  size: "672.5 KB" },
+    { name: "ملزمة الاحصاء — 5",  file: "statistics5.pdf",  size: "1.1 MB" },
+    { name: "ملزمة الاحصاء — 6",  file: "statistics6.pdf",  size: "1.0 MB" },
+    { name: "ملزمة الاحصاء — 8",  file: "statistics8.pdf",  size: "1.2 MB" },
+    { name: "ملزمة الاحصاء — 9",  file: "statistics9.pdf",  size: "1.1 MB" },
+    { name: "ملزمة الاحصاء — 10", file: "statistics10.pdf", size: "1.1 MB" },
   ],
-  tca:[
-    {name:"ملزمة تركيب حاسوب نظري — 1",file:"tca1.pdf",size:"3.8 MB"},
-    {name:"ملزمة تركيب حاسوب نظري — 2",file:"tca2.pdf",size:"1.7 MB"},
-    {name:"ملزمة تركيب حاسوب نظري — 4",file:"tca4.pdf",size:"1.7 MB"},
-    {name:"ملزمة تركيب حاسوب نظري — 5",file:"tca5.pdf",size:"2.6 MB"},
-    {name:"ملزمة تركيب حاسوب نظري — 6",file:"tca6.pdf",size:"1.9 MB"},
-    {name:"ملزمة تركيب حاسوب نظري — 7",file:"tca7.pdf",size:"1.8 MB"},
+
+  // ✅ تركيب حاسوب نظري — 6 ملفات (لا يوجد 3)
+  tca: [
+    { name: "ملزمة تركيب حاسوب نظري — 1", file: "tca1.pdf", size: "3.8 MB" },
+    { name: "ملزمة تركيب حاسوب نظري — 2", file: "tca2.pdf", size: "1.7 MB" },
+    { name: "ملزمة تركيب حاسوب نظري — 4", file: "tca4.pdf", size: "1.7 MB" },
+    { name: "ملزمة تركيب حاسوب نظري — 5", file: "tca5.pdf", size: "2.6 MB" },
+    { name: "ملزمة تركيب حاسوب نظري — 6", file: "tca6.pdf", size: "1.9 MB" },
+    { name: "ملزمة تركيب حاسوب نظري — 7", file: "tca7.pdf", size: "1.8 MB" },
   ],
-  pcac:[
-    {name:"ملزمة تركيب حاسوب عملي — 1",file:"pcac1.pdf",size:"628.2 KB"},
-    {name:"ملزمة تركيب حاسوب عملي — 2",file:"pcac2.pdf",size:"933.9 KB"},
-    {name:"ملزمة تركيب حاسوب عملي — 3",file:"pcac3.pdf",size:"853.7 KB"},
-    {name:"ملزمة تركيب حاسوب عملي — 4",file:"pcac4.pdf",size:"885.3 KB"},
-    {name:"ملزمة تركيب حاسوب عملي — 5",file:"pcac5.pdf",size:"819.3 KB"},
+
+  // ✅ تركيب حاسوب عملي — 5 ملفات
+  pcac: [
+    { name: "ملزمة تركيب حاسوب عملي — 1", file: "pcac1.pdf", size: "628.2 KB" },
+    { name: "ملزمة تركيب حاسوب عملي — 2", file: "pcac2.pdf", size: "933.9 KB" },
+    { name: "ملزمة تركيب حاسوب عملي — 3", file: "pcac3.pdf", size: "853.7 KB" },
+    { name: "ملزمة تركيب حاسوب عملي — 4", file: "pcac4.pdf", size: "885.3 KB" },
+    { name: "ملزمة تركيب حاسوب عملي — 5", file: "pcac5.pdf", size: "819.3 KB" },
   ],
-  arbic:[{name:"ملزمة اللغة العربية",file:"arbic.pdf",size:"8.3 MB"}],
+
+  // ✅ اللغة العربية — 1 ملف
+  arbic: [
+    { name: "ملزمة اللغة العربية", file: "arbic.pdf", size: "8.3 MB" },
+  ],
 };
 
 const subjectLabels = {
-  prog:'برمجة متقدمة',web:'برمجة مواقع نظري',computer1:'حاسوب نظري',
-  computer2:'حاسوب عملي',statistics:'مبادئ الاحصاء',tca:'تركيب حاسوب نظري',
-  pcac:'تركيب حاسوب عملي',arbic:'اللغة العربية',other:'أخرى'
+  prog:'برمجة متقدمة', web:'برمجة مواقع نظري', computer1:'حاسوب نظري',
+  computer2:'حاسوب عملي', statistics:'مبادئ الاحصاء', tca:'تركيب حاسوب نظري',
+  pcac:'تركيب حاسوب عملي', arbic:'اللغة العربية', other:'أخرى'
 };
 
 /* ---- STATE ---- */
 let selectedFile = null, shareEnabled = false, activeFilter = 'all';
 let allCommunityFiles = [];
 
+/* ---- عدادات الملازم الرسمية ---- */
+document.querySelectorAll('.subject-btn').forEach(btn => {
+  const el = document.getElementById('count-' + btn.dataset.subject);
+  if (el) el.textContent = (subjectsData[btn.dataset.subject] || []).length + ' ملف';
+});
+
 function getSid() {
   let s = sessionStorage.getItem('csm_sid');
-  if (!s) { s='u_'+Date.now().toString(36)+Math.random().toString(36).slice(2); sessionStorage.setItem('csm_sid',s); }
+  if (!s) { s = 'u_' + Date.now().toString(36) + Math.random().toString(36).slice(2); sessionStorage.setItem('csm_sid', s); }
   return s;
 }
 
-function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+function esc(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 
-function showToast(msg,type=''){
-  const t=document.getElementById('toast');
-  t.textContent=msg; t.className='show '+type;
-  setTimeout(()=>t.className='',3500);
+function showToast(msg, type='') {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.className = 'show ' + type;
+  setTimeout(() => t.className = '', 3500);
 }
-
-/* ---- عدادات الملازم الرسمية ---- */
-document.querySelectorAll('.subject-btn').forEach(btn=>{
-  const el=document.getElementById('count-'+btn.dataset.subject);
-  if(el) el.textContent=(subjectsData[btn.dataset.subject]||[]).length+' ملف';
-});
 
 /* ---- Drag & Drop ---- */
-const dz=document.getElementById('dropZone');
-dz.addEventListener('dragover',e=>{e.preventDefault();dz.classList.add('dragover');});
-dz.addEventListener('dragleave',()=>dz.classList.remove('dragover'));
-dz.addEventListener('drop',e=>{e.preventDefault();dz.classList.remove('dragover');const f=e.dataTransfer.files[0];if(f)processFile(f);});
+const dz = document.getElementById('dropZone');
+dz.addEventListener('dragover', e => { e.preventDefault(); dz.classList.add('dragover'); });
+dz.addEventListener('dragleave', () => dz.classList.remove('dragover'));
+dz.addEventListener('drop', e => {
+  e.preventDefault(); dz.classList.remove('dragover');
+  const f = e.dataTransfer.files[0]; if (f) processFile(f);
+});
 
 /* ========== FIRESTORE — تحميل ملفات المجتمع ========== */
-async function loadCommunity(){
-  if(!db){renderCommunity([]);return;}
-  try{
-    const q=query(collection(db,'uploads'),where('shared','==',true),orderBy('ts','desc'));
-    const snap=await getDocs(q);
-    allCommunityFiles=snap.docs.map(d=>({id:d.id,...d.data()}));
-    document.getElementById('communityBadge').textContent=allCommunityFiles.length;
+async function loadCommunity() {
+  try {
+    const q = query(collection(db, 'uploads'), where('shared', '==', true), orderBy('ts', 'desc'));
+    const snap = await getDocs(q);
+    allCommunityFiles = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+    document.getElementById('communityBadge').textContent = allCommunityFiles.length;
     renderCommunity(allCommunityFiles);
-  }catch(e){
-    document.getElementById('communityList').innerHTML=`<div class="community-empty"><i class="fa-solid fa-circle-exclamation"></i><h3>تعذر التحميل</h3><p>تأكد من إعداد Firebase بشكل صحيح وتفعيل Firestore و Storage</p></div>`;
+  } catch(e) {
+    document.getElementById('communityList').innerHTML = `<div class="community-empty"><i class="fa-solid fa-circle-exclamation"></i><h3>تعذر التحميل</h3><p>تأكد من إعداد Firebase بشكل صحيح وتفعيل Firestore و Storage</p></div>`;
   }
 }
 
-function renderCommunity(files){
-  const container=document.getElementById('communityList');
-  let list=activeFilter==='all'?files:files.filter(f=>f.subject===activeFilter);
-  if(!list.length){
-    container.innerHTML=`<div class="community-empty"><i class="fa-solid fa-box-open"></i><h3>لا توجد مشاركات بعد</h3><p>كن أول من يشارك ملزمة! اضغط على "رفع ملزمة" في الأعلى</p></div>`;
+function renderCommunity(files) {
+  const container = document.getElementById('communityList');
+  let list = activeFilter === 'all' ? files : files.filter(f => f.subject === activeFilter);
+  if (!list.length) {
+    container.innerHTML = `<div class="community-empty"><i class="fa-solid fa-box-open"></i><h3>لا توجد مشاركات بعد</h3><p>كن أول من يشارك ملزمة! اضغط على "رفع ملزمة" في الأعلى</p></div>`;
     return;
   }
-  const sid=getSid();
-  container.innerHTML=list.map(f=>`
+  const sid = getSid();
+  container.innerHTML = list.map(f => `
     <div class="community-file-card" id="card-${f.id}">
       <div class="file-icon green"><i class="fa-solid fa-file-pdf"></i></div>
       <div class="card-body">
         <div class="card-title">${esc(f.title)}</div>
         <div class="card-meta">
-          <span class="meta-badge badge-subject"><i class="fa-solid fa-tag"></i> ${subjectLabels[f.subject]||f.subject}</span>
+          <span class="meta-badge badge-subject"><i class="fa-solid fa-tag"></i> ${subjectLabels[f.subject] || f.subject}</span>
           <span class="meta-badge badge-uploader"><i class="fa-solid fa-user"></i> ${esc(f.uploader)}</span>
           <span class="meta-badge badge-date"><i class="fa-regular fa-calendar"></i> ${f.date}</span>
           <span class="meta-badge badge-size"><i class="fa-solid fa-weight-hanging"></i> ${f.size}</span>
@@ -509,160 +553,161 @@ function renderCommunity(files){
         <a class="btn-dl-community" href="${f.downloadUrl}" target="_blank" rel="noopener">
           <i class="fa-solid fa-download"></i> تحميل
         </a>
-        ${f.sessionId===sid?`<button class="btn-delete-community" onclick="window.__del('${f.id}','${f.storagePath}')" title="حذف"><i class="fa-solid fa-trash"></i></button>`:''}
+        ${f.sessionId === sid ? `<button class="btn-delete-community" onclick="window.__del('${f.id}','${f.storagePath}')" title="حذف"><i class="fa-solid fa-trash"></i></button>` : ''}
       </div>
     </div>`).join('');
 }
 
 /* ========== FIREBASE STORAGE — رفع ملف ========== */
-async function submitUpload(){
-  const name   =document.getElementById('uploaderName').value.trim();
-  const title  =document.getElementById('uploadTitle').value.trim();
-  const subject=document.getElementById('uploadSubject').value;
-  if(!name)   {showToast('الرجاء كتابة اسمك','error');return;}
-  if(!title)  {showToast('الرجاء كتابة اسم الملزمة','error');return;}
-  if(!subject){showToast('الرجاء اختيار المادة','error');return;}
-  if(!selectedFile){showToast('الرجاء اختيار ملف','error');return;}
-  if(!configured){showToast('يجب إعداد Firebase أولاً!','error');return;}
+async function submitUpload() {
+  const name    = document.getElementById('uploaderName').value.trim();
+  const title   = document.getElementById('uploadTitle').value.trim();
+  const subject = document.getElementById('uploadSubject').value;
+  if (!name)    { showToast('الرجاء كتابة اسمك', 'error'); return; }
+  if (!title)   { showToast('الرجاء كتابة اسم الملزمة', 'error'); return; }
+  if (!subject) { showToast('الرجاء اختيار المادة', 'error'); return; }
+  if (!selectedFile) { showToast('الرجاء اختيار ملف', 'error'); return; }
 
-  const btn=document.getElementById('submitBtn');
-  btn.disabled=true;
-  btn.innerHTML='<i class="fa-solid fa-spinner fa-spin"></i> جاري الرفع...';
+  const btn = document.getElementById('submitBtn');
+  btn.disabled = true;
+  btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> جاري الرفع...';
   document.getElementById('uploadProgress').classList.add('visible');
-  const fill=document.getElementById('progressFill');
-  const pText=document.getElementById('progressText');
+  const fill  = document.getElementById('progressFill');
+  const pText = document.getElementById('progressText');
 
-  try{
-    const safeName=Date.now()+'_'+selectedFile.name.replace(/[^\w.\-]/g,'_');
-    const path='uploads/'+subject+'/'+safeName;
-    const task=uploadBytesResumable(ref(storage,path),selectedFile);
+  try {
+    const safeName = Date.now() + '_' + selectedFile.name.replace(/[^\w.\-]/g, '_');
+    const path = 'uploads/' + subject + '/' + safeName;
+    const task = uploadBytesResumable(ref(storage, path), selectedFile);
 
-    await new Promise((res,rej)=>{
+    await new Promise((res, rej) => {
       task.on('state_changed',
-        s=>{const p=Math.round(s.bytesTransferred/s.totalBytes*100);fill.style.width=p+'%';pText.textContent='جاري الرفع... '+p+'%';},
+        s => { const p = Math.round(s.bytesTransferred / s.totalBytes * 100); fill.style.width = p + '%'; pText.textContent = 'جاري الرفع... ' + p + '%'; },
         rej, res
       );
     });
 
-    fill.style.width='100%'; pText.textContent='اكتمل الرفع ✓';
-    const url=await getDownloadURL(task.snapshot.ref);
-    const sz=selectedFile.size>1048576?(selectedFile.size/1048576).toFixed(1)+' MB':Math.round(selectedFile.size/1024)+' KB';
-    const date=new Date().toLocaleDateString('ar-IQ',{year:'numeric',month:'short',day:'numeric'});
+    fill.style.width = '100%'; pText.textContent = 'اكتمل الرفع ✓';
+    const url = await getDownloadURL(task.snapshot.ref);
+    const sz  = selectedFile.size > 1048576 ? (selectedFile.size / 1048576).toFixed(1) + ' MB' : Math.round(selectedFile.size / 1024) + ' KB';
+    const date = new Date().toLocaleDateString('ar-IQ', { year: 'numeric', month: 'short', day: 'numeric' });
 
-    await addDoc(collection(db,'uploads'),{
-      sessionId:getSid(), uploader:name, title, subject,
-      fileName:selectedFile.name, size:sz, date,
-      downloadUrl:url, storagePath:path,
-      shared:shareEnabled, ts:Date.now()
+    await addDoc(collection(db, 'uploads'), {
+      sessionId: getSid(), uploader: name, title, subject,
+      fileName: selectedFile.name, size: sz, date,
+      downloadUrl: url, storagePath: path,
+      shared: shareEnabled, ts: Date.now()
     });
 
-    setTimeout(async()=>{
+    setTimeout(async () => {
       closeUploadModal();
-      showToast(shareEnabled?'تم الرفع ونشر الملزمة بنجاح! 🎉':'تم حفظ الملزمة بنجاح','success');
-      if(shareEnabled){switchTab('community');}
+      showToast(shareEnabled ? 'تم الرفع ونشر الملزمة بنجاح! 🎉' : 'تم حفظ الملزمة بنجاح', 'success');
+      if (shareEnabled) { switchTab('community'); }
       await loadCommunity();
-    },500);
+    }, 500);
 
-  }catch(err){
+  } catch(err) {
     console.error(err);
-    showToast('فشل الرفع — '+err.message,'error');
-    btn.disabled=false;
-    btn.innerHTML='<i class="fa-solid fa-cloud-arrow-up"></i> رفع الملزمة';
+    showToast('فشل الرفع — ' + err.message, 'error');
+    btn.disabled = false;
+    btn.innerHTML = '<i class="fa-solid fa-cloud-arrow-up"></i> رفع الملزمة';
   }
 }
 
 /* ========== حذف ملف ========== */
-async function deleteFile(docId,storagePath){
-  if(!confirm('هل تريد حذف هذه الملزمة نهائياً؟'))return;
-  try{
-    await deleteDoc(doc(db,'uploads',docId));
-    try{await deleteObject(ref(storage,storagePath));}catch(_){}
-    document.getElementById('card-'+docId)?.remove();
-    showToast('تم الحذف بنجاح','success');
+async function deleteFile(docId, storagePath) {
+  if (!confirm('هل تريد حذف هذه الملزمة نهائياً؟')) return;
+  try {
+    await deleteDoc(doc(db, 'uploads', docId));
+    try { await deleteObject(ref(storage, storagePath)); } catch(_) {}
+    document.getElementById('card-' + docId)?.remove();
+    showToast('تم الحذف بنجاح', 'success');
     await loadCommunity();
-  }catch(err){showToast('فشل الحذف: '+err.message,'error');}
+  } catch(err) { showToast('فشل الحذف: ' + err.message, 'error'); }
 }
-window.__del=deleteFile;
+window.__del = deleteFile;
 
 /* ========== UI HELPERS ========== */
-function processFile(f){
-  if(f.size>52428800){showToast('حجم الملف يتجاوز 50 ميغا!','error');return;}
-  selectedFile=f;
+function processFile(f) {
+  if (f.size > 52428800) { showToast('حجم الملف يتجاوز 50 ميغا!', 'error'); return; }
+  selectedFile = f;
   document.getElementById('dropZone').classList.add('has-file');
-  const s=f.size>1048576?(f.size/1048576).toFixed(1)+' MB':Math.round(f.size/1024)+' KB';
-  document.getElementById('dzSub').textContent='✓ '+f.name+' · '+s;
+  const s = f.size > 1048576 ? (f.size / 1048576).toFixed(1) + ' MB' : Math.round(f.size / 1024) + ' KB';
+  document.getElementById('dzSub').textContent = '✓ ' + f.name + ' · ' + s;
 }
 
-function resetModal(){
-  ['uploaderName','uploadTitle'].forEach(id=>document.getElementById(id).value='');
-  document.getElementById('uploadSubject').value='';
-  document.getElementById('fileInput').value='';
-  selectedFile=null; shareEnabled=false;
+function resetModal() {
+  ['uploaderName', 'uploadTitle'].forEach(id => document.getElementById(id).value = '');
+  document.getElementById('uploadSubject').value = '';
+  document.getElementById('fileInput').value = '';
+  selectedFile = null; shareEnabled = false;
   document.getElementById('dropZone').classList.remove('has-file');
-  document.getElementById('dzSub').textContent='PDF · صور · Word — حتى 50 ميغا';
+  document.getElementById('dzSub').textContent = 'PDF · صور · Word — حتى 50 ميغا';
   document.getElementById('shareToggle').classList.remove('enabled');
   document.getElementById('uploadProgress').classList.remove('visible');
-  document.getElementById('progressFill').style.width='0%';
-  const b=document.getElementById('submitBtn');
-  b.disabled=false; b.innerHTML='<i class="fa-solid fa-cloud-arrow-up"></i> رفع الملزمة';
+  document.getElementById('progressFill').style.width = '0%';
+  const b = document.getElementById('submitBtn');
+  b.disabled = false; b.innerHTML = '<i class="fa-solid fa-cloud-arrow-up"></i> رفع الملزمة';
 }
 
-/* ========== GLOBAL FUNCTIONS (مستدعاة من HTML) ========== */
-window.handleFileSelect = e=>{const f=e.target.files[0];if(f)processFile(f);};
+/* ========== GLOBAL FUNCTIONS ========== */
+window.handleFileSelect = e => { const f = e.target.files[0]; if (f) processFile(f); };
 window.submitUpload     = submitUpload;
-window.toggleShare      = ()=>{shareEnabled=!shareEnabled;document.getElementById('shareToggle').classList.toggle('enabled',shareEnabled);};
-window.openUploadModal  = ()=>{document.getElementById('uploadModal').classList.add('open');document.body.style.overflow='hidden';};
-window.closeUploadModal = ()=>{document.getElementById('uploadModal').classList.remove('open');document.body.style.overflow='';resetModal();};
+window.toggleShare      = () => { shareEnabled = !shareEnabled; document.getElementById('shareToggle').classList.toggle('enabled', shareEnabled); };
+window.openUploadModal  = () => { document.getElementById('uploadModal').classList.add('open'); document.body.style.overflow = 'hidden'; };
+window.closeUploadModal = () => { document.getElementById('uploadModal').classList.remove('open'); document.body.style.overflow = ''; resetModal(); };
 
-window.switchTab = tab=>{
-  document.getElementById('librarySection').style.display=tab==='library'?'':'none';
-  document.getElementById('communitySection').classList.toggle('visible',tab==='community');
-  document.getElementById('tab-library').classList.toggle('active',tab==='library');
-  document.getElementById('tab-community').classList.toggle('active',tab==='community');
-  if(tab==='community')loadCommunity();
+window.switchTab = tab => {
+  document.getElementById('librarySection').style.display = tab === 'library' ? '' : 'none';
+  document.getElementById('communitySection').classList.toggle('visible', tab === 'community');
+  document.getElementById('tab-library').classList.toggle('active', tab === 'library');
+  document.getElementById('tab-community').classList.toggle('active', tab === 'community');
+  if (tab === 'community') loadCommunity();
 };
 
-window.filterCommunity = chip=>{
-  document.querySelectorAll('.filter-chip').forEach(c=>c.classList.remove('active'));
+window.filterCommunity = chip => {
+  document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
   chip.classList.add('active');
-  activeFilter=chip.dataset.filter;
+  activeFilter = chip.dataset.filter;
   renderCommunity(allCommunityFiles);
 };
 
-window.toggleSubjects = ()=>{
-  const btn=document.getElementById('mainBtn');
-  const grid=document.getElementById('subjectsGrid');
-  const panel=document.getElementById('filesPanel');
-  if(grid.classList.contains('visible')){
-    grid.classList.remove('visible');panel.classList.remove('visible');btn.classList.remove('open');
-    document.querySelectorAll('.subject-btn').forEach(b=>b.classList.remove('active'));
-  }else{
-    grid.classList.add('visible');btn.classList.add('open');
-    setTimeout(()=>grid.scrollIntoView({behavior:'smooth',block:'center'}),120);
+window.toggleSubjects = () => {
+  const btn   = document.getElementById('mainBtn');
+  const grid  = document.getElementById('subjectsGrid');
+  const panel = document.getElementById('filesPanel');
+  if (grid.classList.contains('visible')) {
+    grid.classList.remove('visible'); panel.classList.remove('visible'); btn.classList.remove('open');
+    document.querySelectorAll('.subject-btn').forEach(b => b.classList.remove('active'));
+  } else {
+    grid.classList.add('visible'); btn.classList.add('open');
+    setTimeout(() => grid.scrollIntoView({ behavior: 'smooth', block: 'center' }), 120);
   }
 };
 
-window.openSubject = btn=>{
-  document.querySelectorAll('.subject-btn').forEach(b=>b.classList.remove('active'));
+window.openSubject = btn => {
+  document.querySelectorAll('.subject-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
-  const key=btn.dataset.subject, files=subjectsData[key]||[];
-  const panel=document.getElementById('filesPanel');
-  document.getElementById('panelTitle').textContent='مادة: '+btn.dataset.label;
-  document.getElementById('panelSub').textContent='المرحلة الأولى — قسم علوم الحاسوب';
-  document.getElementById('filesCount').textContent=files.length+' ملف';
-  document.getElementById('filesList').innerHTML=files.length===0
-    ?`<div class="empty-state"><i class="fa-solid fa-circle-info"></i><p>لا توجد ملفات بعد</p></div>`
-    :files.map(f=>`
+  const key = btn.dataset.subject, files = subjectsData[key] || [];
+  const panel = document.getElementById('filesPanel');
+  document.getElementById('panelTitle').textContent = 'مادة: ' + btn.dataset.label;
+  document.getElementById('panelSub').textContent   = 'المرحلة الأولى — قسم علوم الحاسوب';
+  document.getElementById('filesCount').textContent = files.length + ' ملف';
+  document.getElementById('filesList').innerHTML = files.length === 0
+    ? `<div class="empty-state"><i class="fa-solid fa-circle-info"></i><p>لا توجد ملفات بعد</p></div>`
+    : files.map(f => `
       <div class="file-item">
         <div class="file-icon"><i class="fa-solid fa-file-pdf"></i></div>
-        <div class="file-info"><div class="file-name">${f.name}</div><div class="file-meta">PDF &nbsp;·&nbsp; ${f.size||''}</div></div>
+        <div class="file-info"><div class="file-name">${f.name}</div><div class="file-meta">PDF &nbsp;·&nbsp; ${f.size || ''}</div></div>
         <a class="file-download" href="${f.file}" download="${f.name}"><i class="fa-solid fa-download"></i> تحميل</a>
       </div>`).join('');
   panel.classList.add('visible');
-  setTimeout(()=>panel.scrollIntoView({behavior:'smooth',block:'nearest'}),100);
+  setTimeout(() => panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 100);
 };
 
-document.getElementById('uploadModal').addEventListener('click',e=>{if(e.target===document.getElementById('uploadModal'))window.closeUploadModal();});
+document.getElementById('uploadModal').addEventListener('click', e => {
+  if (e.target === document.getElementById('uploadModal')) window.closeUploadModal();
+});
 
 /* ---- تحميل مشاركات الطلاب عند البدء ---- */
 loadCommunity();
