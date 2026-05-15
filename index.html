@@ -14,7 +14,6 @@
       --shadow: 0 4px 24px rgba(26,46,110,0.13);
       --shadow-strong: 0 8px 40px rgba(26,46,110,0.22);
       --green: #16a34a; --green-light: #dcfce7;
-      --orange: #ea580c; --orange-light: #fff7ed;
       --red: #dc2626;
     }
     * { margin:0; padding:0; box-sizing:border-box; }
@@ -26,7 +25,6 @@
       pointer-events:none; z-index:0;
     }
 
-    /* HEADER */
     header {
       background: linear-gradient(135deg, var(--navy) 0%, var(--blue) 60%, var(--teal) 100%);
       padding:0 2rem; display:flex; align-items:center; justify-content:space-between;
@@ -39,14 +37,11 @@
     .header-text p  { font-size:0.72rem; color:var(--teal-light); font-weight:500; }
     .header-badge { background:rgba(255,255,255,0.12); border:1px solid rgba(255,255,255,0.25); color:#fff; font-size:0.75rem; font-weight:700; padding:6px 16px; border-radius:20px; }
 
-    /* NAV TABS */
-    .main-nav { position:relative; z-index:10; background:var(--white); border-bottom:2px solid var(--gray-light); display:flex; justify-content:center; gap:0; }
+    .main-nav { position:relative; z-index:10; background:var(--white); border-bottom:2px solid var(--gray-light); display:flex; justify-content:center; }
     .nav-tab { padding:14px 32px; font-family:'Cairo',sans-serif; font-size:0.9rem; font-weight:700; color:#7a96c2; border:none; background:transparent; cursor:pointer; border-bottom:3px solid transparent; margin-bottom:-2px; transition:all 0.22s; display:flex; align-items:center; gap:8px; }
     .nav-tab:hover { color:var(--blue); }
     .nav-tab.active { color:var(--navy); border-bottom-color:var(--teal); }
-    .nav-tab i { font-size:1rem; }
 
-    /* PAGES */
     .page { display:none; }
     .page.active { display:block; }
 
@@ -62,7 +57,6 @@
     .hero-title span { color:var(--teal); }
     .hero-subtitle { font-size:1rem; color:#5575a8; margin-bottom:2.5rem; max-width:480px; line-height:1.7; }
 
-    /* MAIN BUTTON */
     #mainBtn {
       background:linear-gradient(135deg,var(--navy) 0%,var(--blue) 60%,var(--teal) 100%);
       color:#fff; border:none; padding:18px 52px; border-radius:14px;
@@ -72,49 +66,26 @@
     }
     #mainBtn::before { content:''; position:absolute; inset:0; background:linear-gradient(135deg,rgba(255,255,255,0.18) 0%,transparent 60%); border-radius:inherit; }
     #mainBtn:hover { transform:translateY(-3px); box-shadow:0 12px 36px rgba(26,46,110,0.45); }
-    #mainBtn svg { width:24px; height:24px; }
     #mainBtn .btn-chevron { transition:transform 0.35s; }
     #mainBtn.open .btn-chevron { transform:rotate(180deg); }
 
-    /* SUBJECTS GRID */
-    #subjectsGrid {
-      display:none; grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
-      gap:16px; max-width:860px; width:100%; margin-top:2rem;
-      animation:fadeUp 0.4s ease;
-    }
+    #subjectsGrid { display:none; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:16px; max-width:860px; width:100%; margin-top:2rem; animation:fadeUp 0.4s ease; }
     #subjectsGrid.visible { display:grid; }
     @keyframes fadeUp { from{opacity:0;transform:translateY(22px)} to{opacity:1;transform:translateY(0)} }
 
-    .subject-btn {
-      background:var(--white); border:2px solid var(--gray-light); border-radius:16px;
-      padding:20px 14px 16px; cursor:pointer; text-align:center;
-      font-family:'Cairo',sans-serif; font-size:0.92rem; font-weight:700; color:var(--navy);
-      box-shadow:var(--shadow); transition:all 0.22s;
-      display:flex; flex-direction:column; align-items:center; gap:10px;
-      position:relative; overflow:hidden;
-    }
+    .subject-btn { background:var(--white); border:2px solid var(--gray-light); border-radius:16px; padding:20px 14px 16px; cursor:pointer; text-align:center; font-family:'Cairo',sans-serif; font-size:0.92rem; font-weight:700; color:var(--navy); box-shadow:var(--shadow); transition:all 0.22s; display:flex; flex-direction:column; align-items:center; gap:10px; position:relative; overflow:hidden; }
     .subject-btn::after { content:''; position:absolute; bottom:0; left:0; right:0; height:3px; background:linear-gradient(90deg,var(--blue),var(--teal)); transform:scaleX(0); transition:transform 0.25s; transform-origin:right; }
     .subject-btn:hover { border-color:var(--teal); transform:translateY(-4px); box-shadow:0 10px 30px rgba(0,184,196,0.18); }
     .subject-btn:hover::after { transform:scaleX(1); transform-origin:left; }
-    .subject-btn.active { background:linear-gradient(135deg,var(--navy) 0%,var(--blue) 70%,var(--teal) 100%); color:#fff; border-color:var(--teal); box-shadow:0 8px 28px rgba(26,46,110,0.35); }
+    .subject-btn.active { background:linear-gradient(135deg,var(--navy) 0%,var(--blue) 70%,var(--teal) 100%); color:#fff; border-color:var(--teal); }
     .subject-btn.active::after { display:none; }
-    .subject-btn .subj-icon {
-      width:50px; height:50px; border-radius:14px;
-      background:linear-gradient(135deg,var(--off-white),var(--gray-light));
-      display:flex; align-items:center; justify-content:center; font-size:1.5rem;
-      transition: all 0.22s;
-    }
-    .subject-btn .subj-icon i { font-size:1.3rem; color:var(--blue); transition: color 0.22s; }
+    .subject-btn .subj-icon { width:50px; height:50px; border-radius:14px; background:linear-gradient(135deg,var(--off-white),var(--gray-light)); display:flex; align-items:center; justify-content:center; transition:all 0.22s; }
+    .subject-btn .subj-icon i { font-size:1.3rem; color:var(--blue); transition:color 0.22s; }
     .subject-btn.active .subj-icon { background:rgba(255,255,255,0.18); }
     .subject-btn.active .subj-icon i { color:#fff; }
     .subject-btn .subj-count { font-size:0.70rem; font-weight:600; opacity:0.6; }
 
-    /* FILES PANEL */
-    #filesPanel {
-      display:none; max-width:720px; width:100%; margin-top:2rem;
-      background:var(--white); border-radius:20px; box-shadow:var(--shadow-strong);
-      overflow:hidden; animation:fadeUp 0.4s ease;
-    }
+    #filesPanel { display:none; max-width:720px; width:100%; margin-top:2rem; background:var(--white); border-radius:20px; box-shadow:var(--shadow-strong); overflow:hidden; animation:fadeUp 0.4s ease; }
     #filesPanel.visible { display:block; }
     .files-header { background:linear-gradient(135deg,var(--navy) 0%,var(--blue) 70%,var(--teal) 100%); padding:18px 24px; display:flex; align-items:center; gap:12px; }
     .files-header i { font-size:1.2rem; color:var(--teal-light); flex-shrink:0; }
@@ -122,166 +93,175 @@
     .files-header-text p  { color:var(--teal-light); font-size:0.75rem; margin-top:1px; }
     .files-count { margin-right:auto; background:rgba(255,255,255,0.15); color:#fff; font-size:0.75rem; font-weight:700; padding:4px 12px; border-radius:20px; border:1px solid rgba(255,255,255,0.2); }
     .files-list { padding:12px; display:flex; flex-direction:column; gap:8px; }
-    .file-item { display:flex; align-items:center; gap:14px; padding:14px 16px; border-radius:12px; border:1.5px solid var(--gray-light); background:var(--off-white); transition:all 0.2s; text-decoration:none; color:var(--text-dark); }
-    .file-item:hover { border-color:var(--teal); background:#e8f7ff; transform:translateX(-4px); box-shadow:0 4px 16px rgba(0,184,196,0.13); }
-    .file-icon { width:44px; height:44px; background:linear-gradient(135deg,#e53e3e 0%,#c53030 100%); border-radius:10px; display:flex; align-items:center; justify-content:center; flex-shrink:0; box-shadow:0 3px 10px rgba(229,62,62,0.3); }
+    .file-item { display:flex; align-items:center; gap:14px; padding:14px 16px; border-radius:12px; border:1.5px solid var(--gray-light); background:var(--off-white); transition:all 0.2s; }
+    .file-item:hover { border-color:var(--teal); background:#e8f7ff; transform:translateX(-4px); }
+    .file-icon { width:44px; height:44px; background:linear-gradient(135deg,#e53e3e,#c53030); border-radius:10px; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
     .file-icon i { font-size:1.1rem; color:#fff; }
-    .file-icon.student-upload { background:linear-gradient(135deg,#7c3aed 0%,#6d28d9 100%); box-shadow:0 3px 10px rgba(124,58,237,0.3); }
     .file-info { flex:1; min-width:0; }
     .file-name { font-size:0.9rem; font-weight:700; color:var(--navy); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
     .file-meta { font-size:0.72rem; color:#7a96c2; margin-top:2px; }
-    .file-download {
-      background:linear-gradient(135deg,var(--blue) 0%,var(--teal) 100%);
-      color:#fff; border:none; padding:8px 18px; border-radius:8px;
-      font-family:'Cairo',sans-serif; font-size:0.78rem; font-weight:700;
-      cursor:pointer; flex-shrink:0; transition:all 0.18s;
-      display:flex; align-items:center; gap:6px; text-decoration:none;
-    }
-    .file-download:hover { transform:scale(1.06); box-shadow:0 4px 14px rgba(30,77,183,0.35); }
+    .file-download { background:linear-gradient(135deg,var(--blue),var(--teal)); color:#fff; border:none; padding:8px 18px; border-radius:8px; font-family:'Cairo',sans-serif; font-size:0.78rem; font-weight:700; cursor:pointer; flex-shrink:0; transition:all 0.18s; display:flex; align-items:center; gap:6px; text-decoration:none; }
+    .file-download:hover { transform:scale(1.06); }
     .empty-state { text-align:center; padding:40px 20px; color:#9ab0d0; }
     .empty-state i { font-size:2.5rem; margin-bottom:12px; opacity:0.4; display:block; }
     .empty-state p { font-size:0.9rem; font-weight:600; }
 
-    /* ==============================
-       📤 صفحة رفع الملفات
-       ============================== */
+    /* TOKEN SETUP */
+    .token-setup-overlay { position:fixed; inset:0; background:rgba(10,20,60,0.7); z-index:999; display:flex; align-items:center; justify-content:center; padding:1rem; backdrop-filter:blur(4px); }
+    .token-setup-box { background:#fff; border-radius:24px; padding:36px; max-width:480px; width:100%; box-shadow:0 20px 60px rgba(0,0,0,0.3); text-align:center; }
+    .token-setup-box .ts-icon { width:70px; height:70px; background:linear-gradient(135deg,var(--navy),var(--teal)); border-radius:50%; display:flex; align-items:center; justify-content:center; margin:0 auto 1.2rem; }
+    .token-setup-box .ts-icon i { font-size:1.8rem; color:#fff; }
+    .token-setup-box h2 { font-size:1.3rem; font-weight:900; color:var(--navy); margin-bottom:0.5rem; }
+    .token-setup-box p { font-size:0.83rem; color:#5575a8; line-height:1.7; margin-bottom:1.2rem; }
+    .token-setup-box input { width:100%; padding:12px 16px; border:1.5px solid var(--gray-light); border-radius:10px; font-family:'Cairo',sans-serif; font-size:0.9rem; margin-bottom:10px; outline:none; direction:ltr; text-align:left; }
+    .token-setup-box input:focus { border-color:var(--teal); }
+    .token-save-btn { width:100%; padding:13px; background:linear-gradient(135deg,var(--navy),var(--blue),var(--teal)); color:#fff; border:none; border-radius:12px; font-family:'Cairo',sans-serif; font-size:1rem; font-weight:800; cursor:pointer; transition:all 0.2s; }
+    .token-save-btn:hover { transform:translateY(-2px); box-shadow:0 6px 20px rgba(26,46,110,0.35); }
+    .token-skip-btn { background:none; border:none; color:#9ab0d0; font-family:'Cairo',sans-serif; font-size:0.8rem; cursor:pointer; margin-top:10px; display:block; width:100%; }
+    .token-skip-btn:hover { color:var(--navy); }
+    .token-steps { text-align:right; background:var(--off-white); border-radius:12px; padding:14px 16px; margin-bottom:16px; }
+    .token-steps p { font-size:0.78rem; color:#3a4f6e; line-height:2; font-weight:600; }
+    .token-steps a { color:var(--blue); }
+    .token-status { font-size:0.78rem; font-weight:700; padding:6px 12px; border-radius:8px; margin-bottom:10px; display:none; }
+    .token-status.ok { background:var(--green-light); color:var(--green); display:block; }
+    .token-status.err { background:#fee2e2; color:var(--red); display:block; }
+
+    /* UPLOAD PAGE */
     .upload-page { position:relative; z-index:1; max-width:700px; margin:0 auto; padding:2.5rem 1.5rem; }
     .upload-page h2 { font-size:1.6rem; font-weight:900; color:var(--navy); margin-bottom:0.4rem; display:flex; align-items:center; gap:10px; }
     .upload-page h2 i { color:var(--teal); }
     .upload-page .page-sub { color:#7a96c2; font-size:0.9rem; margin-bottom:2rem; }
-
     .upload-card { background:var(--white); border-radius:20px; box-shadow:var(--shadow); padding:28px; margin-bottom:20px; }
     .upload-card h3 { font-size:1rem; font-weight:800; color:var(--navy); margin-bottom:16px; display:flex; align-items:center; gap:8px; }
     .upload-card h3 i { color:var(--teal); }
-
     .form-group { margin-bottom:16px; }
     .form-group label { display:block; font-size:0.83rem; font-weight:700; color:var(--navy); margin-bottom:6px; }
-    .form-group input, .form-group select, .form-group textarea {
-      width:100%; padding:11px 14px; border:1.5px solid var(--gray-light); border-radius:10px;
-      font-family:'Cairo',sans-serif; font-size:0.88rem; color:var(--text-dark);
-      background:var(--off-white); transition:border 0.2s; outline:none;
-    }
+    .form-group input, .form-group select, .form-group textarea { width:100%; padding:11px 14px; border:1.5px solid var(--gray-light); border-radius:10px; font-family:'Cairo',sans-serif; font-size:0.88rem; color:var(--text-dark); background:var(--off-white); transition:border 0.2s; outline:none; }
     .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color:var(--teal); background:#fff; }
     .form-group textarea { resize:vertical; min-height:80px; }
-
-    .dropzone {
-      border:2.5px dashed var(--gray-light); border-radius:14px; padding:36px 20px; text-align:center;
-      cursor:pointer; transition:all 0.22s; background:var(--off-white); position:relative;
-    }
+    .dropzone { border:2.5px dashed var(--gray-light); border-radius:14px; padding:36px 20px; text-align:center; cursor:pointer; transition:all 0.22s; background:var(--off-white); position:relative; }
     .dropzone:hover, .dropzone.dragover { border-color:var(--teal); background:#e8f7ff; }
     .dropzone i { font-size:2.2rem; color:var(--teal); margin-bottom:10px; display:block; }
     .dropzone p { font-size:0.88rem; font-weight:600; color:#7a96c2; }
     .dropzone p span { color:var(--blue); text-decoration:underline; }
     .dropzone small { font-size:0.73rem; color:#aab5cc; margin-top:6px; display:block; }
     .dropzone input[type=file] { position:absolute; inset:0; opacity:0; cursor:pointer; }
-
-    .selected-file { margin-top:12px; padding:12px 16px; background:var(--green-light); border-radius:10px; display:flex; align-items:center; gap:10px; display:none; }
+    .selected-file { margin-top:12px; padding:12px 16px; background:var(--green-light); border-radius:10px; align-items:center; gap:10px; display:none; }
     .selected-file i { color:var(--green); font-size:1.1rem; }
     .selected-file span { font-size:0.85rem; font-weight:700; color:var(--green); flex:1; }
-
-    .upload-btn {
-      width:100%; padding:14px; background:linear-gradient(135deg,var(--navy) 0%,var(--blue) 60%,var(--teal) 100%);
-      color:#fff; border:none; border-radius:12px; font-family:'Cairo',sans-serif; font-size:1rem; font-weight:800;
-      cursor:pointer; transition:all 0.2s; display:flex; align-items:center; justify-content:center; gap:10px;
-      box-shadow:0 4px 20px rgba(26,46,110,0.3);
-    }
-    .upload-btn:hover { transform:translateY(-2px); box-shadow:0 8px 28px rgba(26,46,110,0.4); }
+    .upload-btn { width:100%; padding:14px; background:linear-gradient(135deg,var(--navy),var(--blue),var(--teal)); color:#fff; border:none; border-radius:12px; font-family:'Cairo',sans-serif; font-size:1rem; font-weight:800; cursor:pointer; transition:all 0.2s; display:flex; align-items:center; justify-content:center; gap:10px; box-shadow:0 4px 20px rgba(26,46,110,0.3); }
+    .upload-btn:hover { transform:translateY(-2px); }
     .upload-btn:disabled { opacity:0.6; cursor:not-allowed; transform:none; }
-
     .progress-bar-wrap { margin-top:14px; display:none; }
     .progress-bar-wrap p { font-size:0.8rem; font-weight:700; color:var(--blue); margin-bottom:6px; }
     .progress-bar { height:8px; background:var(--gray-light); border-radius:99px; overflow:hidden; }
     .progress-bar-fill { height:100%; background:linear-gradient(90deg,var(--blue),var(--teal)); border-radius:99px; width:0%; transition:width 0.4s; }
-
     .upload-result { margin-top:14px; padding:14px 18px; border-radius:12px; display:none; font-size:0.88rem; font-weight:700; }
     .upload-result.success { background:var(--green-light); color:var(--green); }
     .upload-result.error { background:#fee2e2; color:var(--red); }
 
-    /* قائمة ملفات الطلاب */
+    .info-box { background:#fff8e1; border:1.5px solid #fcd34d; border-radius:12px; padding:14px 18px; margin-bottom:20px; display:flex; align-items:flex-start; gap:10px; }
+    .info-box i { color:#f59e0b; margin-top:2px; flex-shrink:0; }
+    .info-box p { font-size:0.82rem; color:#78350f; line-height:1.6; font-weight:600; }
+    .info-box.green { background:var(--green-light); border-color:#86efac; }
+    .info-box.green i { color:var(--green); }
+    .info-box.green p { color:#14532d; }
+
     .student-files-section { margin-top:28px; }
     .student-files-section h3 { font-size:1.05rem; font-weight:900; color:var(--navy); margin-bottom:14px; display:flex; align-items:center; gap:8px; }
     .student-files-section h3 i { color:var(--teal); }
-
     .student-file-card { background:var(--white); border-radius:14px; box-shadow:var(--shadow); padding:16px 18px; margin-bottom:10px; display:flex; align-items:center; gap:14px; transition:all 0.2s; }
     .student-file-card:hover { transform:translateY(-2px); box-shadow:var(--shadow-strong); }
     .sfc-icon { width:48px; height:48px; border-radius:12px; background:linear-gradient(135deg,#7c3aed,#6d28d9); display:flex; align-items:center; justify-content:center; flex-shrink:0; }
     .sfc-icon i { color:#fff; font-size:1.2rem; }
     .sfc-info { flex:1; min-width:0; }
     .sfc-title { font-size:0.9rem; font-weight:800; color:var(--navy); }
-    .sfc-meta { font-size:0.72rem; color:#7a96c2; margin-top:3px; }
+    .sfc-meta { font-size:0.72rem; color:#7a96c2; margin-top:3px; line-height:1.8; }
     .sfc-badge { padding:3px 10px; border-radius:20px; font-size:0.68rem; font-weight:800; }
     .sfc-badge.pdf { background:#fee2e2; color:#dc2626; }
     .sfc-badge.doc { background:#dbeafe; color:#1e4db7; }
     .sfc-badge.img { background:#d1fae5; color:#16a34a; }
     .sfc-download { background:linear-gradient(135deg,#7c3aed,var(--teal)); color:#fff; border:none; padding:8px 16px; border-radius:8px; font-family:'Cairo',sans-serif; font-size:0.78rem; font-weight:700; cursor:pointer; text-decoration:none; display:flex; align-items:center; gap:5px; transition:all 0.18s; }
     .sfc-download:hover { transform:scale(1.05); }
+    .loading-spinner { text-align:center; padding:30px; color:#9ab0d0; }
+    .loading-spinner i { font-size:1.8rem; animation:spin 1s linear infinite; margin-bottom:8px; display:block; }
+    @keyframes spin { to { transform:rotate(360deg); } }
 
-    /* ==============================
-       💬 صفحة التعليقات
-       ============================== */
+    /* COMMENTS PAGE */
     .comments-page { position:relative; z-index:1; max-width:700px; margin:0 auto; padding:2.5rem 1.5rem; }
     .comments-page h2 { font-size:1.6rem; font-weight:900; color:var(--navy); margin-bottom:0.4rem; display:flex; align-items:center; gap:10px; }
     .comments-page h2 i { color:var(--teal); }
     .comments-page .page-sub { color:#7a96c2; font-size:0.9rem; margin-bottom:2rem; }
-
     .new-comment-card { background:var(--white); border-radius:20px; box-shadow:var(--shadow); padding:24px; margin-bottom:24px; }
     .new-comment-card h3 { font-size:1rem; font-weight:800; color:var(--navy); margin-bottom:16px; display:flex; align-items:center; gap:8px; }
     .new-comment-card h3 i { color:var(--teal); }
-
-    /* النجوم */
     .star-rating { display:flex; gap:6px; margin-bottom:16px; flex-direction:row-reverse; justify-content:flex-end; }
     .star-rating input { display:none; }
     .star-rating label { font-size:1.6rem; color:#d1d5db; cursor:pointer; transition:color 0.15s; }
-    .star-rating input:checked ~ label,
-    .star-rating label:hover,
-    .star-rating label:hover ~ label { color:#f59e0b; }
-
+    .star-rating input:checked ~ label, .star-rating label:hover, .star-rating label:hover ~ label { color:#f59e0b; }
     .comment-tag-select { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:16px; }
     .tag-btn { padding:6px 14px; border:1.5px solid var(--gray-light); border-radius:20px; background:var(--off-white); font-family:'Cairo',sans-serif; font-size:0.78rem; font-weight:700; color:#7a96c2; cursor:pointer; transition:all 0.18s; }
     .tag-btn.selected, .tag-btn:hover { background:var(--blue); color:#fff; border-color:var(--blue); }
-
-    .submit-comment-btn {
-      background:linear-gradient(135deg,var(--navy) 0%,var(--blue) 60%,var(--teal) 100%);
-      color:#fff; border:none; padding:12px 32px; border-radius:10px;
-      font-family:'Cairo',sans-serif; font-size:0.92rem; font-weight:800;
-      cursor:pointer; transition:all 0.2s; display:flex; align-items:center; gap:8px;
-    }
+    .submit-comment-btn { background:linear-gradient(135deg,var(--navy),var(--blue),var(--teal)); color:#fff; border:none; padding:12px 32px; border-radius:10px; font-family:'Cairo',sans-serif; font-size:0.92rem; font-weight:800; cursor:pointer; transition:all 0.2s; display:flex; align-items:center; gap:8px; }
     .submit-comment-btn:hover { transform:translateY(-2px); box-shadow:0 6px 20px rgba(26,46,110,0.35); }
-
+    .submit-comment-btn:disabled { opacity:0.6; cursor:not-allowed; transform:none; }
+    .stats-bar { background:linear-gradient(135deg,var(--navy),var(--blue),var(--teal)); border-radius:16px; padding:18px 24px; margin-bottom:24px; display:flex; align-items:center; justify-content:space-around; gap:12px; flex-wrap:wrap; }
+    .stat-item { text-align:center; }
+    .stat-num { font-size:1.5rem; font-weight:900; color:#fff; }
+    .stat-label { font-size:0.72rem; color:var(--teal-light); font-weight:600; margin-top:2px; }
     .comments-list { display:flex; flex-direction:column; gap:14px; }
     .comment-card { background:var(--white); border-radius:16px; box-shadow:var(--shadow); padding:18px 20px; }
-    .comment-card-header { display:flex; align-items:center; gap:12px; margin-bottom:12px; }
+    .comment-card-header { display:flex; align-items:center; gap:12px; margin-bottom:12px; flex-wrap:wrap; }
     .comment-avatar { width:42px; height:42px; border-radius:50%; background:linear-gradient(135deg,var(--navy),var(--teal)); display:flex; align-items:center; justify-content:center; font-size:1rem; font-weight:900; color:#fff; flex-shrink:0; }
     .comment-author { font-size:0.9rem; font-weight:800; color:var(--navy); }
     .comment-time { font-size:0.72rem; color:#9ab0d0; margin-top:2px; }
-    .comment-stars { margin-right:auto; color:#f59e0b; font-size:0.85rem; letter-spacing:1px; }
-    .comment-tag { padding:3px 10px; border-radius:20px; background:linear-gradient(135deg,var(--navy),var(--blue)); color:#fff; font-size:0.68rem; font-weight:700; margin-right:auto; }
+    .comment-stars { color:#f59e0b; font-size:0.85rem; letter-spacing:1px; }
+    .comment-tag { padding:3px 10px; border-radius:20px; background:linear-gradient(135deg,var(--navy),var(--blue)); color:#fff; font-size:0.68rem; font-weight:700; }
     .comment-body { font-size:0.88rem; line-height:1.7; color:#3a4f6e; }
     .comment-likes { margin-top:12px; display:flex; align-items:center; gap:8px; }
     .like-btn { padding:5px 14px; border:1.5px solid var(--gray-light); border-radius:20px; background:var(--off-white); font-family:'Cairo',sans-serif; font-size:0.78rem; font-weight:700; color:#7a96c2; cursor:pointer; transition:all 0.18s; display:flex; align-items:center; gap:5px; }
     .like-btn:hover, .like-btn.liked { background:#fee2e2; color:#e53e3e; border-color:#fca5a5; }
-    .like-btn i { font-size:0.8rem; }
 
-    /* Stats bar */
-    .stats-bar { background:linear-gradient(135deg,var(--navy) 0%,var(--blue) 60%,var(--teal) 100%); border-radius:16px; padding:18px 24px; margin-bottom:24px; display:flex; align-items:center; justify-content:space-around; gap:12px; flex-wrap:wrap; }
-    .stat-item { text-align:center; }
-    .stat-num { font-size:1.5rem; font-weight:900; color:#fff; }
-    .stat-label { font-size:0.72rem; color:var(--teal-light); font-weight:600; margin-top:2px; }
-
-    .info-box { background:#fff8e1; border:1.5px solid #fcd34d; border-radius:12px; padding:14px 18px; margin-bottom:20px; display:flex; align-items:flex-start; gap:10px; }
-    .info-box i { color:#f59e0b; margin-top:2px; flex-shrink:0; }
-    .info-box p { font-size:0.82rem; color:#78350f; line-height:1.6; font-weight:600; }
+    /* TOKEN BADGE in nav */
+    .token-indicator { font-size:0.65rem; padding:2px 8px; border-radius:20px; font-weight:700; margin-right:auto; }
+    .token-indicator.connected { background:#dcfce7; color:#16a34a; }
+    .token-indicator.disconnected { background:#fee2e2; color:#dc2626; }
 
     footer { position:relative; z-index:1; text-align:center; padding:24px; color:#8099c2; font-size:0.78rem; border-top:1px solid var(--gray-light); background:rgba(255,255,255,0.6); }
     footer span { color:var(--teal); font-weight:700; }
-    @media(max-width:600px){ #subjectsGrid{grid-template-columns:repeat(2,1fr)} .header-badge{display:none} .nav-tab{padding:12px 16px; font-size:0.8rem;} }
+    footer a { color:var(--blue); text-decoration:none; font-weight:700; }
 
-    /* Toast */
     .toast { position:fixed; bottom:24px; left:50%; transform:translateX(-50%) translateY(80px); background:var(--navy); color:#fff; padding:14px 28px; border-radius:12px; font-size:0.88rem; font-weight:700; box-shadow:var(--shadow-strong); z-index:9999; transition:transform 0.3s; white-space:nowrap; }
     .toast.show { transform:translateX(-50%) translateY(0); }
+
+    @media(max-width:600px){ #subjectsGrid{grid-template-columns:repeat(2,1fr)} .header-badge{display:none} .nav-tab{padding:12px 14px; font-size:0.78rem;} }
   </style>
 </head>
 <body>
+
+<!-- ===== TOKEN SETUP OVERLAY ===== -->
+<div class="token-setup-overlay" id="tokenOverlay">
+  <div class="token-setup-box">
+    <div class="ts-icon"><i class="fa-brands fa-github"></i></div>
+    <h2>ربط الموقع بـ GitHub</h2>
+    <p>لكي تعمل خاصية رفع الملفات والتعليقات مع جميع الأجهزة، أدخل GitHub Token الخاص بك.</p>
+
+    <div class="token-steps">
+      <p>
+        ① اذهب إلى <a href="https://github.com/settings/tokens/new" target="_blank">github.com/settings/tokens/new</a><br/>
+        ② اختر صلاحية <strong>public_repo</strong> فقط<br/>
+        ③ اضغط Generate token وانسخه هنا
+      </p>
+    </div>
+
+    <div class="token-status" id="tokenStatus"></div>
+    <input type="password" id="tokenInput" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx" dir="ltr"/>
+    <button class="token-save-btn" onclick="saveToken()">
+      <i class="fa-solid fa-link"></i> ربط وحفظ
+    </button>
+    <button class="token-skip-btn" onclick="skipToken()">تخطي — استخدام الموقع بدون رفع ملفات</button>
+  </div>
+</div>
 
 <header>
   <div class="header-logo">
@@ -291,20 +271,16 @@
       <p>جامعة الموصل — University of Mosul · CSM</p>
     </div>
   </div>
-  <div class="header-badge">1999 · CSM</div>
+  <div style="display:flex;align-items:center;gap:10px;">
+    <span class="token-indicator disconnected" id="tokenBadge">⚫ غير مرتبط</span>
+    <div class="header-badge">1999 · CSM</div>
+  </div>
 </header>
 
-<!-- التبويبات الرئيسية -->
 <nav class="main-nav">
-  <button class="nav-tab active" onclick="switchPage('notes')">
-    <i class="fa-solid fa-book-open"></i> الملازم
-  </button>
-  <button class="nav-tab" onclick="switchPage('share')">
-    <i class="fa-solid fa-cloud-arrow-up"></i> شارك ملف
-  </button>
-  <button class="nav-tab" onclick="switchPage('comments')">
-    <i class="fa-solid fa-comments"></i> الآراء والتعليقات
-  </button>
+  <button class="nav-tab active" onclick="switchPage('notes',this)"><i class="fa-solid fa-book-open"></i> الملازم</button>
+  <button class="nav-tab" onclick="switchPage('share',this)"><i class="fa-solid fa-cloud-arrow-up"></i> شارك ملف</button>
+  <button class="nav-tab" onclick="switchPage('comments',this)"><i class="fa-solid fa-comments"></i> الآراء والتعليقات</button>
 </nav>
 
 <!-- ===== صفحة الملازم ===== -->
@@ -321,70 +297,30 @@
   <p class="hero-subtitle">المرحلة الأولى — قسم علوم الحاسوب<br/>اختر المادة وحمّل ملازمك بضغطة واحدة</p>
 
   <button id="mainBtn" onclick="toggleSubjects()">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/>
-    </svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
     المرحلة الأولى — قسم علوم الحاسوب
-    <svg class="btn-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
-      <polyline points="6 9 12 15 18 9"/>
-    </svg>
+    <svg class="btn-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
   </button>
 
   <div id="subjectsGrid">
-    <button class="subject-btn" data-subject="prog" data-label="برمجة متقدمة" onclick="openSubject(this)">
-      <div class="subj-icon"><i class="fa-solid fa-laptop-code"></i></div>
-      <span>برمجة متقدمة</span>
-      <span class="subj-count" id="count-prog"></span>
-    </button>
-    <button class="subject-btn" data-subject="web" data-label="برمجة مواقع نظري" onclick="openSubject(this)">
-      <div class="subj-icon"><i class="fa-brands fa-html5"></i></div>
-      <span>برمجة مواقع نظري</span>
-      <span class="subj-count" id="count-web"></span>
-    </button>
-    <button class="subject-btn" data-subject="computer1" data-label="حاسوب نظري" onclick="openSubject(this)">
-      <div class="subj-icon"><i class="fa-solid fa-book-open-reader"></i></div>
-      <span>حاسوب نظري</span>
-      <span class="subj-count" id="count-computer1"></span>
-    </button>
-    <button class="subject-btn" data-subject="computer2" data-label="حاسوب عملي" onclick="openSubject(this)">
-      <div class="subj-icon"><i class="fa-solid fa-display"></i></div>
-      <span>حاسوب عملي</span>
-      <span class="subj-count" id="count-computer2"></span>
-    </button>
-    <button class="subject-btn" data-subject="statistics" data-label="مبادئ الاحصاء" onclick="openSubject(this)">
-      <div class="subj-icon"><i class="fa-solid fa-chart-column"></i></div>
-      <span>مبادئ الاحصاء</span>
-      <span class="subj-count" id="count-statistics"></span>
-    </button>
-    <button class="subject-btn" data-subject="tca" data-label="تركيب حاسوب نظري" onclick="openSubject(this)">
-      <div class="subj-icon"><i class="fa-solid fa-microchip"></i></div>
-      <span>تركيب حاسوب نظري</span>
-      <span class="subj-count" id="count-tca"></span>
-    </button>
-    <button class="subject-btn" data-subject="pcac" data-label="تركيب حاسوب عملي" onclick="openSubject(this)">
-      <div class="subj-icon"><i class="fa-solid fa-screwdriver-wrench"></i></div>
-      <span>تركيب حاسوب عملي</span>
-      <span class="subj-count" id="count-pcac"></span>
-    </button>
-    <button class="subject-btn" data-subject="arbic" data-label="اللغة العربية" onclick="openSubject(this)">
-      <div class="subj-icon"><i class="fa-solid fa-pen-fancy"></i></div>
-      <span>اللغة العربية</span>
-      <span class="subj-count" id="count-arbic"></span>
-    </button>
+    <button class="subject-btn" data-subject="prog"       onclick="openSubject(this)"><div class="subj-icon"><i class="fa-solid fa-laptop-code"></i></div><span>برمجة متقدمة</span><span class="subj-count"></span></button>
+    <button class="subject-btn" data-subject="web"        onclick="openSubject(this)"><div class="subj-icon"><i class="fa-brands fa-html5"></i></div><span>برمجة مواقع نظري</span><span class="subj-count"></span></button>
+    <button class="subject-btn" data-subject="computer1"  onclick="openSubject(this)"><div class="subj-icon"><i class="fa-solid fa-book-open-reader"></i></div><span>حاسوب نظري</span><span class="subj-count"></span></button>
+    <button class="subject-btn" data-subject="computer2"  onclick="openSubject(this)"><div class="subj-icon"><i class="fa-solid fa-display"></i></div><span>حاسوب عملي</span><span class="subj-count"></span></button>
+    <button class="subject-btn" data-subject="statistics" onclick="openSubject(this)"><div class="subj-icon"><i class="fa-solid fa-chart-column"></i></div><span>مبادئ الاحصاء</span><span class="subj-count"></span></button>
+    <button class="subject-btn" data-subject="tca"        onclick="openSubject(this)"><div class="subj-icon"><i class="fa-solid fa-microchip"></i></div><span>تركيب حاسوب نظري</span><span class="subj-count"></span></button>
+    <button class="subject-btn" data-subject="pcac"       onclick="openSubject(this)"><div class="subj-icon"><i class="fa-solid fa-screwdriver-wrench"></i></div><span>تركيب حاسوب عملي</span><span class="subj-count"></span></button>
+    <button class="subject-btn" data-subject="arbic"      onclick="openSubject(this)"><div class="subj-icon"><i class="fa-solid fa-pen-fancy"></i></div><span>اللغة العربية</span><span class="subj-count"></span></button>
   </div>
 
   <div id="filesPanel">
     <div class="files-header">
       <i class="fa-solid fa-file-pdf"></i>
-      <div class="files-header-text">
-        <h3 id="panelTitle">الملفات</h3>
-        <p id="panelSub">اختر ملفاً للتحميل</p>
-      </div>
+      <div class="files-header-text"><h3 id="panelTitle">الملفات</h3><p id="panelSub">اختر ملفاً للتحميل</p></div>
       <span class="files-count" id="filesCount">0 ملف</span>
     </div>
     <div class="files-list" id="filesList"></div>
   </div>
-
 </section>
 </div>
 
@@ -392,23 +328,22 @@
 <div id="page-share" class="page">
 <div class="upload-page">
   <h2><i class="fa-solid fa-cloud-arrow-up"></i> شارك ملخصاتك مع زملائك</h2>
-  <p class="page-sub">ارفع ملخصاتك وملفاتك ليستفيد منها جميع طلاب الكلية · الملفات تُخزَّن محلياً في متصفحك</p>
+  <p class="page-sub">الملفات تُخزَّن على GitHub وتظهر لجميع الطلاب على كل الأجهزة</p>
 
-  <div class="info-box">
-    <i class="fa-solid fa-circle-info"></i>
-    <p>الملفات المرفوعة تُخزَّن مؤقتاً في متصفحك وتظهر لك ولمن يستخدم نفس الجهاز. لمشاركة دائمة مع الجميع، انسخ رابط الملف بعد الرفع.</p>
+  <div class="info-box green" id="githubStatusBox">
+    <i class="fa-brands fa-github"></i>
+    <p id="githubStatusText">جارٍ التحقق من الاتصال بـ GitHub...</p>
   </div>
 
   <div class="upload-card">
     <h3><i class="fa-solid fa-file-arrow-up"></i> رفع ملف جديد</h3>
 
     <div class="form-group">
-      <label><i class="fa-solid fa-user" style="color:var(--teal);margin-left:4px"></i> اسمك (اختياري)</label>
+      <label>اسمك (اختياري)</label>
       <input type="text" id="uploader-name" placeholder="مثال: أحمد محمد — أو اترك فارغاً للنشر باسم مجهول"/>
     </div>
-
     <div class="form-group">
-      <label><i class="fa-solid fa-tag" style="color:var(--teal);margin-left:4px"></i> المادة</label>
+      <label>المادة</label>
       <select id="upload-subject">
         <option value="">— اختر المادة —</option>
         <option value="prog">برمجة متقدمة</option>
@@ -422,14 +357,12 @@
         <option value="other">أخرى</option>
       </select>
     </div>
-
     <div class="form-group">
-      <label><i class="fa-solid fa-align-right" style="color:var(--teal);margin-left:4px"></i> وصف الملف</label>
+      <label>وصف الملف</label>
       <textarea id="upload-desc" placeholder="مثال: ملخص محاضرات الفصل الأول — الدكتور عمر..."></textarea>
     </div>
-
     <div class="form-group">
-      <label><i class="fa-solid fa-paperclip" style="color:var(--teal);margin-left:4px"></i> الملف</label>
+      <label>الملف</label>
       <div class="dropzone" id="dropzone">
         <i class="fa-solid fa-cloud-arrow-up"></i>
         <p>اسحب الملف هنا أو <span>اضغط للاختيار</span></p>
@@ -443,26 +376,18 @@
     </div>
 
     <button class="upload-btn" onclick="uploadFile()" id="upload-btn">
-      <i class="fa-solid fa-paper-plane"></i>
-      رفع الملف ومشاركته
+      <i class="fa-brands fa-github"></i> رفع الملف على GitHub
     </button>
-
     <div class="progress-bar-wrap" id="progress-wrap">
-      <p id="progress-text">جارٍ المعالجة...</p>
+      <p id="progress-text">جارٍ الرفع...</p>
       <div class="progress-bar"><div class="progress-bar-fill" id="progress-fill"></div></div>
     </div>
     <div class="upload-result" id="upload-result"></div>
   </div>
 
-  <!-- قائمة الملفات المرفوعة -->
   <div class="student-files-section">
-    <h3><i class="fa-solid fa-users"></i> ملفات الطلاب المشارَكة</h3>
-    <div id="student-files-list">
-      <div class="empty-state">
-        <i class="fa-solid fa-folder-open"></i>
-        <p>لم يتم رفع أي ملفات بعد — كن الأول!</p>
-      </div>
-    </div>
+    <h3><i class="fa-solid fa-users"></i> ملفات الطلاب المشارَكة <span style="font-size:0.7rem;background:#e0f2fe;color:#0369a1;padding:3px 10px;border-radius:20px;font-weight:700;margin-right:8px;">GitHub Issues</span></h3>
+    <div id="student-files-list"><div class="loading-spinner"><i class="fa-solid fa-spinner"></i><p>جارٍ التحميل من GitHub...</p></div></div>
   </div>
 </div>
 </div>
@@ -471,136 +396,139 @@
 <div id="page-comments" class="page">
 <div class="comments-page">
   <h2><i class="fa-solid fa-comments"></i> آراء وتعليقات الطلاب</h2>
-  <p class="page-sub">شارك رأيك وتجربتك مع زملائك — كل رأي يفيد الجميع</p>
+  <p class="page-sub">تعليقاتك تُحفَظ على GitHub وتظهر للجميع</p>
 
-  <div class="stats-bar" id="stats-bar">
-    <div class="stat-item"><div class="stat-num" id="stat-total">0</div><div class="stat-label">تعليق</div></div>
+  <div class="stats-bar">
+    <div class="stat-item"><div class="stat-num" id="stat-total">—</div><div class="stat-label">تعليق</div></div>
     <div class="stat-item"><div class="stat-num" id="stat-avg">—</div><div class="stat-label">متوسط التقييم</div></div>
-    <div class="stat-item"><div class="stat-num" id="stat-five">0</div><div class="stat-label">تقييم 5 نجوم</div></div>
+    <div class="stat-item"><div class="stat-num" id="stat-five">—</div><div class="stat-label">تقييم 5 نجوم</div></div>
   </div>
 
   <div class="new-comment-card">
     <h3><i class="fa-solid fa-pen-to-square"></i> أضف تعليقك</h3>
-
     <div class="form-group">
-      <label><i class="fa-solid fa-user" style="color:var(--teal);margin-left:4px"></i> اسمك (اختياري)</label>
+      <label>اسمك (اختياري)</label>
       <input type="text" id="comment-name" placeholder="اترك فارغاً للنشر باسم طالب مجهول"/>
     </div>
-
     <div class="form-group">
-      <label><i class="fa-solid fa-star" style="color:#f59e0b;margin-left:4px"></i> تقييمك للموقع</label>
-      <div class="star-rating" id="star-rating">
-        <input type="radio" name="rating" id="s5" value="5"/><label for="s5" title="ممتاز">★</label>
-        <input type="radio" name="rating" id="s4" value="4"/><label for="s4" title="جيد جداً">★</label>
-        <input type="radio" name="rating" id="s3" value="3"/><label for="s3" title="جيد">★</label>
-        <input type="radio" name="rating" id="s2" value="2"/><label for="s2" title="مقبول">★</label>
-        <input type="radio" name="rating" id="s1" value="1"/><label for="s1" title="ضعيف">★</label>
+      <label>تقييمك للموقع</label>
+      <div class="star-rating">
+        <input type="radio" name="rating" id="s5" value="5"/><label for="s5">★</label>
+        <input type="radio" name="rating" id="s4" value="4"/><label for="s4">★</label>
+        <input type="radio" name="rating" id="s3" value="3"/><label for="s3">★</label>
+        <input type="radio" name="rating" id="s2" value="2"/><label for="s2">★</label>
+        <input type="radio" name="rating" id="s1" value="1"/><label for="s1">★</label>
       </div>
     </div>
-
     <div class="form-group">
-      <label><i class="fa-solid fa-tags" style="color:var(--teal);margin-left:4px"></i> صنّف تعليقك</label>
-      <div class="comment-tag-select" id="tag-select">
+      <label>صنّف تعليقك</label>
+      <div class="comment-tag-select">
         <button class="tag-btn selected" data-tag="عام" onclick="selectTag(this)">💬 عام</button>
         <button class="tag-btn" data-tag="اقتراح" onclick="selectTag(this)">💡 اقتراح</button>
         <button class="tag-btn" data-tag="شكر" onclick="selectTag(this)">🙏 شكر</button>
         <button class="tag-btn" data-tag="سؤال" onclick="selectTag(this)">❓ سؤال</button>
-        <button class="tag-btn" data-tag="مشكلة تقنية" onclick="selectTag(this)">⚠️ مشكلة تقنية</button>
+        <button class="tag-btn" data-tag="مشكلة تقنية" onclick="selectTag(this)">⚠️ مشكلة</button>
       </div>
     </div>
-
     <div class="form-group">
-      <label><i class="fa-solid fa-comment" style="color:var(--teal);margin-left:4px"></i> تعليقك</label>
+      <label>تعليقك</label>
       <textarea id="comment-text" placeholder="اكتب تعليقك أو رأيك هنا..." rows="4"></textarea>
     </div>
-
-    <button class="submit-comment-btn" onclick="submitComment()">
-      <i class="fa-solid fa-paper-plane"></i>
-      نشر التعليق
+    <button class="submit-comment-btn" onclick="submitComment()" id="submit-comment-btn">
+      <i class="fa-brands fa-github"></i> نشر التعليق على GitHub
     </button>
   </div>
 
   <div class="comments-list" id="comments-list">
-    <div class="empty-state" id="no-comments">
-      <i class="fa-regular fa-comment-dots"></i>
-      <p>لا توجد تعليقات بعد — كن أول من يشارك رأيه!</p>
-    </div>
+    <div class="loading-spinner"><i class="fa-solid fa-spinner"></i><p>جارٍ تحميل التعليقات...</p></div>
   </div>
 </div>
 </div>
 
 <footer>
-  كلية علوم الحاسوب والرياضيات — جامعة الموصل &nbsp;|&nbsp;
-  <span>CSM · 1999</span> &nbsp;|&nbsp; جميع الحقوق محفوظة © 2026
+  كلية علوم الحاسوب والرياضيات — جامعة الموصل &nbsp;|&nbsp; <span>CSM · 1999</span> &nbsp;|&nbsp;
+  مدعوم بـ <a href="https://github.com/YOSSEFCS/CS-Vault" target="_blank"><i class="fa-brands fa-github"></i> CS-Vault</a>
 </footer>
-
 <div class="toast" id="toast"></div>
 
 <script>
-/* ============================
-   📂 بيانات الملازم
-   ============================ */
+/* ============================================================
+   ⚙️ GitHub Config
+   ============================================================ */
+const GH_OWNER = 'YOSSEFCS';
+const GH_REPO  = 'CS-Vault';
+const GH_API   = 'https://api.github.com';
+
+// Labels used to separate issues
+const LABEL_FILE    = 'student-file';
+const LABEL_COMMENT = 'student-comment';
+
+let GH_TOKEN = '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';
+
+/* ============================================================
+   📂 بيانات الملازم الثابتة
+   ============================================================ */
 const subjectsData = {
   prog: [
-    { name: "ملزمة البرمجة المتقدمة — الأولى",   file: "prog1.pdf",  size: "847.9 KB" },
-    { name: "ملزمة البرمجة المتقدمة — الثانية",   file: "prog2.pdf",  size: "794.6 KB" },
-    { name: "ملزمة البرمجة المتقدمة — الثالثة",   file: "prog3.pdf",  size: "367.4 KB" },
-    { name: "ملزمة البرمجة المتقدمة — الرابعة",   file: "prog4.pdf",  size: "812.1 KB" },
-    { name: "ملزمة البرمجة المتقدمة — الخامسة",   file: "prog5.pdf",  size: "738.4 KB" },
+    { name:"ملزمة البرمجة المتقدمة — الأولى",  file:"prog1.pdf",  size:"847.9 KB" },
+    { name:"ملزمة البرمجة المتقدمة — الثانية", file:"prog2.pdf",  size:"794.6 KB" },
+    { name:"ملزمة البرمجة المتقدمة — الثالثة", file:"prog3.pdf",  size:"367.4 KB" },
+    { name:"ملزمة البرمجة المتقدمة — الرابعة", file:"prog4.pdf",  size:"812.1 KB" },
+    { name:"ملزمة البرمجة المتقدمة — الخامسة", file:"prog5.pdf",  size:"738.4 KB" },
   ],
   web: [
-    { name: "ملزمة برمجة المواقع — الأولى",   file: "web1.pdf",  size: "1.2 MB" },
-    { name: "ملزمة برمجة المواقع — الثانية",   file: "web2.pdf",  size: "441.7 KB" },
-    { name: "ملزمة برمجة المواقع — الثالثة",   file: "web3.pdf",  size: "630.9 KB" },
-    { name: "ملزمة برمجة المواقع — الرابعة",   file: "web4.pdf",  size: "342.5 KB" },
-    { name: "ملزمة برمجة المواقع — الخامسة",   file: "web5.pdf",  size: "230.3 KB" },
-    { name: "ملزمة برمجة المواقع — السادسة",   file: "web6.pdf",  size: "399.7 KB" },
-    { name: "ملزمة برمجة المواقع — السابعة",   file: "web7.pdf",  size: "211.8 KB" },
+    { name:"ملزمة برمجة المواقع — الأولى",   file:"web1.pdf", size:"1.2 MB" },
+    { name:"ملزمة برمجة المواقع — الثانية",  file:"web2.pdf", size:"441.7 KB" },
+    { name:"ملزمة برمجة المواقع — الثالثة",  file:"web3.pdf", size:"630.9 KB" },
+    { name:"ملزمة برمجة المواقع — الرابعة",  file:"web4.pdf", size:"342.5 KB" },
+    { name:"ملزمة برمجة المواقع — الخامسة",  file:"web5.pdf", size:"230.3 KB" },
+    { name:"ملزمة برمجة المواقع — السادسة",  file:"web6.pdf", size:"399.7 KB" },
+    { name:"ملزمة برمجة المواقع — السابعة",  file:"web7.pdf", size:"211.8 KB" },
   ],
   computer1: [
-    { name: "ملزمة حاسوب نظري — الأولى والثانية",  file: "computer 1ملزمة اولى وثانية.pdf",  size: "1.6 MB" },
-    { name: "ملزمة حاسوب نظري — الثالثة",           file: "computer 1ملزمة ثالثة.pdf",          size: "627.1 KB" },
-    { name: "ملزمة حاسوب نظري — الرابعة",           file: "computer 1ملزمة رابعة.pdf",          size: "621.6 KB" },
-    { name: "ملزمة حاسوب نظري — الخامسة",           file: "computer 1ملزمة خامسة.pdf",          size: "661.6 KB" },
-    { name: "ملزمة حاسوب نظري — السادسة",           file: "computer 1ملزمة سادسة.pdf",          size: "374.0 KB" },
-    { name: "ملزمة حاسوب نظري — السابعة",           file: "computer 1ملزمة سابعة.pdf",          size: "631.1 KB" },
+    { name:"ملزمة حاسوب نظري — الأولى والثانية", file:"computer 1ملزمة اولى وثانية.pdf", size:"1.6 MB" },
+    { name:"ملزمة حاسوب نظري — الثالثة",         file:"computer 1ملزمة ثالثة.pdf",        size:"627.1 KB" },
+    { name:"ملزمة حاسوب نظري — الرابعة",         file:"computer 1ملزمة رابعة.pdf",        size:"621.6 KB" },
+    { name:"ملزمة حاسوب نظري — الخامسة",         file:"computer 1ملزمة خامسة.pdf",        size:"661.6 KB" },
+    { name:"ملزمة حاسوب نظري — السادسة",         file:"computer 1ملزمة سادسة.pdf",        size:"374.0 KB" },
+    { name:"ملزمة حاسوب نظري — السابعة",         file:"computer 1ملزمة سابعة.pdf",        size:"631.1 KB" },
   ],
   computer2: [
-    { name: "ملزمة حاسوب عملي — الأولى",    file: "computer 2ملزمة الاولى.pdf",       size: "1.3 MB" },
-    { name: "ملزمة حاسوب عملي — الثانية",   file: "computer 2ملزمة الثانية.pdf",      size: "1.7 MB" },
-    { name: "ملزمة حاسوب عملي — الثالثة",   file: "computer 2ملزمة ثالثة.pdf",        size: "1.8 MB" },
-    { name: "ملزمة حاسوب عملي — الرابعة",   file: "computer 2ملزمة رابعة.pdf",        size: "1.2 MB" },
-    { name: "ملزمة حاسوب عملي — الخامسة",   file: "computer 2ملزمة خامسة.pdf",        size: "1.5 MB" },
-    { name: "ملزمة حاسوب عملي — السادسة",   file: "computer 2ملزمة سادسة.pdf",        size: "1.9 MB" },
+    { name:"ملزمة حاسوب عملي — الأولى",   file:"computer 2ملزمة الاولى.pdf",  size:"1.3 MB" },
+    { name:"ملزمة حاسوب عملي — الثانية",  file:"computer 2ملزمة الثانية.pdf", size:"1.7 MB" },
+    { name:"ملزمة حاسوب عملي — الثالثة",  file:"computer 2ملزمة ثالثة.pdf",   size:"1.8 MB" },
+    { name:"ملزمة حاسوب عملي — الرابعة",  file:"computer 2ملزمة رابعة.pdf",   size:"1.2 MB" },
+    { name:"ملزمة حاسوب عملي — الخامسة",  file:"computer 2ملزمة خامسة.pdf",   size:"1.5 MB" },
+    { name:"ملزمة حاسوب عملي — السادسة",  file:"computer 2ملزمة سادسة.pdf",   size:"1.9 MB" },
   ],
   statistics: [
-    { name: "ملزمة الاحصاء — 1",    file: "statistics1.pdf",   size: "868.3 KB" },
-    { name: "ملزمة الاحصاء — 2",    file: "statistics2.pdf",   size: "729.3 KB" },
-    { name: "ملزمة الاحصاء — 3",    file: "statistics3.pdf",   size: "712.6 KB" },
-    { name: "ملزمة الاحصاء — 4",    file: "statistics4.pdf",   size: "672.5 KB" },
-    { name: "ملزمة الاحصاء — 5",    file: "statistics5.pdf",   size: "1.1 MB" },
-    { name: "ملزمة الاحصاء — 6",    file: "statistics6.pdf",   size: "1.0 MB" },
-    { name: "ملزمة الاحصاء — 8",    file: "statistics8.pdf",   size: "1.2 MB" },
-    { name: "ملزمة الاحصاء — 9",    file: "statistics9.pdf",   size: "1.1 MB" },
-    { name: "ملزمة الاحصاء — 10",   file: "statistics10.pdf",  size: "1.1 MB" },
+    { name:"ملزمة الاحصاء — 1",  file:"statistics1.pdf",  size:"868.3 KB" },
+    { name:"ملزمة الاحصاء — 2",  file:"statistics2.pdf",  size:"729.3 KB" },
+    { name:"ملزمة الاحصاء — 3",  file:"statistics3.pdf",  size:"712.6 KB" },
+    { name:"ملزمة الاحصاء — 4",  file:"statistics4.pdf",  size:"672.5 KB" },
+    { name:"ملزمة الاحصاء — 5",  file:"statistics5.pdf",  size:"1.1 MB" },
+    { name:"ملزمة الاحصاء — 6",  file:"statistics6.pdf",  size:"1.0 MB" },
+    { name:"ملزمة الاحصاء — 8",  file:"statistics8.pdf",  size:"1.2 MB" },
+    { name:"ملزمة الاحصاء — 9",  file:"statistics9.pdf",  size:"1.1 MB" },
+    { name:"ملزمة الاحصاء — 10", file:"statistics10.pdf", size:"1.1 MB" },
   ],
   tca: [
-    { name: "ملزمة تركيب حاسوب نظري — 1",   file: "tca1.pdf",   size: "3.8 MB" },
-    { name: "ملزمة تركيب حاسوب نظري — 2",   file: "tca2.pdf",   size: "1.7 MB" },
-    { name: "ملزمة تركيب حاسوب نظري — 4",   file: "tca4.pdf",   size: "1.7 MB" },
-    { name: "ملزمة تركيب حاسوب نظري — 5",   file: "tca5.pdf",   size: "2.6 MB" },
-    { name: "ملزمة تركيب حاسوب نظري — 6",   file: "tca6.pdf",   size: "1.9 MB" },
-    { name: "ملزمة تركيب حاسوب نظري — 7",   file: "tca7.pdf",   size: "1.8 MB" },
+    { name:"ملزمة تركيب حاسوب نظري — 1", file:"tca1.pdf", size:"3.8 MB" },
+    { name:"ملزمة تركيب حاسوب نظري — 2", file:"tca2.pdf", size:"1.7 MB" },
+    { name:"ملزمة تركيب حاسوب نظري — 4", file:"tca4.pdf", size:"1.7 MB" },
+    { name:"ملزمة تركيب حاسوب نظري — 5", file:"tca5.pdf", size:"2.6 MB" },
+    { name:"ملزمة تركيب حاسوب نظري — 6", file:"tca6.pdf", size:"1.9 MB" },
+    { name:"ملزمة تركيب حاسوب نظري — 7", file:"tca7.pdf", size:"1.8 MB" },
   ],
   pcac: [
-    { name: "ملزمة تركيب حاسوب عملي — 1",   file: "pcac1.pdf",   size: "628.2 KB" },
-    { name: "ملزمة تركيب حاسوب عملي — 2",   file: "pcac2.pdf",   size: "933.9 KB" },
-    { name: "ملزمة تركيب حاسوب عملي — 3",   file: "pcac3.pdf",   size: "853.7 KB" },
-    { name: "ملزمة تركيب حاسوب عملي — 4",   file: "pcac4.pdf",   size: "885.3 KB" },
-    { name: "ملزمة تركيب حاسوب عملي — 5",   file: "pcac5.pdf",   size: "819.3 KB" },
+    { name:"ملزمة تركيب حاسوب عملي — 1", file:"pcac1.pdf", size:"628.2 KB" },
+    { name:"ملزمة تركيب حاسوب عملي — 2", file:"pcac2.pdf", size:"933.9 KB" },
+    { name:"ملزمة تركيب حاسوب عملي — 3", file:"pcac3.pdf", size:"853.7 KB" },
+    { name:"ملزمة تركيب حاسوب عملي — 4", file:"pcac4.pdf", size:"885.3 KB" },
+    { name:"ملزمة تركيب حاسوب عملي — 5", file:"pcac5.pdf", size:"819.3 KB" },
   ],
   arbic: [
-    { name: "ملزمة اللغة العربية",   file: "arbic.pdf",   size: "8.3 MB" },
+    { name:"ملزمة اللغة العربية", file:"arbic.pdf", size:"8.3 MB" },
   ],
 };
 
@@ -610,35 +538,122 @@ const subjectLabels = {
   pcac:'تركيب حاسوب عملي', arbic:'اللغة العربية', other:'أخرى'
 };
 
-/* ============================
+/* ============================================================
+   🔑 Token Management
+   ============================================================ */
+function updateTokenBadge() {
+  const badge = document.getElementById('tokenBadge');
+  if (GH_TOKEN) {
+    badge.textContent = '🟢 متصل بـ GitHub';
+    badge.className = 'token-indicator connected';
+  } else {
+    badge.textContent = '🔴 غير مرتبط';
+    badge.className = 'token-indicator disconnected';
+  }
+}
+
+async function saveToken() {
+  const val = document.getElementById('tokenInput').value.trim();
+  if (!val) { showTokenStatus('أدخل الـ Token أولاً', 'err'); return; }
+
+  showTokenStatus('جارٍ التحقق...', 'ok');
+
+  // Verify token works
+  try {
+    const r = await fetch(`${GH_API}/repos/${GH_OWNER}/${GH_REPO}`, {
+      headers: { 'Authorization': `token ${val}`, 'Accept': 'application/vnd.github.v3+json' }
+    });
+    if (!r.ok) throw new Error('فشل');
+    // Also ensure labels exist
+    GH_TOKEN = val;
+    localStorage.setItem('csm_gh_token', val);
+    await ensureLabels();
+    showTokenStatus('✅ تم الربط بنجاح! الموقع جاهز.', 'ok');
+    setTimeout(() => {
+      document.getElementById('tokenOverlay').style.display = 'none';
+      updateTokenBadge();
+      updateGithubStatusBox();
+      renderStudentFiles();
+      renderComments();
+    }, 1200);
+  } catch(e) {
+    showTokenStatus('❌ Token غير صحيح أو لا يملك صلاحية public_repo', 'err');
+  }
+}
+
+function skipToken() {
+  document.getElementById('tokenOverlay').style.display = 'none';
+  updateTokenBadge();
+  updateGithubStatusBox();
+  renderStudentFiles();
+  renderComments();
+}
+
+function showTokenStatus(msg, type) {
+  const el = document.getElementById('tokenStatus');
+  el.textContent = msg;
+  el.className = 'token-status ' + type;
+}
+
+function ghHeaders(write = false) {
+  const h = { 'Accept': 'application/vnd.github.v3+json' };
+  if (GH_TOKEN) h['Authorization'] = `token ${GH_TOKEN}`;
+  if (write) h['Content-Type'] = 'application/json';
+  return h;
+}
+
+/* ============================================================
+   🏷️ Ensure GitHub Labels Exist
+   ============================================================ */
+async function ensureLabels() {
+  if (!GH_TOKEN) return;
+  for (const [name, color, desc] of [
+    [LABEL_FILE,    '7c3aed', 'ملف مرفوع من طالب'],
+    [LABEL_COMMENT, '1e4db7', 'تعليق طالب'],
+  ]) {
+    try {
+      await fetch(`${GH_API}/repos/${GH_OWNER}/${GH_REPO}/labels`, {
+        method: 'POST',
+        headers: ghHeaders(true),
+        body: JSON.stringify({ name, color, description: desc })
+      });
+    } catch(e) { /* label may already exist */ }
+  }
+}
+
+/* ============================================================
    🔄 تبديل الصفحات
-   ============================ */
-function switchPage(name) {
+   ============================================================ */
+function switchPage(name, btn) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
   document.getElementById('page-' + name).classList.add('active');
-  event.currentTarget.classList.add('active');
-  if (name === 'share') renderStudentFiles();
+  btn.classList.add('active');
+  if (name === 'share')    { updateGithubStatusBox(); renderStudentFiles(); }
   if (name === 'comments') renderComments();
 }
 
-/* ============================
-   📚 عداد الملازم
-   ============================ */
-document.addEventListener('DOMContentLoaded', () => {
-  document.querySelectorAll('.subject-btn').forEach(btn => {
-    const key = btn.dataset.subject;
-    const count = (subjectsData[key] || []).length;
-    const el = document.getElementById('count-' + key);
-    if (el) el.textContent = count + ' ملف';
-  });
-  renderStudentFiles();
-  renderComments();
-});
+function updateGithubStatusBox() {
+  const box  = document.getElementById('githubStatusBox');
+  const text = document.getElementById('githubStatusText');
+  if (!box) return;
+  if (GH_TOKEN) {
+    box.className = 'info-box green';
+    box.querySelector('i').className = 'fa-brands fa-github';
+    text.textContent = `✅ متصل بـ GitHub — الملفات تُرفع مباشرة إلى ${GH_OWNER}/${GH_REPO} وتظهر لجميع الطلاب.`;
+  } else {
+    box.className = 'info-box';
+    box.querySelector('i').className = 'fa-solid fa-triangle-exclamation';
+    text.innerHTML = `⚠️ غير مرتبط بـ GitHub — <a href="#" onclick="document.getElementById('tokenOverlay').style.display='flex'" style="color:var(--blue)">أضف Token</a> لتتمكن من رفع الملفات ومشاركتها مع الجميع.`;
+  }
+}
 
+/* ============================================================
+   📚 الملازم الثابتة
+   ============================================================ */
 function toggleSubjects() {
-  const btn = document.getElementById('mainBtn');
-  const grid = document.getElementById('subjectsGrid');
+  const btn   = document.getElementById('mainBtn');
+  const grid  = document.getElementById('subjectsGrid');
   const panel = document.getElementById('filesPanel');
   if (grid.classList.contains('visible')) {
     grid.classList.remove('visible');
@@ -655,77 +670,68 @@ function toggleSubjects() {
 function openSubject(btn) {
   document.querySelectorAll('.subject-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
-  const key = btn.dataset.subject;
-  const label = btn.dataset.label;
+  const key   = btn.dataset.subject;
+  const label = btn.querySelector('span').textContent;
   const files = subjectsData[key] || [];
   const panel = document.getElementById('filesPanel');
-  const list = document.getElementById('filesList');
+  const list  = document.getElementById('filesList');
   document.getElementById('panelTitle').textContent = 'مادة: ' + label;
   document.getElementById('panelSub').textContent = 'المرحلة الأولى — قسم علوم الحاسوب';
   document.getElementById('filesCount').textContent = files.length + ' ملف';
-  if (files.length === 0) {
-    list.innerHTML = `<div class="empty-state"><i class="fa-solid fa-circle-info"></i><p>لا توجد ملفات مضافة بعد</p></div>`;
-  } else {
-    list.innerHTML = files.map(f => `
+  list.innerHTML = files.length === 0
+    ? `<div class="empty-state"><i class="fa-solid fa-circle-info"></i><p>لا توجد ملفات مضافة بعد</p></div>`
+    : files.map(f => `
       <div class="file-item">
         <div class="file-icon"><i class="fa-solid fa-file-pdf"></i></div>
         <div class="file-info">
           <div class="file-name">${f.name}</div>
-          <div class="file-meta">PDF &nbsp;·&nbsp; ${f.size || ''}</div>
+          <div class="file-meta">PDF · ${f.size || ''}</div>
         </div>
-        <a class="file-download" href="${f.file}" download="${f.name}">
-          <i class="fa-solid fa-download"></i> تحميل
-        </a>
+        <a class="file-download" href="${f.file}" download="${f.name}"><i class="fa-solid fa-download"></i> تحميل</a>
       </div>`).join('');
-  }
   panel.classList.add('visible');
   setTimeout(() => panel.scrollIntoView({ behavior:'smooth', block:'nearest' }), 100);
 }
 
-/* ============================
-   📤 رفع الملفات
-   ============================ */
+/* ============================================================
+   📤 رفع الملفات — GitHub Issues API
+   ============================================================ */
 let selectedFile = null;
 
 function onFileSelected(input) {
   const file = input.files[0];
   if (!file) return;
-  if (file.size > 10 * 1024 * 1024) {
-    showToast('⚠️ الملف أكبر من 10 MB');
-    return;
-  }
+  if (file.size > 10 * 1024 * 1024) { showToast('⚠️ الملف أكبر من 10 MB'); return; }
   selectedFile = file;
   document.getElementById('selected-file-info').style.display = 'flex';
   document.getElementById('selected-file-name').textContent = file.name + ' (' + formatSize(file.size) + ')';
 }
 
-// Drag & Drop
 const dz = document.getElementById('dropzone');
 if (dz) {
-  dz.addEventListener('dragover', e => { e.preventDefault(); dz.classList.add('dragover'); });
+  dz.addEventListener('dragover',  e => { e.preventDefault(); dz.classList.add('dragover'); });
   dz.addEventListener('dragleave', () => dz.classList.remove('dragover'));
   dz.addEventListener('drop', e => {
     e.preventDefault(); dz.classList.remove('dragover');
-    const file = e.dataTransfer.files[0];
-    if (file) { document.getElementById('file-input').files = e.dataTransfer.files; onFileSelected(document.getElementById('file-input')); }
+    const f = e.dataTransfer.files[0];
+    if (f) { document.getElementById('file-input').files = e.dataTransfer.files; onFileSelected(document.getElementById('file-input')); }
   });
 }
 
 function formatSize(bytes) {
   if (bytes < 1024) return bytes + ' B';
-  if (bytes < 1024*1024) return (bytes/1024).toFixed(1) + ' KB';
-  return (bytes/(1024*1024)).toFixed(1) + ' MB';
+  if (bytes < 1048576) return (bytes/1024).toFixed(1) + ' KB';
+  return (bytes/1048576).toFixed(1) + ' MB';
 }
 
-function uploadFile() {
+async function uploadFile() {
   const name    = document.getElementById('uploader-name').value.trim() || 'طالب مجهول';
   const subject = document.getElementById('upload-subject').value;
   const desc    = document.getElementById('upload-desc').value.trim();
-
   if (!selectedFile) { showToast('⚠️ اختر ملفاً أولاً'); return; }
   if (!subject)       { showToast('⚠️ اختر المادة أولاً'); return; }
 
-  const btn = document.getElementById('upload-btn');
+  const btn          = document.getElementById('upload-btn');
   const progressWrap = document.getElementById('progress-wrap');
   const progressFill = document.getElementById('progress-fill');
   const progressText = document.getElementById('progress-text');
@@ -735,102 +741,163 @@ function uploadFile() {
   progressWrap.style.display = 'block';
   resultEl.style.display = 'none';
 
+  // Step 1: read file as base64
+  progressText.textContent = 'جارٍ قراءة الملف...';
+  progressFill.style.width = '20%';
+
   const reader = new FileReader();
-  reader.onprogress = (e) => {
-    if (e.lengthComputable) {
-      const pct = Math.round(e.loaded / e.total * 80);
-      progressFill.style.width = pct + '%';
-      progressText.textContent = 'جارٍ قراءة الملف... ' + pct + '%';
-    }
-  };
-  reader.onload = () => {
-    progressFill.style.width = '90%';
-    progressText.textContent = 'جارٍ الحفظ...';
+  reader.onload = async () => {
+    try {
+      const base64 = reader.result.split(',')[1];
+      progressFill.style.width = '40%';
+      progressText.textContent = 'جارٍ رفع الملف إلى GitHub...';
 
-    // حفظ في localStorage
-    const entry = {
-      id: Date.now(),
-      name,
-      subject,
-      subjectLabel: subjectLabels[subject] || subject,
-      desc: desc || '',
-      fileName: selectedFile.name,
-      fileSize: formatSize(selectedFile.size),
-      fileType: selectedFile.type,
-      data: reader.result, // base64
-      uploadedAt: new Date().toLocaleString('ar-IQ')
-    };
+      // Step 2: Upload file to GitHub repo contents
+      const filePath = `student-uploads/${Date.now()}_${selectedFile.name.replace(/\s+/g,'_')}`;
+      const uploadResp = await fetch(`${GH_API}/repos/${GH_OWNER}/${GH_REPO}/contents/${filePath}`, {
+        method: 'PUT',
+        headers: ghHeaders(true),
+        body: JSON.stringify({
+          message: `رفع ملف: ${selectedFile.name} من ${name}`,
+          content: base64,
+          branch: 'main'
+        })
+      });
 
-    const existing = JSON.parse(localStorage.getItem('csm_student_files') || '[]');
-    existing.unshift(entry);
-    // الاحتفاظ بآخر 50 ملف فقط لتجنب امتلاء localStorage
-    localStorage.setItem('csm_student_files', JSON.stringify(existing.slice(0, 50)));
+      if (!uploadResp.ok) {
+        const err = await uploadResp.json();
+        throw new Error(err.message || 'فشل رفع الملف');
+      }
 
-    progressFill.style.width = '100%';
-    progressText.textContent = 'تم الحفظ!';
-    setTimeout(() => {
-      progressWrap.style.display = 'none';
-      progressFill.style.width = '0%';
-      resultEl.style.display = 'block';
-      resultEl.className = 'upload-result success';
-      resultEl.innerHTML = '<i class="fa-solid fa-circle-check"></i> تم رفع الملف بنجاح! يمكنك مشاهدته في قسم الملازم أو في قائمة ملفات الطلاب.';
+      const uploadData = await uploadResp.json();
+      const fileUrl    = uploadData.content.download_url;
+
+      progressFill.style.width = '70%';
+      progressText.textContent = 'جارٍ تسجيل الملف في GitHub Issues...';
+
+      // Step 3: Create GitHub Issue to record the upload
+      const issueBody = [
+        `**الاسم:** ${name}`,
+        `**المادة:** ${subjectLabels[subject] || subject}`,
+        `**الملف:** [${selectedFile.name}](${fileUrl})`,
+        `**الحجم:** ${formatSize(selectedFile.size)}`,
+        desc ? `**الوصف:** ${desc}` : '',
+        `**التاريخ:** ${new Date().toLocaleString('ar-IQ')}`,
+        `<!-- CSM_FILE_META
+subject:${subject}
+fileName:${selectedFile.name}
+fileSize:${formatSize(selectedFile.size)}
+fileUrl:${fileUrl}
+uploaderName:${name}
+desc:${desc}
+-->`,
+      ].filter(Boolean).join('\n\n');
+
+      const issueResp = await fetch(`${GH_API}/repos/${GH_OWNER}/${GH_REPO}/issues`, {
+        method: 'POST',
+        headers: ghHeaders(true),
+        body: JSON.stringify({
+          title: `📁 ${selectedFile.name} — ${subjectLabels[subject] || subject}`,
+          body:  issueBody,
+          labels: [LABEL_FILE]
+        })
+      });
+
+      if (!issueResp.ok) throw new Error('فشل تسجيل الملف');
+
+      progressFill.style.width = '100%';
+      progressText.textContent = 'تم!';
+
+      setTimeout(() => {
+        progressWrap.style.display = 'none';
+        progressFill.style.width = '0%';
+        resultEl.style.display = 'block';
+        resultEl.className = 'upload-result success';
+        resultEl.innerHTML = `<i class="fa-brands fa-github"></i> تم رفع الملف على GitHub بنجاح! يمكن لجميع الطلاب تحميله الآن. <a href="${fileUrl}" target="_blank" style="color:var(--green)">فتح الملف</a>`;
+        btn.disabled = false;
+        selectedFile = null;
+        document.getElementById('file-input').value = '';
+        document.getElementById('selected-file-info').style.display = 'none';
+        document.getElementById('uploader-name').value = '';
+        document.getElementById('upload-subject').value = '';
+        document.getElementById('upload-desc').value = '';
+        showToast('✅ تم رفع الملف على GitHub!');
+        renderStudentFiles();
+      }, 600);
+
+    } catch(e) {
       btn.disabled = false;
-      selectedFile = null;
-      document.getElementById('file-input').value = '';
-      document.getElementById('selected-file-info').style.display = 'none';
-      document.getElementById('uploader-name').value = '';
-      document.getElementById('upload-subject').value = '';
-      document.getElementById('upload-desc').value = '';
-      showToast('✅ تم رفع الملف بنجاح!');
-      renderStudentFiles();
-    }, 600);
-  };
-  reader.onerror = () => {
-    btn.disabled = false;
-    progressWrap.style.display = 'none';
-    resultEl.style.display = 'block';
-    resultEl.className = 'upload-result error';
-    resultEl.innerHTML = '<i class="fa-solid fa-circle-xmark"></i> حدث خطأ أثناء قراءة الملف. حاول مرة أخرى.';
+      progressWrap.style.display = 'none';
+      resultEl.style.display = 'block';
+      resultEl.className = 'upload-result error';
+      resultEl.innerHTML = `<i class="fa-solid fa-circle-xmark"></i> خطأ: ${e.message}`;
+    }
   };
   reader.readAsDataURL(selectedFile);
 }
 
-function renderStudentFiles() {
+/* ============================================================
+   📋 عرض ملفات الطلاب من GitHub Issues
+   ============================================================ */
+async function renderStudentFiles() {
   const list = document.getElementById('student-files-list');
   if (!list) return;
-  const files = JSON.parse(localStorage.getItem('csm_student_files') || '[]');
-  if (files.length === 0) {
-    list.innerHTML = `<div class="empty-state"><i class="fa-solid fa-folder-open"></i><p>لم يتم رفع أي ملفات بعد — كن الأول!</p></div>`;
-    return;
-  }
-  list.innerHTML = files.map(f => {
-    const ext = f.fileName.split('.').pop().toLowerCase();
-    const badgeClass = ext === 'pdf' ? 'pdf' : (ext === 'doc' || ext === 'docx') ? 'doc' : 'img';
-    const icon = ext === 'pdf' ? 'fa-file-pdf' : (ext === 'doc' || ext === 'docx') ? 'fa-file-word' : 'fa-file-image';
-    return `
-    <div class="student-file-card">
-      <div class="sfc-icon"><i class="fa-solid ${icon}"></i></div>
-      <div class="sfc-info">
-        <div class="sfc-title">${f.fileName}</div>
-        <div class="sfc-meta">
-          <i class="fa-solid fa-user" style="margin-left:4px"></i>${f.name} &nbsp;·&nbsp;
-          <i class="fa-solid fa-tag" style="margin-left:4px"></i>${f.subjectLabel} &nbsp;·&nbsp;
-          ${f.fileSize}
-          ${f.desc ? '<br/><i class="fa-solid fa-quote-right" style="margin-left:4px;color:var(--teal)"></i>' + f.desc : ''}
-          <br/><i class="fa-regular fa-clock" style="margin-left:4px"></i>${f.uploadedAt}
+  list.innerHTML = '<div class="loading-spinner"><i class="fa-solid fa-spinner"></i><p>جارٍ التحميل من GitHub...</p></div>';
+
+  try {
+    const url = `${GH_API}/repos/${GH_OWNER}/${GH_REPO}/issues?labels=${LABEL_FILE}&state=open&per_page=50&sort=created&direction=desc`;
+    const r = await fetch(url, { headers: ghHeaders() });
+    if (!r.ok) throw new Error('فشل التحميل');
+    const issues = await r.json();
+
+    if (!issues.length) {
+      list.innerHTML = `<div class="empty-state"><i class="fa-solid fa-folder-open"></i><p>لم يتم رفع أي ملفات بعد — كن الأول!</p></div>`;
+      return;
+    }
+
+    list.innerHTML = issues.map(issue => {
+      // Parse metadata from issue body
+      const meta = parseFileMeta(issue.body);
+      const ext  = (meta.fileName || '').split('.').pop().toLowerCase();
+      const icon = ext === 'pdf' ? 'fa-file-pdf' : (ext === 'doc' || ext === 'docx') ? 'fa-file-word' : 'fa-file-image';
+      const badgeClass = ext === 'pdf' ? 'pdf' : (ext === 'doc' || ext === 'docx') ? 'doc' : 'img';
+
+      return `
+      <div class="student-file-card">
+        <div class="sfc-icon"><i class="fa-solid ${icon}"></i></div>
+        <div class="sfc-info">
+          <div class="sfc-title">${meta.fileName || issue.title}</div>
+          <div class="sfc-meta">
+            <i class="fa-solid fa-user" style="margin-left:4px"></i>${meta.uploaderName || 'مجهول'} &nbsp;·&nbsp;
+            <i class="fa-solid fa-tag" style="margin-left:4px"></i>${subjectLabels[meta.subject] || meta.subject || '—'} &nbsp;·&nbsp; ${meta.fileSize || ''}
+            ${meta.desc ? `<br/><i class="fa-solid fa-quote-right" style="margin-left:4px;color:var(--teal)"></i>${meta.desc}` : ''}
+          </div>
         </div>
-      </div>
-      <span class="sfc-badge ${badgeClass}">${ext.toUpperCase()}</span>
-      <a class="sfc-download" href="${f.data}" download="${f.fileName}">
-        <i class="fa-solid fa-download"></i> تنزيل
-      </a>
-    </div>`;
-  }).join('');
+        <span class="sfc-badge ${badgeClass}">${ext.toUpperCase()}</span>
+        ${meta.fileUrl ? `<a class="sfc-download" href="${meta.fileUrl}" target="_blank" download="${meta.fileName}"><i class="fa-solid fa-download"></i> تنزيل</a>` : ''}
+      </div>`;
+    }).join('');
+
+  } catch(e) {
+    list.innerHTML = `<div class="empty-state"><i class="fa-solid fa-triangle-exclamation"></i><p>تعذر التحميل من GitHub: ${e.message}</p></div>`;
+  }
 }
 
-/* ============================
-   💬 التعليقات
-   ============================ */
+function parseFileMeta(body) {
+  const meta = {};
+  const block = (body || '').match(/<!-- CSM_FILE_META\n([\s\S]*?)-->/);
+  if (block) {
+    block[1].trim().split('\n').forEach(line => {
+      const idx = line.indexOf(':');
+      if (idx > -1) meta[line.slice(0,idx).trim()] = line.slice(idx+1).trim();
+    });
+  }
+  return meta;
+}
+
+/* ============================================================
+   💬 التعليقات — GitHub Issues API
+   ============================================================ */
 let selectedTag = 'عام';
 
 function selectTag(btn) {
@@ -839,112 +906,161 @@ function selectTag(btn) {
   selectedTag = btn.dataset.tag;
 }
 
-function submitComment() {
-  const name = document.getElementById('comment-name').value.trim() || 'طالب مجهول';
-  const text = document.getElementById('comment-text').value.trim();
-  const ratingEl = document.querySelector('input[name="rating"]:checked');
-  const rating = ratingEl ? parseInt(ratingEl.value) : 0;
+async function submitComment() {
+  const name    = document.getElementById('comment-name').value.trim() || 'طالب مجهول';
+  const text    = document.getElementById('comment-text').value.trim();
+  const ratingEl= document.querySelector('input[name="rating"]:checked');
+  const rating  = ratingEl ? parseInt(ratingEl.value) : 0;
 
   if (!text) { showToast('⚠️ اكتب تعليقاً أولاً'); return; }
 
-  const comment = {
-    id: Date.now(),
-    name,
-    text,
-    rating,
-    tag: selectedTag,
-    likes: 0,
-    likedBy: [],
-    time: new Date().toLocaleString('ar-IQ')
-  };
+  const btn = document.getElementById('submit-comment-btn');
+  btn.disabled = true;
+  btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> جارٍ النشر...';
 
-  const comments = JSON.parse(localStorage.getItem('csm_comments') || '[]');
-  comments.unshift(comment);
-  localStorage.setItem('csm_comments', JSON.stringify(comments));
+  const stars = rating ? '⭐'.repeat(rating) : '';
+  const issueBody = [
+    `**الطالب:** ${name}`,
+    rating ? `**التقييم:** ${stars} (${rating}/5)` : '',
+    `**الصنف:** ${selectedTag}`,
+    `**التعليق:**\n\n${text}`,
+    `**التاريخ:** ${new Date().toLocaleString('ar-IQ')}`,
+    `<!-- CSM_COMMENT_META
+commenterName:${name}
+rating:${rating}
+tag:${selectedTag}
+-->`,
+  ].filter(Boolean).join('\n\n');
 
-  document.getElementById('comment-name').value = '';
-  document.getElementById('comment-text').value = '';
-  if (ratingEl) ratingEl.checked = false;
-  selectTag(document.querySelector('.tag-btn[data-tag="عام"]'));
+  try {
+    const r = await fetch(`${GH_API}/repos/${GH_OWNER}/${GH_REPO}/issues`, {
+      method: 'POST',
+      headers: ghHeaders(true),
+      body: JSON.stringify({
+        title: `💬 تعليق من ${name} — ${selectedTag}`,
+        body: issueBody,
+        labels: [LABEL_COMMENT]
+      })
+    });
+    if (!r.ok) throw new Error('فشل النشر');
 
-  showToast('✅ تم نشر تعليقك!');
-  renderComments();
-}
-
-function likeComment(id) {
-  const comments = JSON.parse(localStorage.getItem('csm_comments') || '[]');
-  const c = comments.find(x => x.id === id);
-  if (!c) return;
-  const key = 'liked_' + id;
-  if (localStorage.getItem(key)) {
-    c.likes = Math.max(0, c.likes - 1);
-    localStorage.removeItem(key);
-  } else {
-    c.likes = (c.likes || 0) + 1;
-    localStorage.setItem(key, '1');
+    document.getElementById('comment-name').value = '';
+    document.getElementById('comment-text').value = '';
+    if (ratingEl) ratingEl.checked = false;
+    selectTag(document.querySelector('.tag-btn[data-tag="عام"]'));
+    showToast('✅ تم نشر تعليقك على GitHub!');
+    renderComments();
+  } catch(e) {
+    showToast('❌ فشل النشر: ' + e.message);
   }
-  localStorage.setItem('csm_comments', JSON.stringify(comments));
-  renderComments();
+
+  btn.disabled = false;
+  btn.innerHTML = '<i class="fa-brands fa-github"></i> نشر التعليق على GitHub';
 }
 
-function renderComments() {
+async function renderComments() {
   const list = document.getElementById('comments-list');
-  const noC  = document.getElementById('no-comments');
   if (!list) return;
+  list.innerHTML = '<div class="loading-spinner"><i class="fa-solid fa-spinner"></i><p>جارٍ تحميل التعليقات...</p></div>';
 
-  const comments = JSON.parse(localStorage.getItem('csm_comments') || '[]');
+  try {
+    const url = `${GH_API}/repos/${GH_OWNER}/${GH_REPO}/issues?labels=${LABEL_COMMENT}&state=open&per_page=100&sort=created&direction=desc`;
+    const r = await fetch(url, { headers: ghHeaders() });
+    if (!r.ok) throw new Error('فشل التحميل');
+    const issues = await r.json();
 
-  // إحصائيات
-  const total = comments.length;
-  const rated = comments.filter(c => c.rating > 0);
-  const avg = rated.length ? (rated.reduce((s,c)=>s+c.rating,0)/rated.length).toFixed(1) : '—';
-  const five = comments.filter(c => c.rating === 5).length;
-  document.getElementById('stat-total').textContent = total;
-  document.getElementById('stat-avg').textContent = avg === '—' ? '—' : avg + ' ★';
-  document.getElementById('stat-five').textContent = five;
+    // Stats
+    const total = issues.length;
+    const rated = issues.filter(i => { const m = parseCommentMeta(i.body); return m.rating > 0; });
+    const avg   = rated.length ? (rated.reduce((s,i) => s + parseCommentMeta(i.body).rating, 0) / rated.length).toFixed(1) : '—';
+    const five  = rated.filter(i => parseCommentMeta(i.body).rating == 5).length;
+    document.getElementById('stat-total').textContent = total;
+    document.getElementById('stat-avg').textContent   = avg === '—' ? '—' : avg + ' ★';
+    document.getElementById('stat-five').textContent  = five;
 
-  if (total === 0) {
-    if (noC) noC.style.display = 'block';
-    list.innerHTML = `<div class="empty-state" id="no-comments"><i class="fa-regular fa-comment-dots"></i><p>لا توجد تعليقات بعد — كن أول من يشارك رأيه!</p></div>`;
-    return;
-  }
-  if (noC) noC.style.display = 'none';
+    if (!total) {
+      list.innerHTML = `<div class="empty-state"><i class="fa-regular fa-comment-dots"></i><p>لا توجد تعليقات بعد — كن أول من يشارك رأيه!</p></div>`;
+      return;
+    }
 
-  list.innerHTML = comments.map(c => {
-    const stars = c.rating ? '★'.repeat(c.rating) + '☆'.repeat(5 - c.rating) : '';
-    const initials = c.name.charAt(0) || 'ط';
-    const liked = localStorage.getItem('liked_' + c.id);
-    return `
-    <div class="comment-card">
-      <div class="comment-card-header">
-        <div class="comment-avatar">${initials}</div>
-        <div>
-          <div class="comment-author">${c.name}</div>
-          <div class="comment-time"><i class="fa-regular fa-clock" style="margin-left:4px"></i>${c.time}</div>
+    list.innerHTML = issues.map(issue => {
+      const meta   = parseCommentMeta(issue.body);
+      const name   = meta.commenterName || 'طالب مجهول';
+      const rating = parseInt(meta.rating) || 0;
+      const tag    = meta.tag || 'عام';
+      const stars  = rating ? '★'.repeat(rating) + '☆'.repeat(5-rating) : '';
+      const initial= name.charAt(0);
+      // Extract the actual comment text
+      const commentMatch = issue.body.match(/\*\*التعليق:\*\*\n\n([\s\S]*?)(?:\n\n\*\*التاريخ|<!--|$)/);
+      const commentText  = commentMatch ? commentMatch[1].trim() : '';
+      const time = new Date(issue.created_at).toLocaleString('ar-IQ');
+      const reactions = issue.reactions ? issue.reactions['+1'] || 0 : 0;
+
+      return `
+      <div class="comment-card">
+        <div class="comment-card-header">
+          <div class="comment-avatar">${initial}</div>
+          <div>
+            <div class="comment-author">${name}</div>
+            <div class="comment-time"><i class="fa-regular fa-clock" style="margin-left:4px"></i>${time}</div>
+          </div>
+          ${stars ? `<div class="comment-stars">${stars}</div>` : ''}
+          <span class="comment-tag">${tag}</span>
         </div>
-        ${stars ? `<div class="comment-stars" style="color:#f59e0b">${stars}</div>` : ''}
-        <span class="comment-tag">${c.tag}</span>
-      </div>
-      <div class="comment-body">${c.text.replace(/\n/g,'<br/>')}</div>
-      <div class="comment-likes">
-        <button class="like-btn ${liked?'liked':''}" onclick="likeComment(${c.id})">
-          <i class="fa-${liked?'solid':'regular'} fa-heart"></i>
-          ${c.likes || 0} إعجاب
-        </button>
-      </div>
-    </div>`;
-  }).join('');
+        <div class="comment-body">${commentText.replace(/\n/g,'<br/>')}</div>
+        <div class="comment-likes">
+          <a class="like-btn" href="${issue.html_url}" target="_blank">
+            <i class="fa-brands fa-github"></i> عرض على GitHub
+          </a>
+          ${reactions ? `<span style="font-size:0.78rem;color:#7a96c2">👍 ${reactions}</span>` : ''}
+        </div>
+      </div>`;
+    }).join('');
+
+  } catch(e) {
+    list.innerHTML = `<div class="empty-state"><i class="fa-solid fa-triangle-exclamation"></i><p>تعذر تحميل التعليقات: ${e.message}</p></div>`;
+  }
 }
 
-/* ============================
+function parseCommentMeta(body) {
+  const meta  = {};
+  const block = (body || '').match(/<!-- CSM_COMMENT_META\n([\s\S]*?)-->/);
+  if (block) {
+    block[1].trim().split('\n').forEach(line => {
+      const idx = line.indexOf(':');
+      if (idx > -1) meta[line.slice(0,idx).trim()] = line.slice(idx+1).trim();
+    });
+  }
+  return meta;
+}
+
+/* ============================================================
    🔔 Toast
-   ============================ */
+   ============================================================ */
 function showToast(msg) {
   const t = document.getElementById('toast');
   t.textContent = msg;
   t.classList.add('show');
-  setTimeout(() => t.classList.remove('show'), 3000);
+  setTimeout(() => t.classList.remove('show'), 3500);
 }
+
+/* ============================================================
+   🚀 Init
+   ============================================================ */
+document.addEventListener('DOMContentLoaded', () => {
+  document.getElementById('tokenOverlay').style.display = 'none';
+  updateTokenBadge();
+  updateGithubStatusBox();
+  renderStudentFiles();
+  renderComments();
+
+  // Count subject files
+  document.querySelectorAll('.subject-btn').forEach(btn => {
+    const key   = btn.dataset.subject;
+    const count = (subjectsData[key] || []).length;
+    btn.querySelector('.subj-count').textContent = count + ' ملف';
+  });
+});
 </script>
 </body>
 </html>
