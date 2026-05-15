@@ -612,12 +612,19 @@ async function ensureLabels() {
     [LABEL_COMMENT, '1e4db7', 'تعليق طالب'],
   ]) {
     try {
+      // Check if label exists first
+      const check = await fetch(`${GH_API}/repos/${GH_OWNER}/${GH_REPO}/labels/${encodeURIComponent(name)}`, {
+        headers: ghHeaders()
+      });
+      if (check.ok) continue; // already exists
+
+      // Create it
       await fetch(`${GH_API}/repos/${GH_OWNER}/${GH_REPO}/labels`, {
         method: 'POST',
         headers: ghHeaders(true),
         body: JSON.stringify({ name, color, description: desc })
       });
-    } catch(e) { /* label may already exist */ }
+    } catch(e) { /* ignore */ }
   }
 }
 
@@ -845,9 +852,13 @@ async function renderStudentFiles() {
   list.innerHTML = '<div class="loading-spinner"><i class="fa-solid fa-spinner"></i><p>جارٍ التحميل من GitHub...</p></div>';
 
   try {
-    const url = `${GH_API}/repos/${GH_OWNER}/${GH_REPO}/issues?labels=${LABEL_FILE}&state=open&per_page=50&sort=created&direction=desc`;
+    const url = `${GH_API}/repos/${GH_OWNER}/${GH_REPO}/issues?labels=${encodeURIComponent(LABEL_FILE)}&state=open&per_page=50&sort=created&direction=desc`;
     const r = await fetch(url, { headers: ghHeaders() });
-    if (!r.ok) throw new Error('فشل التحميل');
+    if (r.status === 404) {
+      list.innerHTML = `<div class="empty-state"><i class="fa-solid fa-folder-open"></i><p>لم يتم رفع أي ملفات بعد — كن الأول!</p></div>`;
+      return;
+    }
+    if (!r.ok) throw new Error(`GitHub Error ${r.status}`);
     const issues = await r.json();
 
     if (!issues.length) {
@@ -964,9 +975,16 @@ async function renderComments() {
   list.innerHTML = '<div class="loading-spinner"><i class="fa-solid fa-spinner"></i><p>جارٍ تحميل التعليقات...</p></div>';
 
   try {
-    const url = `${GH_API}/repos/${GH_OWNER}/${GH_REPO}/issues?labels=${LABEL_COMMENT}&state=open&per_page=100&sort=created&direction=desc`;
+    const url = `${GH_API}/repos/${GH_OWNER}/${GH_REPO}/issues?labels=${encodeURIComponent(LABEL_COMMENT)}&state=open&per_page=100&sort=created&direction=desc`;
     const r = await fetch(url, { headers: ghHeaders() });
-    if (!r.ok) throw new Error('فشل التحميل');
+    if (r.status === 404) {
+      document.getElementById('stat-total').textContent = '0';
+      document.getElementById('stat-avg').textContent = '—';
+      document.getElementById('stat-five').textContent = '0';
+      list.innerHTML = `<div class="empty-state"><i class="fa-regular fa-comment-dots"></i><p>لا توجد تعليقات بعد — كن أول من يشارك رأيه!</p></div>`;
+      return;
+    }
+    if (!r.ok) throw new Error(`GitHub Error ${r.status}`);
     const issues = await r.json();
 
     // Stats
@@ -1047,10 +1065,11 @@ function showToast(msg) {
 /* ============================================================
    🚀 Init
    ============================================================ */
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
   document.getElementById('tokenOverlay').style.display = 'none';
   updateTokenBadge();
   updateGithubStatusBox();
+  await ensureLabels();
   renderStudentFiles();
   renderComments();
 
