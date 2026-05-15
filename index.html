@@ -7,6 +7,9 @@
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
   <style>
+    /* ═══════════════════════════════════════════
+       THEME VARIABLES
+    ═══════════════════════════════════════════ */
     :root {
       --navy: #0d1f5c;
       --blue: #1a3faa;
@@ -24,18 +27,79 @@
       --accent: #f59e0b;
     }
 
+    /* DARK THEME (default) */
+    body {
+      --bg-primary: #060e2e;
+      --bg-secondary: rgba(255,255,255,0.04);
+      --bg-card: rgba(255,255,255,0.04);
+      --bg-header: rgba(255,255,255,0.04);
+      --border-color: rgba(255,255,255,0.1);
+      --border-teal: rgba(0,200,212,0.3);
+      --text-primary: #ffffff;
+      --text-secondary: rgba(255,255,255,0.55);
+      --text-muted: rgba(255,255,255,0.35);
+      --input-bg: rgba(255,255,255,0.06);
+      --input-color: #fff;
+      --nav-bg: rgba(255,255,255,0.03);
+      --subj-text: rgba(255,255,255,0.75);
+      --subj-bg: rgba(255,255,255,0.04);
+      --subj-count-bg: rgba(255,255,255,0.07);
+      --subj-count-color: rgba(255,255,255,0.4);
+      --file-item-bg: rgba(255,255,255,0.03);
+      --file-item-border: rgba(255,255,255,0.07);
+      --file-name-color: #fff;
+      --file-meta-color: rgba(255,255,255,0.4);
+      --hero-title-color: #ffffff;
+      --footer-color: rgba(255,255,255,0.3);
+      --empty-color: rgba(255,255,255,0.3);
+      --panel-bg: rgba(255,255,255,0.03);
+      --header-text: #fff;
+      --glass-shadow: 0 16px 48px rgba(0,0,0,0.3);
+    }
+
+    /* LIGHT THEME */
+    body.light-theme {
+      --bg-primary: #f0f6ff;
+      --bg-secondary: #ffffff;
+      --bg-card: #ffffff;
+      --bg-header: linear-gradient(135deg, #1a2e6e 0%, #1e4db7 60%, #00b8c4 100%);
+      --border-color: #dde8f5;
+      --border-teal: #00b8c4;
+      --text-primary: #0a1840;
+      --text-secondary: #5575a8;
+      --text-muted: #7a96c2;
+      --input-bg: #f8fbff;
+      --input-color: #0a1840;
+      --nav-bg: #ffffff;
+      --subj-text: #0a1840;
+      --subj-bg: #ffffff;
+      --subj-count-bg: #e2eaf8;
+      --subj-count-color: #5575a8;
+      --file-item-bg: #f0f6ff;
+      --file-item-border: #e2eaf8;
+      --file-name-color: #0a1840;
+      --file-meta-color: #7a96c2;
+      --hero-title-color: #1a2e6e;
+      --footer-color: #8099c2;
+      --empty-color: #9ab0d0;
+      --panel-bg: #ffffff;
+      --header-text: #ffffff;
+      --glass-shadow: 0 8px 40px rgba(26,46,110,0.22);
+    }
+
     * { margin:0; padding:0; box-sizing:border-box; }
 
     body {
       font-family:'Cairo','Tajawal',sans-serif;
-      background: #060e2e;
-      color: var(--text-dark);
+      background: var(--bg-primary);
+      color: var(--text-primary);
       min-height: 100vh;
       overflow-x: hidden;
+      transition: background 0.4s ease, color 0.4s ease;
     }
 
-    /* ── Animated cosmic background ── */
-    body::before {
+    /* ── Dark Background Effects ── */
+    body:not(.light-theme)::before {
       content:'';
       position: fixed;
       inset: 0;
@@ -47,19 +111,29 @@
       z-index: 0;
       animation: bgPulse 8s ease-in-out infinite alternate;
     }
+    /* ── Light Background Effects ── */
+    body.light-theme::before {
+      content:'';
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 50% 0%, rgba(0,184,196,0.10) 0%, transparent 70%),
+        repeating-linear-gradient(135deg, rgba(30,77,183,0.025) 0px, rgba(30,77,183,0.025) 1px, transparent 1px, transparent 60px);
+      pointer-events: none;
+      z-index: 0;
+    }
     @keyframes bgPulse {
       from { opacity: 0.8; }
       to   { opacity: 1; }
     }
 
-    /* Floating stars */
+    /* Floating stars (dark only) */
     .stars {
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      z-index: 0;
-      overflow: hidden;
+      position: fixed; inset: 0;
+      pointer-events: none; z-index: 0; overflow: hidden;
+      transition: opacity 0.4s;
     }
+    body.light-theme .stars { opacity: 0; pointer-events: none; }
     .star {
       position: absolute;
       width: 2px; height: 2px;
@@ -72,19 +146,67 @@
       50%       { opacity: 1; transform: scale(1.2); }
     }
 
-    /* ── HEADER ── */
+    /* ═══════════════════════════════════════════
+       THEME TOGGLE BUTTON
+    ═══════════════════════════════════════════ */
+    .theme-toggle {
+      position: fixed;
+      bottom: 28px;
+      left: 28px;
+      z-index: 9000;
+      width: 52px; height: 52px;
+      border-radius: 50%;
+      border: 2px solid rgba(0,200,212,0.5);
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.3rem;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+      backdrop-filter: blur(12px);
+    }
+    body:not(.light-theme) .theme-toggle {
+      background: rgba(255,255,255,0.08);
+      color: #fbbf24;
+    }
+    body.light-theme .theme-toggle {
+      background: rgba(26,46,110,0.9);
+      color: #67e8f9;
+      border-color: rgba(26,46,110,0.5);
+      box-shadow: 0 4px 20px rgba(26,46,110,0.3);
+    }
+    .theme-toggle:hover { transform: scale(1.12) rotate(20deg); }
+    .theme-toggle .tt-label {
+      position: absolute;
+      left: 60px;
+      background: rgba(0,0,0,0.75);
+      color: #fff;
+      font-size: 0.72rem; font-weight: 700;
+      padding: 4px 10px; border-radius: 8px;
+      white-space: nowrap;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.2s;
+    }
+    .theme-toggle:hover .tt-label { opacity: 1; }
+
+    /* ═══════════════════════════════════════════
+       HEADER
+    ═══════════════════════════════════════════ */
     header {
-      position: relative;
-      z-index: 100;
+      position: relative; z-index: 100;
+      padding: 0 1.8rem;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 76px;
+      transition: all 0.4s ease;
+    }
+    body:not(.light-theme) header {
       background: rgba(255,255,255,0.04);
       backdrop-filter: blur(20px);
       border-bottom: 1px solid rgba(0,200,212,0.2);
-      padding: 0 2rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      height: 76px;
       box-shadow: 0 4px 32px rgba(0,200,212,0.08);
+    }
+    body.light-theme header {
+      background: linear-gradient(135deg, #1a2e6e 0%, #1e4db7 60%, #00b8c4 100%);
+      box-shadow: 0 8px 40px rgba(26,46,110,0.22);
     }
     header::after {
       content:'';
@@ -94,78 +216,94 @@
       background: linear-gradient(90deg, transparent, var(--teal), #60a5fa, var(--teal), transparent);
     }
     .header-logo { display:flex; align-items:center; gap:14px; }
-    .header-logo img {
-      width:52px; height:52px;
-      border-radius:50%;
-      border:2px solid rgba(0,200,212,0.5);
-      object-fit:cover;
-      box-shadow: 0 0 16px rgba(0,200,212,0.3);
-    }
-    .logo-fallback {
-      width:52px; height:52px;
-      border-radius:50%;
-      border:2px solid rgba(0,200,212,0.5);
+    .logo-wrap {
+      width:52px; height:52px; border-radius:50%;
+      border: 2px solid rgba(0,200,212,0.5);
       background: linear-gradient(135deg, var(--navy), var(--teal));
       display:flex; align-items:center; justify-content:center;
-      font-size:1.3rem; color:#fff; font-weight:900;
+      font-size:1.1rem; font-weight:900; color:#fff;
       box-shadow: 0 0 16px rgba(0,200,212,0.3);
+      overflow: hidden; flex-shrink: 0;
     }
+    .logo-wrap img { width:100%; height:100%; object-fit:cover; border-radius:50%; }
     .header-text h1 { font-size:0.95rem; font-weight:900; color:#fff; line-height:1.3; }
     .header-text p  { font-size:0.68rem; color:var(--teal-light); font-weight:500; opacity:0.85; }
 
-    .header-right { display:flex; align-items:center; gap:12px; }
+    .header-right { display:flex; align-items:center; gap:10px; }
     .token-indicator {
-      font-size:0.68rem; padding:4px 12px;
+      font-size:0.68rem; padding:5px 12px;
       border-radius:20px; font-weight:700;
-      display:flex; align-items:center; gap:5px;
+      display:flex; align-items:center; gap:6px;
     }
-    .token-indicator.connected  { background:rgba(22,163,74,0.15); color:#4ade80; border:1px solid rgba(74,222,128,0.3); }
+    .token-indicator.connected  { background:rgba(22,163,74,0.2); color:#4ade80; border:1px solid rgba(74,222,128,0.4); }
     .token-indicator.disconnected { background:rgba(220,38,38,0.15); color:#f87171; border:1px solid rgba(248,113,113,0.3); }
+    .token-indicator i { font-size:0.65rem; }
     .header-badge {
-      background: rgba(0,200,212,0.1);
-      border:1px solid rgba(0,200,212,0.3);
+      background: rgba(0,200,212,0.12);
+      border:1px solid rgba(0,200,212,0.35);
       color:var(--teal-light);
       font-size:0.7rem; font-weight:700;
       padding:5px 14px; border-radius:20px;
       letter-spacing:1px;
     }
 
-    /* ── NAV ── */
+    /* ═══════════════════════════════════════════
+       NAV
+    ═══════════════════════════════════════════ */
     .main-nav {
       position: relative; z-index: 10;
+      display: flex; justify-content: center;
+      gap: 4px; padding: 10px 16px;
+      transition: all 0.4s ease;
+    }
+    body:not(.light-theme) .main-nav {
       background: rgba(255,255,255,0.03);
       backdrop-filter: blur(16px);
       border-bottom: 1px solid rgba(255,255,255,0.07);
-      display: flex;
-      justify-content: center;
-      gap: 4px;
-      padding: 8px 16px;
+    }
+    body.light-theme .main-nav {
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--gray-light);
+      box-shadow: 0 2px 12px rgba(26,46,110,0.08);
     }
     .nav-tab {
-      padding: 10px 24px;
+      padding: 10px 20px;
       font-family:'Cairo',sans-serif;
       font-size: 0.85rem; font-weight:700;
-      color: rgba(255,255,255,0.45);
       border: none; background: transparent;
       cursor: pointer;
       border-radius: 12px;
       transition: all 0.22s;
       display: flex; align-items:center; gap:8px;
-      position: relative;
     }
-    .nav-tab:hover { color:rgba(255,255,255,0.8); background:rgba(255,255,255,0.05); }
-    .nav-tab.active {
+    body:not(.light-theme) .nav-tab { color: rgba(255,255,255,0.45); }
+    body:not(.light-theme) .nav-tab:hover { color:rgba(255,255,255,0.85); background:rgba(255,255,255,0.07); }
+    body:not(.light-theme) .nav-tab.active {
       color:#fff;
       background: linear-gradient(135deg, rgba(26,63,170,0.6), rgba(0,200,212,0.4));
       border: 1px solid rgba(0,200,212,0.3);
       box-shadow: 0 4px 16px rgba(0,200,212,0.15);
     }
+    body.light-theme .nav-tab { color: #5575a8; }
+    body.light-theme .nav-tab:hover { color: #1a2e6e; background: rgba(26,46,110,0.06); }
+    body.light-theme .nav-tab.active {
+      color: #1a2e6e;
+      background: linear-gradient(135deg, rgba(0,184,196,0.12), rgba(30,77,183,0.08));
+      border: 1px solid rgba(0,184,196,0.3);
+      box-shadow: 0 4px 14px rgba(26,46,110,0.12);
+    }
+    .nav-tab i { font-size: 0.95rem; }
 
-    /* ── PAGES ── */
+    /* ═══════════════════════════════════════════
+       PAGES
+    ═══════════════════════════════════════════ */
     .page { display:none; }
     .page.active { display:block; }
 
-    /* ── HERO ── */
+    /* ═══════════════════════════════════════════
+       HERO
+    ═══════════════════════════════════════════ */
     .hero {
       position: relative; z-index: 1;
       display: flex; flex-direction:column;
@@ -174,19 +312,19 @@
       padding: 3rem 1.5rem;
       text-align: center;
     }
-
     .hero-badge {
       background: rgba(0,200,212,0.1);
       border:1px solid rgba(0,200,212,0.3);
-      color:var(--teal-light);
-      font-size:0.75rem; font-weight:700;
-      padding:6px 18px; border-radius:30px;
-      margin-bottom:1.5rem;
-      display:inline-flex; align-items:center; gap:8px;
+      color:var(--teal);
+      font-size:0.78rem; font-weight:700;
+      padding:7px 20px; border-radius:30px;
+      margin-bottom:1.6rem;
+      display:inline-flex; align-items:center; gap:9px;
       animation: fadeDown 0.6s ease;
     }
+    body.light-theme .hero-badge { background: rgba(0,184,196,0.08); color: #0d8f9a; border-color: rgba(0,184,196,0.3); }
     .hero-badge .dot {
-      width:6px; height:6px;
+      width:7px; height:7px;
       background:var(--teal);
       border-radius:50%;
       animation: blink 1.5s ease-in-out infinite;
@@ -194,14 +332,20 @@
     @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.2} }
 
     .hero-icon {
-      width:80px; height:80px;
-      background: linear-gradient(135deg, rgba(26,63,170,0.8), rgba(0,200,212,0.6));
+      width:86px; height:86px;
       border-radius:24px;
       display:flex; align-items:center; justify-content:center;
-      margin-bottom:1.5rem;
+      margin-bottom:1.6rem;
+      animation: float 3.5s ease-in-out infinite, fadeDown 0.5s ease;
+    }
+    body:not(.light-theme) .hero-icon {
+      background: linear-gradient(135deg, rgba(26,63,170,0.8), rgba(0,200,212,0.6));
       border:1px solid rgba(0,200,212,0.3);
       box-shadow: 0 0 40px rgba(0,200,212,0.25), 0 0 0 8px rgba(0,200,212,0.06);
-      animation: float 3.5s ease-in-out infinite, fadeDown 0.5s ease;
+    }
+    body.light-theme .hero-icon {
+      background: linear-gradient(135deg, #1a2e6e 0%, #00b8c4 100%);
+      box-shadow: 0 8px 32px rgba(0,184,196,0.3), 0 0 0 8px rgba(0,184,196,0.08);
     }
     @keyframes float {
       0%,100% { transform: translateY(0); }
@@ -211,202 +355,304 @@
       from { opacity:0; transform:translateY(-20px); }
       to   { opacity:1; transform:translateY(0); }
     }
-    .hero-icon svg { width:38px; height:38px; }
+    .hero-icon svg { width:42px; height:42px; }
 
     .hero-title {
-      font-size: clamp(1.7rem,4vw,2.6rem);
-      font-weight:900; color:#fff;
+      font-size: clamp(1.8rem,4vw,2.7rem);
+      font-weight:900;
       margin-bottom:0.6rem;
       line-height:1.2;
       animation: fadeUp 0.6s ease 0.1s both;
-      text-shadow: 0 0 40px rgba(0,200,212,0.3);
     }
+    body:not(.light-theme) .hero-title { color:#fff; text-shadow: 0 0 40px rgba(0,200,212,0.3); }
+    body.light-theme .hero-title { color: #1a2e6e; }
     .hero-title span { color:var(--teal); }
+    body.light-theme .hero-title span { color: #008c96; }
+
     .hero-subtitle {
-      font-size:0.95rem;
-      color:rgba(255,255,255,0.5);
+      font-size:0.97rem;
       margin-bottom:2.5rem;
-      max-width:420px;
-      line-height:1.8;
+      max-width:440px; line-height:1.8;
       animation: fadeUp 0.6s ease 0.2s both;
     }
+    body:not(.light-theme) .hero-subtitle { color:rgba(255,255,255,0.5); }
+    body.light-theme .hero-subtitle { color: #5575a8; }
+
     @keyframes fadeUp {
       from { opacity:0; transform:translateY(20px); }
       to   { opacity:1; transform:translateY(0); }
     }
 
-    /* Main open button — smaller */
+    /* ═══════════════════════════════════════════
+       MAIN BUTTON
+    ═══════════════════════════════════════════ */
     #mainBtn {
-      background: linear-gradient(135deg, rgba(26,63,170,0.7), rgba(0,200,212,0.5));
-      color:#fff; border:1px solid rgba(0,200,212,0.4);
-      padding:13px 36px;
-      border-radius:16px;
+      color:#fff; border-radius:16px;
       font-family:'Cairo',sans-serif;
       font-size:0.97rem; font-weight:800;
       cursor:pointer;
-      backdrop-filter:blur(10px);
-      box-shadow:0 4px 24px rgba(0,200,212,0.2);
       position:relative; overflow:hidden;
       transition:all 0.22s;
       display:flex; align-items:center; gap:10px;
       animation: fadeUp 0.6s ease 0.3s both;
     }
+    body:not(.light-theme) #mainBtn {
+      background: linear-gradient(135deg, rgba(26,63,170,0.7), rgba(0,200,212,0.5));
+      border:1px solid rgba(0,200,212,0.4);
+      padding:13px 36px;
+      backdrop-filter:blur(10px);
+      box-shadow:0 4px 24px rgba(0,200,212,0.2);
+    }
+    body.light-theme #mainBtn {
+      background: linear-gradient(135deg, #1a2e6e 0%, #1e4db7 60%, #00b8c4 100%);
+      border:none;
+      padding:16px 44px;
+      box-shadow:0 6px 28px rgba(26,46,110,0.35);
+    }
     #mainBtn::before {
-      content:'';
-      position:absolute; inset:0;
-      background:linear-gradient(135deg,rgba(255,255,255,0.1) 0%,transparent 60%);
+      content:''; position:absolute; inset:0;
+      background:linear-gradient(135deg,rgba(255,255,255,0.12) 0%,transparent 60%);
     }
     #mainBtn:hover {
       transform:translateY(-3px);
-      box-shadow:0 8px 32px rgba(0,200,212,0.35);
-      border-color:rgba(0,200,212,0.7);
     }
-    #mainBtn .btn-chevron { transition:transform 0.35s; }
+    body:not(.light-theme) #mainBtn:hover { box-shadow:0 8px 32px rgba(0,200,212,0.35); border-color:rgba(0,200,212,0.7); }
+    body.light-theme #mainBtn:hover { box-shadow:0 12px 36px rgba(26,46,110,0.45); }
+    #mainBtn i { font-size: 1.05rem; }
+    #mainBtn .btn-chevron { transition:transform 0.35s; font-size: 0.9rem; }
     #mainBtn.open .btn-chevron { transform:rotate(180deg); }
 
-    /* Subjects grid */
+    /* ═══════════════════════════════════════════
+       SUBJECTS GRID
+    ═══════════════════════════════════════════ */
     #subjectsGrid {
       display:none;
-      grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
-      gap:12px;
-      max-width:820px; width:100%;
-      margin-top:1.8rem;
+      grid-template-columns:repeat(auto-fit,minmax(155px,1fr));
+      gap:14px;
+      max-width:840px; width:100%;
+      margin-top:2rem;
       animation:fadeUp 0.4s ease;
     }
     #subjectsGrid.visible { display:grid; }
 
     .subject-btn {
-      background: rgba(255,255,255,0.04);
-      border:1px solid rgba(255,255,255,0.1);
       border-radius:18px;
-      padding:18px 12px 14px;
-      cursor:pointer;
-      text-align:center;
+      padding:20px 14px 16px;
+      cursor:pointer; text-align:center;
       font-family:'Cairo',sans-serif;
-      font-size:0.85rem; font-weight:700;
-      color:rgba(255,255,255,0.75);
-      backdrop-filter:blur(10px);
-      box-shadow:0 4px 16px rgba(0,0,0,0.2);
+      font-size:0.88rem; font-weight:700;
       transition:all 0.22s;
       display:flex; flex-direction:column;
-      align-items:center; gap:9px;
+      align-items:center; gap:10px;
       position:relative; overflow:hidden;
     }
+    body:not(.light-theme) .subject-btn {
+      background: rgba(255,255,255,0.04);
+      border:1px solid rgba(255,255,255,0.1);
+      color:rgba(255,255,255,0.8);
+      backdrop-filter:blur(10px);
+      box-shadow:0 4px 16px rgba(0,0,0,0.2);
+    }
+    body.light-theme .subject-btn {
+      background: #ffffff;
+      border:2px solid var(--gray-light);
+      color: var(--text-dark);
+      box-shadow: 0 4px 24px rgba(26,46,110,0.10);
+    }
     .subject-btn::before {
-      content:'';
-      position:absolute; inset:0;
+      content:''; position:absolute; inset:0;
       background:linear-gradient(135deg,rgba(0,200,212,0.1),transparent);
       opacity:0; transition:opacity 0.22s;
     }
-    .subject-btn:hover {
+    body:not(.light-theme) .subject-btn:hover {
       border-color:rgba(0,200,212,0.5);
-      transform:translateY(-5px);
-      box-shadow:0 12px 30px rgba(0,200,212,0.15);
+      transform:translateY(-6px);
+      box-shadow:0 14px 32px rgba(0,200,212,0.18);
       color:#fff;
+    }
+    body.light-theme .subject-btn:hover {
+      border-color: var(--teal);
+      transform:translateY(-5px);
+      box-shadow:0 10px 30px rgba(0,184,196,0.2);
     }
     .subject-btn:hover::before { opacity:1; }
-    .subject-btn.active {
-      background:linear-gradient(135deg,rgba(26,63,170,0.7),rgba(0,200,212,0.5));
+    body:not(.light-theme) .subject-btn.active {
+      background:linear-gradient(135deg,rgba(26,63,170,0.75),rgba(0,200,212,0.55));
       color:#fff;
-      border-color:rgba(0,200,212,0.6);
-      box-shadow:0 8px 30px rgba(0,200,212,0.25);
+      border-color:rgba(0,200,212,0.7);
+      box-shadow:0 8px 30px rgba(0,200,212,0.3);
     }
-    .subject-btn .subj-icon {
-      width:48px; height:48px;
-      border-radius:14px;
-      background:rgba(255,255,255,0.08);
-      display:flex; align-items:center; justify-content:center;
-      transition:all 0.22s;
-    }
-    .subject-btn .subj-icon i { font-size:1.2rem; color:var(--teal); transition:all 0.22s; }
-    .subject-btn.active .subj-icon { background:rgba(255,255,255,0.15); }
-    .subject-btn .subj-count {
-      font-size:0.66rem; font-weight:600;
-      color:rgba(255,255,255,0.4);
-      background:rgba(255,255,255,0.07);
-      padding:2px 8px; border-radius:10px;
+    body.light-theme .subject-btn.active {
+      background:linear-gradient(135deg, #1a2e6e 0%, #1e4db7 70%, #00b8c4 100%);
+      color:#fff;
+      border-color:var(--teal);
+      box-shadow:0 8px 28px rgba(26,46,110,0.35);
     }
 
-    /* Files panel */
+    /* Subject Icons — larger & clearer */
+    .subj-icon {
+      width:58px; height:58px;
+      border-radius:16px;
+      display:flex; align-items:center; justify-content:center;
+      transition:all 0.22s;
+      position: relative;
+    }
+    body:not(.light-theme) .subj-icon { background:rgba(255,255,255,0.09); }
+    body.light-theme .subj-icon { background: linear-gradient(135deg, #e8f0fe, #d4eef9); }
+    .subj-icon i {
+      font-size: 1.55rem;
+      transition: all 0.22s;
+    }
+    body:not(.light-theme) .subj-icon i { color: var(--teal); }
+    body.light-theme .subj-icon i { color: var(--blue); }
+    .subject-btn.active .subj-icon { background:rgba(255,255,255,0.18); }
+    .subject-btn.active .subj-icon i { color:#fff; }
+
+    .subj-name { font-size: 0.86rem; font-weight: 800; line-height: 1.3; }
+    .subj-count {
+      font-size:0.68rem; font-weight:700;
+      padding:3px 10px; border-radius:20px;
+    }
+    body:not(.light-theme) .subj-count { color:rgba(255,255,255,0.4); background:rgba(255,255,255,0.07); }
+    body.light-theme .subj-count { color: #5575a8; background: #e2eaf8; }
+    .subject-btn.active .subj-count { background:rgba(255,255,255,0.15); color:rgba(255,255,255,0.85); }
+
+    /* Bottom accent bar */
+    body.light-theme .subject-btn::after {
+      content:''; position:absolute;
+      bottom:0; left:0; right:0; height:3px;
+      background:linear-gradient(90deg, var(--blue), var(--teal));
+      transform:scaleX(0); transition:transform 0.25s;
+      transform-origin:right;
+    }
+    body.light-theme .subject-btn:hover::after { transform:scaleX(1); transform-origin:left; }
+    body.light-theme .subject-btn.active::after { display:none; }
+
+    /* ═══════════════════════════════════════════
+       FILES PANEL
+    ═══════════════════════════════════════════ */
     #filesPanel {
       display:none;
-      max-width:680px; width:100%;
+      max-width:700px; width:100%;
       margin-top:1.8rem;
-      background:rgba(255,255,255,0.03);
-      border:1px solid rgba(255,255,255,0.1);
       border-radius:22px;
-      backdrop-filter:blur(16px);
-      box-shadow:0 16px 48px rgba(0,0,0,0.3);
       overflow:hidden;
       animation:fadeUp 0.4s ease;
     }
     #filesPanel.visible { display:block; }
+    body:not(.light-theme) #filesPanel {
+      background:rgba(255,255,255,0.03);
+      border:1px solid rgba(255,255,255,0.1);
+      backdrop-filter:blur(16px);
+      box-shadow:0 16px 48px rgba(0,0,0,0.3);
+    }
+    body.light-theme #filesPanel {
+      background: #ffffff;
+      box-shadow: 0 8px 40px rgba(26,46,110,0.18);
+    }
+
     .files-header {
-      background:linear-gradient(135deg,rgba(26,63,170,0.6),rgba(0,200,212,0.4));
-      padding:16px 22px;
-      display:flex; align-items:center; gap:12px;
+      padding:18px 24px;
+      display:flex; align-items:center; gap:14px;
+    }
+    body:not(.light-theme) .files-header {
+      background:linear-gradient(135deg,rgba(26,63,170,0.65),rgba(0,200,212,0.45));
       border-bottom:1px solid rgba(255,255,255,0.08);
     }
-    .files-header i { font-size:1.1rem; color:var(--teal-light); }
-    .files-header-text h3 { color:#fff; font-size:0.95rem; font-weight:800; }
-    .files-header-text p  { color:rgba(255,255,255,0.55); font-size:0.72rem; margin-top:1px; }
-    .files-count {
-      margin-right:auto;
-      background:rgba(255,255,255,0.12);
-      color:#fff; font-size:0.72rem; font-weight:700;
-      padding:4px 12px; border-radius:20px;
+    body.light-theme .files-header {
+      background:linear-gradient(135deg, #1a2e6e 0%, #1e4db7 70%, #00b8c4 100%);
     }
-    .files-list { padding:10px; display:flex; flex-direction:column; gap:6px; }
-    .file-item {
-      display:flex; align-items:center; gap:12px;
-      padding:12px 14px;
-      border-radius:14px;
-      border:1px solid rgba(255,255,255,0.07);
-      background:rgba(255,255,255,0.03);
-      transition:all 0.2s;
-    }
-    .file-item:hover {
-      border-color:rgba(0,200,212,0.4);
-      background:rgba(0,200,212,0.06);
-      transform:translateX(-3px);
-    }
-    .file-icon {
-      width:40px; height:40px;
-      background:linear-gradient(135deg,#e53e3e,#c53030);
-      border-radius:10px;
+    .files-header-icon {
+      width:42px; height:42px; border-radius:12px;
+      background:rgba(255,255,255,0.15);
       display:flex; align-items:center; justify-content:center; flex-shrink:0;
     }
-    .file-icon i { font-size:1rem; color:#fff; }
+    .files-header-icon i { font-size:1.2rem; color:#fff; }
+    .files-header-text h3 { color:#fff; font-size:1rem; font-weight:800; }
+    .files-header-text p  { color:rgba(255,255,255,0.65); font-size:0.73rem; margin-top:2px; }
+    .files-count {
+      margin-right:auto;
+      background:rgba(255,255,255,0.18);
+      color:#fff; font-size:0.73rem; font-weight:700;
+      padding:5px 14px; border-radius:20px;
+      border:1px solid rgba(255,255,255,0.2);
+    }
+    .files-list { padding:12px; display:flex; flex-direction:column; gap:8px; }
+
+    .file-item {
+      display:flex; align-items:center; gap:14px;
+      padding:14px 16px; border-radius:14px;
+      transition:all 0.2s; text-decoration:none;
+      color: var(--file-name-color);
+    }
+    body:not(.light-theme) .file-item {
+      border:1px solid rgba(255,255,255,0.07);
+      background:rgba(255,255,255,0.03);
+    }
+    body.light-theme .file-item {
+      border:1.5px solid var(--gray-light);
+      background: var(--off-white);
+    }
+    body:not(.light-theme) .file-item:hover {
+      border-color:rgba(0,200,212,0.45);
+      background:rgba(0,200,212,0.07);
+      transform:translateX(-4px);
+    }
+    body.light-theme .file-item:hover {
+      border-color: var(--teal);
+      background:#e8f7ff;
+      transform:translateX(-4px);
+      box-shadow:0 4px 16px rgba(0,184,196,0.13);
+    }
+    .file-icon {
+      width:46px; height:46px;
+      background:linear-gradient(135deg,#e53e3e,#c53030);
+      border-radius:12px;
+      display:flex; align-items:center; justify-content:center; flex-shrink:0;
+      box-shadow:0 3px 10px rgba(229,62,62,0.35);
+    }
+    .file-icon i { font-size:1.15rem; color:#fff; }
     .file-info { flex:1; min-width:0; }
-    .file-name { font-size:0.85rem; font-weight:700; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-    .file-meta { font-size:0.68rem; color:rgba(255,255,255,0.4); margin-top:2px; }
+    .file-name {
+      font-size:0.9rem; font-weight:700;
+      white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+    }
+    body:not(.light-theme) .file-name { color:#fff; }
+    body.light-theme .file-name { color: var(--navy); }
+    .file-meta { font-size:0.72rem; margin-top:3px; }
+    body:not(.light-theme) .file-meta { color:rgba(255,255,255,0.4); }
+    body.light-theme .file-meta { color: #7a96c2; }
     .file-download {
       background:linear-gradient(135deg,var(--blue),var(--teal));
       color:#fff; border:none;
-      padding:7px 16px; border-radius:8px;
+      padding:9px 18px; border-radius:10px;
       font-family:'Cairo',sans-serif;
-      font-size:0.75rem; font-weight:700;
+      font-size:0.78rem; font-weight:700;
       cursor:pointer; flex-shrink:0;
       transition:all 0.18s;
-      display:flex; align-items:center; gap:5px;
+      display:flex; align-items:center; gap:7px;
       text-decoration:none;
     }
-    .file-download:hover { transform:scale(1.06); box-shadow:0 4px 16px rgba(0,200,212,0.3); }
-    .empty-state { text-align:center; padding:36px 20px; color:rgba(255,255,255,0.3); }
-    .empty-state i { font-size:2.2rem; margin-bottom:10px; opacity:0.4; display:block; }
-    .empty-state p { font-size:0.88rem; font-weight:600; }
+    .file-download:hover { transform:scale(1.06); box-shadow:0 4px 16px rgba(0,200,212,0.35); }
+    .empty-state { text-align:center; padding:40px 20px; }
+    body:not(.light-theme) .empty-state { color:rgba(255,255,255,0.3); }
+    body.light-theme .empty-state { color: #9ab0d0; }
+    .empty-state i { font-size:2.5rem; margin-bottom:12px; opacity:0.4; display:block; }
+    .empty-state p { font-size:0.9rem; font-weight:600; }
 
-    /* ── TOKEN OVERLAY ── */
+    /* ═══════════════════════════════════════════
+       TOKEN OVERLAY
+    ═══════════════════════════════════════════ */
     .token-setup-overlay {
       position:fixed; inset:0;
-      background:rgba(6,14,46,0.85);
+      background:rgba(6,14,46,0.88);
       z-index:999;
       display:flex; align-items:center; justify-content:center;
       padding:1rem;
-      backdrop-filter:blur(8px);
+      backdrop-filter:blur(10px);
     }
     .token-setup-box {
-      background:rgba(255,255,255,0.05);
+      background:rgba(255,255,255,0.06);
       border:1px solid rgba(0,200,212,0.25);
       backdrop-filter:blur(20px);
       border-radius:24px; padding:36px;
@@ -415,28 +661,34 @@
       text-align:center;
     }
     .token-setup-box .ts-icon {
-      width:64px; height:64px;
+      width:68px; height:68px;
       background:linear-gradient(135deg,var(--navy),var(--teal));
       border-radius:50%;
       display:flex; align-items:center; justify-content:center;
       margin:0 auto 1.2rem;
-      box-shadow:0 0 24px rgba(0,200,212,0.3);
+      box-shadow:0 0 28px rgba(0,200,212,0.35);
     }
-    .token-setup-box .ts-icon i { font-size:1.7rem; color:#fff; }
-    .token-setup-box h2 { font-size:1.25rem; font-weight:900; color:#fff; margin-bottom:0.5rem; }
+    .token-setup-box .ts-icon i { font-size:1.8rem; color:#fff; }
+    .token-setup-box h2 { font-size:1.3rem; font-weight:900; color:#fff; margin-bottom:0.5rem; }
     .token-setup-box p { font-size:0.82rem; color:rgba(255,255,255,0.55); line-height:1.7; margin-bottom:1.2rem; }
-    .token-steps { text-align:right; background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.08); border-radius:12px; padding:14px 16px; margin-bottom:16px; }
+    .token-steps {
+      text-align:right;
+      background:rgba(255,255,255,0.04);
+      border:1px solid rgba(255,255,255,0.08);
+      border-radius:12px; padding:14px 16px; margin-bottom:16px;
+    }
     .token-steps p { font-size:0.77rem; color:rgba(255,255,255,0.6); line-height:2; font-weight:600; }
     .token-steps a { color:var(--teal); }
+    .token-status { font-size:0.78rem; font-weight:700; padding:6px 12px; border-radius:8px; margin-bottom:10px; display:none; }
+    .token-status.ok  { background:rgba(22,163,74,0.15); color:#4ade80; display:block; }
+    .token-status.err { background:rgba(220,38,38,0.15); color:#f87171; display:block; }
     .token-setup-box input {
       width:100%; padding:12px 16px;
-      border:1px solid rgba(255,255,255,0.15);
-      border-radius:10px;
+      border:1px solid rgba(255,255,255,0.15); border-radius:10px;
       font-family:'Cairo',sans-serif; font-size:0.88rem;
       margin-bottom:10px; outline:none;
       direction:ltr; text-align:left;
-      background:rgba(255,255,255,0.05);
-      color:#fff;
+      background:rgba(255,255,255,0.05); color:#fff;
     }
     .token-setup-box input:focus { border-color:var(--teal); }
     .token-save-btn {
@@ -447,63 +699,116 @@
       cursor:pointer; transition:all 0.2s;
     }
     .token-save-btn:hover { transform:translateY(-2px); box-shadow:0 6px 20px rgba(0,200,212,0.35); }
-    .token-skip-btn { background:none; border:none; color:rgba(255,255,255,0.3); font-family:'Cairo',sans-serif; font-size:0.8rem; cursor:pointer; margin-top:10px; display:block; width:100%; }
+    .token-skip-btn {
+      background:none; border:none; color:rgba(255,255,255,0.3);
+      font-family:'Cairo',sans-serif; font-size:0.8rem;
+      cursor:pointer; margin-top:10px; display:block; width:100%;
+    }
     .token-skip-btn:hover { color:rgba(255,255,255,0.6); }
-    .token-status { font-size:0.78rem; font-weight:700; padding:6px 12px; border-radius:8px; margin-bottom:10px; display:none; }
-    .token-status.ok  { background:rgba(22,163,74,0.15); color:#4ade80; display:block; }
-    .token-status.err { background:rgba(220,38,38,0.15); color:#f87171; display:block; }
 
-    /* ── UPLOAD PAGE ── */
+    /* ═══════════════════════════════════════════
+       UPLOAD PAGE
+    ═══════════════════════════════════════════ */
     .upload-page {
       position:relative; z-index:1;
-      max-width:680px; margin:0 auto;
+      max-width:700px; margin:0 auto;
       padding:2.5rem 1.5rem;
     }
     .page-header { margin-bottom:2rem; }
-    .page-header h2 { font-size:1.5rem; font-weight:900; color:#fff; margin-bottom:0.4rem; display:flex; align-items:center; gap:10px; }
+    .page-header h2 {
+      font-size:1.5rem; font-weight:900;
+      margin-bottom:0.4rem;
+      display:flex; align-items:center; gap:10px;
+    }
+    body:not(.light-theme) .page-header h2 { color:#fff; }
+    body.light-theme .page-header h2 { color: var(--navy); }
     .page-header h2 i { color:var(--teal); }
-    .page-header .page-sub { color:rgba(255,255,255,0.45); font-size:0.88rem; }
+    .page-header .page-sub { font-size:0.88rem; }
+    body:not(.light-theme) .page-header .page-sub { color:rgba(255,255,255,0.45); }
+    body.light-theme .page-header .page-sub { color: #5575a8; }
 
     .glass-card {
+      border-radius:20px;
+      padding:26px;
+      margin-bottom:18px;
+    }
+    body:not(.light-theme) .glass-card {
       background:rgba(255,255,255,0.04);
       border:1px solid rgba(255,255,255,0.1);
-      border-radius:20px;
       backdrop-filter:blur(16px);
-      padding:24px;
-      margin-bottom:18px;
       box-shadow:0 8px 32px rgba(0,0,0,0.2);
     }
-    .glass-card h3 { font-size:0.95rem; font-weight:800; color:#fff; margin-bottom:16px; display:flex; align-items:center; gap:8px; }
-    .glass-card h3 i { color:var(--teal); }
+    body.light-theme .glass-card {
+      background: #ffffff;
+      border:1px solid var(--gray-light);
+      box-shadow: 0 4px 24px rgba(26,46,110,0.1);
+    }
+    .glass-card h3 {
+      font-size:1rem; font-weight:800;
+      margin-bottom:18px;
+      display:flex; align-items:center; gap:8px;
+    }
+    body:not(.light-theme) .glass-card h3 { color:#fff; }
+    body.light-theme .glass-card h3 { color: var(--navy); }
+    .glass-card h3 i { color:var(--teal); font-size:1.1rem; }
 
-    .form-group { margin-bottom:14px; }
-    .form-group label { display:block; font-size:0.8rem; font-weight:700; color:rgba(255,255,255,0.6); margin-bottom:6px; }
+    .form-group { margin-bottom:16px; }
+    .form-group label {
+      display:block; font-size:0.82rem; font-weight:700; margin-bottom:7px;
+    }
+    body:not(.light-theme) .form-group label { color:rgba(255,255,255,0.6); }
+    body.light-theme .form-group label { color: #5575a8; }
     .form-group input, .form-group select, .form-group textarea {
       width:100%; padding:11px 14px;
-      border:1px solid rgba(255,255,255,0.12);
       border-radius:10px;
       font-family:'Cairo',sans-serif; font-size:0.86rem;
-      color:#fff;
-      background:rgba(255,255,255,0.06);
       transition:border 0.2s; outline:none;
     }
-    .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color:rgba(0,200,212,0.6); background:rgba(0,200,212,0.05); }
+    body:not(.light-theme) .form-group input,
+    body:not(.light-theme) .form-group select,
+    body:not(.light-theme) .form-group textarea {
+      border:1px solid rgba(255,255,255,0.12);
+      color:#fff;
+      background:rgba(255,255,255,0.06);
+    }
+    body:not(.light-theme) .form-group input:focus,
+    body:not(.light-theme) .form-group select:focus,
+    body:not(.light-theme) .form-group textarea:focus {
+      border-color:rgba(0,200,212,0.6); background:rgba(0,200,212,0.05);
+    }
+    body.light-theme .form-group input,
+    body.light-theme .form-group select,
+    body.light-theme .form-group textarea {
+      border:1.5px solid var(--gray-light);
+      color: var(--text-dark);
+      background: #f8fbff;
+    }
+    body.light-theme .form-group input:focus,
+    body.light-theme .form-group select:focus,
+    body.light-theme .form-group textarea:focus {
+      border-color: var(--teal); background:#f0fafc;
+    }
     .form-group select option { background:#0d1f5c; color:#fff; }
+    body.light-theme .form-group select option { background:#fff; color:#0a1840; }
     .form-group textarea { resize:vertical; min-height:80px; }
 
     .dropzone {
       border:2px dashed rgba(255,255,255,0.15);
-      border-radius:14px; padding:32px 20px;
+      border-radius:14px; padding:34px 20px;
       text-align:center; cursor:pointer;
       transition:all 0.22s;
-      background:rgba(255,255,255,0.02);
       position:relative;
     }
-    .dropzone:hover, .dropzone.dragover { border-color:rgba(0,200,212,0.5); background:rgba(0,200,212,0.05); }
-    .dropzone i { font-size:2rem; color:var(--teal); margin-bottom:10px; display:block; opacity:0.8; }
-    .dropzone p { font-size:0.85rem; font-weight:600; color:rgba(255,255,255,0.5); }
-    .dropzone p span { color:var(--teal); text-decoration:underline; }
-    .dropzone small { font-size:0.72rem; color:rgba(255,255,255,0.3); margin-top:6px; display:block; }
+    body.light-theme .dropzone { border-color: var(--gray-light); background: #f8fbff; }
+    .dropzone:hover, .dropzone.dragover { border-color:rgba(0,200,212,0.6) !important; background:rgba(0,200,212,0.06) !important; }
+    .dropzone i { font-size:2.3rem; color:var(--teal); margin-bottom:10px; display:block; }
+    .dropzone p { font-size:0.87rem; font-weight:600; }
+    body:not(.light-theme) .dropzone p { color:rgba(255,255,255,0.5); }
+    body.light-theme .dropzone p { color: #5575a8; }
+    .dropzone p span { color:var(--teal); text-decoration:underline; cursor:pointer; }
+    .dropzone small { font-size:0.72rem; margin-top:6px; display:block; }
+    body:not(.light-theme) .dropzone small { color:rgba(255,255,255,0.3); }
+    body.light-theme .dropzone small { color: #9ab0d0; }
     .dropzone input[type=file] { position:absolute; inset:0; opacity:0; cursor:pointer; }
     .selected-file {
       margin-top:10px; padding:10px 14px;
@@ -516,7 +821,7 @@
     .selected-file span { font-size:0.82rem; font-weight:700; color:#4ade80; flex:1; }
 
     .upload-btn {
-      width:100%; padding:13px;
+      width:100%; padding:14px;
       background:linear-gradient(135deg,var(--navy),var(--blue),var(--teal));
       color:#fff; border:none; border-radius:12px;
       font-family:'Cairo',sans-serif; font-size:0.97rem; font-weight:800;
@@ -529,7 +834,8 @@
 
     .progress-bar-wrap { margin-top:12px; display:none; }
     .progress-bar-wrap p { font-size:0.78rem; font-weight:700; color:var(--teal); margin-bottom:6px; }
-    .progress-bar { height:6px; background:rgba(255,255,255,0.1); border-radius:99px; overflow:hidden; }
+    .progress-bar { height:7px; background:rgba(255,255,255,0.1); border-radius:99px; overflow:hidden; }
+    body.light-theme .progress-bar { background: var(--gray-light); }
     .progress-bar-fill { height:100%; background:linear-gradient(90deg,var(--blue),var(--teal)); border-radius:99px; width:0%; transition:width 0.4s; }
 
     .upload-result { margin-top:12px; padding:12px 16px; border-radius:12px; display:none; font-size:0.85rem; font-weight:700; }
@@ -543,39 +849,57 @@
       margin-bottom:16px;
       display:flex; align-items:flex-start; gap:10px;
     }
-    .info-box i { color:#f59e0b; margin-top:2px; flex-shrink:0; }
-    .info-box p { font-size:0.8rem; color:rgba(255,255,255,0.6); line-height:1.6; font-weight:600; }
+    .info-box i { color:#f59e0b; margin-top:2px; flex-shrink:0; font-size:1rem; }
+    .info-box p { font-size:0.8rem; line-height:1.6; font-weight:600; }
+    body:not(.light-theme) .info-box p { color:rgba(255,255,255,0.6); }
+    body.light-theme .info-box p { color: #775500; }
     .info-box.green { background:rgba(22,163,74,0.08); border-color:rgba(74,222,128,0.2); }
     .info-box.green i { color:#4ade80; }
-    .info-box.green p { color:rgba(255,255,255,0.6); }
+    body.light-theme .info-box.green p { color: #16a34a; }
 
-    /* Student files */
+    /* Student Files */
     .student-files-section { margin-top:24px; }
-    .student-files-section h3 { font-size:1rem; font-weight:900; color:#fff; margin-bottom:12px; display:flex; align-items:center; gap:8px; }
+    .student-files-section h3 {
+      font-size:1rem; font-weight:900;
+      margin-bottom:14px;
+      display:flex; align-items:center; gap:8px;
+    }
+    body:not(.light-theme) .student-files-section h3 { color:#fff; }
+    body.light-theme .student-files-section h3 { color: var(--navy); }
     .student-files-section h3 i { color:var(--teal); }
 
     .student-file-card {
-      background:rgba(255,255,255,0.03);
-      border:1px solid rgba(255,255,255,0.08);
       border-radius:14px;
       padding:14px 16px; margin-bottom:8px;
       display:flex; align-items:center; gap:12px;
       transition:all 0.2s;
+    }
+    body:not(.light-theme) .student-file-card {
+      background:rgba(255,255,255,0.03);
+      border:1px solid rgba(255,255,255,0.08);
       backdrop-filter:blur(8px);
     }
-    .student-file-card:hover { transform:translateY(-2px); border-color:rgba(0,200,212,0.3); box-shadow:0 8px 24px rgba(0,0,0,0.2); }
-    .sfc-icon { width:44px; height:44px; border-radius:12px; background:linear-gradient(135deg,#7c3aed,#6d28d9); display:flex; align-items:center; justify-content:center; flex-shrink:0; }
-    .sfc-icon i { color:#fff; font-size:1.1rem; }
+    body.light-theme .student-file-card {
+      background: #f8fbff;
+      border:1.5px solid var(--gray-light);
+    }
+    .student-file-card:hover { transform:translateY(-2px); border-color:rgba(0,200,212,0.3); box-shadow:0 8px 24px rgba(0,0,0,0.15); }
+    .sfc-icon { width:46px; height:46px; border-radius:12px; background:linear-gradient(135deg,#7c3aed,#6d28d9); display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+    .sfc-icon i { color:#fff; font-size:1.15rem; }
     .sfc-info { flex:1; min-width:0; }
-    .sfc-title { font-size:0.87rem; font-weight:800; color:#fff; }
-    .sfc-meta { font-size:0.69rem; color:rgba(255,255,255,0.4); margin-top:3px; line-height:1.8; }
+    .sfc-title { font-size:0.87rem; font-weight:800; }
+    body:not(.light-theme) .sfc-title { color:#fff; }
+    body.light-theme .sfc-title { color: var(--navy); }
+    .sfc-meta { font-size:0.69rem; margin-top:3px; line-height:1.8; }
+    body:not(.light-theme) .sfc-meta { color:rgba(255,255,255,0.4); }
+    body.light-theme .sfc-meta { color: #7a96c2; }
     .sfc-badge { padding:3px 9px; border-radius:20px; font-size:0.65rem; font-weight:800; }
     .sfc-badge.pdf { background:rgba(220,38,38,0.15); color:#f87171; border:1px solid rgba(248,113,113,0.2); }
     .sfc-badge.doc { background:rgba(30,77,183,0.15); color:#60a5fa; border:1px solid rgba(96,165,250,0.2); }
     .sfc-badge.img { background:rgba(22,163,74,0.15); color:#4ade80; border:1px solid rgba(74,222,128,0.2); }
     .sfc-download {
       background:linear-gradient(135deg,#7c3aed,var(--teal));
-      color:#fff; border:none; padding:7px 14px;
+      color:#fff; border:none; padding:8px 16px;
       border-radius:8px; font-family:'Cairo',sans-serif;
       font-size:0.75rem; font-weight:700; cursor:pointer;
       text-decoration:none; display:flex; align-items:center; gap:5px;
@@ -583,113 +907,208 @@
     }
     .sfc-download:hover { transform:scale(1.05); }
 
-    .loading-spinner { text-align:center; padding:28px; color:rgba(255,255,255,0.3); }
-    .loading-spinner i { font-size:1.7rem; animation:spin 1s linear infinite; margin-bottom:8px; display:block; color:var(--teal); opacity:0.6; }
+    .loading-spinner { text-align:center; padding:28px; }
+    body:not(.light-theme) .loading-spinner { color:rgba(255,255,255,0.3); }
+    body.light-theme .loading-spinner { color: #9ab0d0; }
+    .loading-spinner i { font-size:1.8rem; animation:spin 1s linear infinite; margin-bottom:8px; display:block; color:var(--teal); opacity:0.7; }
     @keyframes spin { to { transform:rotate(360deg); } }
 
-    /* ── COMMENTS PAGE ── */
-    .comments-page { position:relative; z-index:1; max-width:680px; margin:0 auto; padding:2.5rem 1.5rem; }
+    /* ═══════════════════════════════════════════
+       COMMENTS PAGE
+    ═══════════════════════════════════════════ */
+    .comments-page {
+      position:relative; z-index:1;
+      max-width:700px; margin:0 auto;
+      padding:2.5rem 1.5rem;
+    }
 
     .stats-bar {
-      background:linear-gradient(135deg,rgba(26,63,170,0.4),rgba(0,200,212,0.3));
-      border:1px solid rgba(0,200,212,0.2);
-      border-radius:18px; padding:18px 24px;
+      border-radius:18px; padding:20px 24px;
       margin-bottom:22px;
       display:flex; align-items:center; justify-content:space-around;
       gap:12px; flex-wrap:wrap;
+    }
+    body:not(.light-theme) .stats-bar {
+      background:linear-gradient(135deg,rgba(26,63,170,0.4),rgba(0,200,212,0.3));
+      border:1px solid rgba(0,200,212,0.2);
       backdrop-filter:blur(12px);
     }
+    body.light-theme .stats-bar {
+      background:linear-gradient(135deg, #1a2e6e 0%, #1e4db7 70%, #00b8c4 100%);
+      box-shadow: 0 6px 24px rgba(26,46,110,0.2);
+    }
     .stat-item { text-align:center; }
-    .stat-num { font-size:1.5rem; font-weight:900; color:#fff; }
-    .stat-label { font-size:0.68rem; color:rgba(255,255,255,0.5); font-weight:600; margin-top:2px; }
+    .stat-num { font-size:1.6rem; font-weight:900; color:#fff; }
+    .stat-label { font-size:0.68rem; color:rgba(255,255,255,0.6); font-weight:600; margin-top:2px; }
 
     .new-comment-card { margin-bottom:22px; }
 
     .star-rating { display:flex; gap:6px; margin-bottom:14px; flex-direction:row-reverse; justify-content:flex-end; }
     .star-rating input { display:none; }
-    .star-rating label { font-size:1.5rem; color:rgba(255,255,255,0.2); cursor:pointer; transition:color 0.15s; }
-    .star-rating input:checked ~ label, .star-rating label:hover, .star-rating label:hover ~ label { color:#f59e0b; }
+    .star-rating label { font-size:1.6rem; cursor:pointer; transition:color 0.15s; }
+    body:not(.light-theme) .star-rating label { color:rgba(255,255,255,0.2); }
+    body.light-theme .star-rating label { color: #d1d5db; }
+    .star-rating input:checked ~ label,
+    .star-rating label:hover,
+    .star-rating label:hover ~ label { color:#f59e0b; }
 
     .comment-tag-select { display:flex; flex-wrap:wrap; gap:7px; margin-bottom:14px; }
     .tag-btn {
-      padding:5px 14px; border:1px solid rgba(255,255,255,0.12);
-      border-radius:20px; background:rgba(255,255,255,0.04);
-      font-family:'Cairo',sans-serif; font-size:0.75rem; font-weight:700;
-      color:rgba(255,255,255,0.5); cursor:pointer; transition:all 0.18s;
+      padding:6px 16px; border-radius:20px;
+      font-family:'Cairo',sans-serif; font-size:0.78rem; font-weight:700;
+      cursor:pointer; transition:all 0.18s;
     }
-    .tag-btn.selected, .tag-btn:hover { background:rgba(26,63,170,0.5); color:#fff; border-color:rgba(0,200,212,0.4); }
+    body:not(.light-theme) .tag-btn {
+      border:1px solid rgba(255,255,255,0.12);
+      background:rgba(255,255,255,0.04);
+      color:rgba(255,255,255,0.5);
+    }
+    body.light-theme .tag-btn {
+      border:1.5px solid var(--gray-light);
+      background: #f0f6ff;
+      color: #5575a8;
+    }
+    .tag-btn.selected, .tag-btn:hover {
+      background:linear-gradient(135deg,rgba(26,63,170,0.5),rgba(0,200,212,0.3));
+      color:#fff; border-color:rgba(0,200,212,0.4);
+    }
+    body.light-theme .tag-btn.selected,
+    body.light-theme .tag-btn:hover {
+      background: linear-gradient(135deg, #1a3faa, #00c8d4);
+    }
 
     .submit-comment-btn {
       background:linear-gradient(135deg,var(--navy),var(--blue),var(--teal));
-      color:#fff; border:none; padding:12px 28px;
-      border-radius:10px; font-family:'Cairo',sans-serif;
+      color:#fff; border:none; padding:13px 30px;
+      border-radius:12px; font-family:'Cairo',sans-serif;
       font-size:0.9rem; font-weight:800; cursor:pointer;
       transition:all 0.2s; display:flex; align-items:center; gap:8px;
+      box-shadow: 0 4px 20px rgba(0,200,212,0.2);
     }
-    .submit-comment-btn:hover { transform:translateY(-2px); box-shadow:0 6px 20px rgba(0,200,212,0.3); }
+    .submit-comment-btn:hover { transform:translateY(-2px); box-shadow:0 6px 24px rgba(0,200,212,0.35); }
     .submit-comment-btn:disabled { opacity:0.5; cursor:not-allowed; transform:none; }
 
     .comments-list { display:flex; flex-direction:column; gap:12px; }
     .comment-card {
-      background:rgba(255,255,255,0.03);
-      border:1px solid rgba(255,255,255,0.08);
-      border-radius:16px; padding:16px 18px;
-      backdrop-filter:blur(10px);
+      border-radius:16px; padding:18px 20px;
       transition:border-color 0.2s;
     }
-    .comment-card:hover { border-color:rgba(0,200,212,0.2); }
-    .comment-card-header { display:flex; align-items:center; gap:10px; margin-bottom:10px; flex-wrap:wrap; }
+    body:not(.light-theme) .comment-card {
+      background:rgba(255,255,255,0.03);
+      border:1px solid rgba(255,255,255,0.08);
+      backdrop-filter:blur(10px);
+    }
+    body.light-theme .comment-card {
+      background: #ffffff;
+      border:1.5px solid var(--gray-light);
+      box-shadow: 0 2px 12px rgba(26,46,110,0.06);
+    }
+    .comment-card:hover { border-color:rgba(0,200,212,0.3); }
+    .comment-card-header { display:flex; align-items:center; gap:10px; margin-bottom:12px; flex-wrap:wrap; }
     .comment-avatar {
-      width:38px; height:38px; border-radius:50%;
+      width:40px; height:40px; border-radius:50%;
       background:linear-gradient(135deg,var(--navy),var(--teal));
       display:flex; align-items:center; justify-content:center;
-      font-size:0.95rem; font-weight:900; color:#fff; flex-shrink:0;
+      font-size:1rem; font-weight:900; color:#fff; flex-shrink:0;
     }
-    .comment-author { font-size:0.87rem; font-weight:800; color:#fff; }
-    .comment-time { font-size:0.68rem; color:rgba(255,255,255,0.35); margin-top:2px; }
-    .comment-stars { color:#f59e0b; font-size:0.82rem; letter-spacing:1px; }
-    .comment-tag { padding:3px 10px; border-radius:20px; background:rgba(26,63,170,0.4); color:rgba(255,255,255,0.8); font-size:0.65rem; font-weight:700; border:1px solid rgba(0,200,212,0.2); }
-    .comment-body { font-size:0.85rem; line-height:1.7; color:rgba(255,255,255,0.6); }
+    .comment-author { font-size:0.88rem; font-weight:800; }
+    body:not(.light-theme) .comment-author { color:#fff; }
+    body.light-theme .comment-author { color: var(--navy); }
+    .comment-time { font-size:0.68rem; margin-top:2px; }
+    body:not(.light-theme) .comment-time { color:rgba(255,255,255,0.35); }
+    body.light-theme .comment-time { color: #9ab0d0; }
+    .comment-stars { color:#f59e0b; font-size:0.88rem; letter-spacing:1px; }
+    .comment-tag {
+      padding:3px 10px; border-radius:20px;
+      font-size:0.65rem; font-weight:700;
+    }
+    body:not(.light-theme) .comment-tag {
+      background:rgba(26,63,170,0.4);
+      color:rgba(255,255,255,0.8);
+      border:1px solid rgba(0,200,212,0.2);
+    }
+    body.light-theme .comment-tag {
+      background: rgba(0,184,196,0.1);
+      color: #008c96;
+      border:1px solid rgba(0,184,196,0.25);
+    }
+    .comment-body { font-size:0.85rem; line-height:1.75; }
+    body:not(.light-theme) .comment-body { color:rgba(255,255,255,0.65); }
+    body.light-theme .comment-body { color: #5575a8; }
     .comment-likes { margin-top:10px; display:flex; align-items:center; gap:8px; }
     .like-btn {
-      padding:4px 12px; border:1px solid rgba(255,255,255,0.1);
-      border-radius:20px; background:rgba(255,255,255,0.04);
+      padding:5px 14px; border-radius:20px;
       font-family:'Cairo',sans-serif; font-size:0.75rem; font-weight:700;
-      color:rgba(255,255,255,0.4); cursor:pointer; transition:all 0.18s;
+      cursor:pointer; transition:all 0.18s;
       display:flex; align-items:center; gap:5px; text-decoration:none;
+    }
+    body:not(.light-theme) .like-btn {
+      border:1px solid rgba(255,255,255,0.1);
+      background:rgba(255,255,255,0.04);
+      color:rgba(255,255,255,0.4);
+    }
+    body.light-theme .like-btn {
+      border:1.5px solid var(--gray-light);
+      background: #f0f6ff;
+      color: #7a96c2;
     }
     .like-btn:hover { background:rgba(220,38,38,0.1); color:#f87171; border-color:rgba(248,113,113,0.3); }
 
-    /* ── FOOTER ── */
+    /* ═══════════════════════════════════════════
+       FOOTER
+    ═══════════════════════════════════════════ */
     footer {
       position:relative; z-index:1; text-align:center;
-      padding:22px; color:rgba(255,255,255,0.3);
-      font-size:0.75rem;
+      padding:24px; font-size:0.78rem;
+      transition: all 0.4s;
+    }
+    body:not(.light-theme) footer {
+      color:rgba(255,255,255,0.3);
       border-top:1px solid rgba(255,255,255,0.07);
       background:rgba(255,255,255,0.02);
     }
+    body.light-theme footer {
+      color: #8099c2;
+      border-top:1px solid var(--gray-light);
+      background:rgba(255,255,255,0.6);
+    }
     footer span { color:var(--teal); font-weight:700; }
-    footer a { color:rgba(0,200,212,0.7); text-decoration:none; font-weight:700; }
+    footer a { color:rgba(0,200,212,0.8); text-decoration:none; font-weight:700; }
     footer a:hover { color:var(--teal); }
 
-    /* ── TOAST ── */
+    /* ═══════════════════════════════════════════
+       TOAST
+    ═══════════════════════════════════════════ */
     .toast {
       position:fixed; bottom:24px; left:50%;
       transform:translateX(-50%) translateY(80px);
-      background:rgba(13,31,92,0.95);
       border:1px solid rgba(0,200,212,0.3);
-      color:#fff; padding:12px 24px;
-      border-radius:12px; font-size:0.85rem; font-weight:700;
+      color:#fff; padding:13px 26px;
+      border-radius:14px; font-size:0.85rem; font-weight:700;
       box-shadow:0 8px 32px rgba(0,0,0,0.4);
       z-index:9999; transition:transform 0.3s;
       white-space:nowrap; backdrop-filter:blur(16px);
     }
+    body:not(.light-theme) .toast { background:rgba(13,31,92,0.95); }
+    body.light-theme .toast { background:rgba(26,46,110,0.95); }
     .toast.show { transform:translateX(-50%) translateY(0); }
 
+    /* ═══════════════════════════════════════════
+       GITHUB STATUS BOX
+    ═══════════════════════════════════════════ */
+    #githubStatusBox {
+      transition: all 0.4s;
+    }
+
+    /* ═══════════════════════════════════════════
+       RESPONSIVE
+    ═══════════════════════════════════════════ */
     @media(max-width:600px) {
       #subjectsGrid { grid-template-columns:repeat(2,1fr); }
       .header-badge { display:none; }
-      .nav-tab { padding:10px 12px; font-size:0.77rem; }
+      .nav-tab { padding:9px 10px; font-size:0.77rem; gap:5px; }
+      .nav-tab span.nav-label { display:none; }
+      .theme-toggle { bottom:20px; left:16px; width:46px; height:46px; }
     }
   </style>
 </head>
@@ -697,6 +1116,12 @@
 
 <!-- Stars -->
 <div class="stars" id="starsContainer"></div>
+
+<!-- Theme Toggle -->
+<button class="theme-toggle" onclick="toggleTheme()" title="تبديل المظهر">
+  <i class="fa-solid fa-moon" id="themeIcon"></i>
+  <span class="tt-label" id="themeLabel">الوضع الفاتح</span>
+</button>
 
 <!-- ===== TOKEN OVERLAY ===== -->
 <div class="token-setup-overlay" id="tokenOverlay">
@@ -723,8 +1148,8 @@
 <!-- ===== HEADER ===== -->
 <header>
   <div class="header-logo">
-    <div class="logo-fallback" id="logoWrap">
-      <img src="logo.png" alt="شعار الكلية" style="width:52px;height:52px;border-radius:50%;object-fit:cover;" onerror="this.parentElement.innerHTML='<span style=\'font-size:1.1rem;font-weight:900;color:#fff;\'>CSM</span>'"/>
+    <div class="logo-wrap" id="logoWrap">
+      <img src="logo.png" alt="شعار الكلية" onerror="this.parentElement.innerHTML='<span style=\'font-size:1rem;font-weight:900;color:#fff;\'>CSM</span>'"/>
     </div>
     <div class="header-text">
       <h1>كلية علوم الحاسوب والرياضيات</h1>
@@ -732,7 +1157,9 @@
     </div>
   </div>
   <div class="header-right">
-    <span class="token-indicator disconnected" id="tokenBadge">⚫ غير مرتبط</span>
+    <span class="token-indicator disconnected" id="tokenBadge">
+      <i class="fa-solid fa-circle-xmark"></i> غير مرتبط
+    </span>
     <div class="header-badge">CSM · 1999</div>
   </div>
 </header>
@@ -740,13 +1167,16 @@
 <!-- ===== NAV ===== -->
 <nav class="main-nav">
   <button class="nav-tab active" onclick="switchPage('notes',this)">
-    <i class="fa-solid fa-book-open"></i> مكتبة الملازم
+    <i class="fa-solid fa-book-open"></i>
+    <span class="nav-label">مكتبة الملازم</span>
   </button>
   <button class="nav-tab" onclick="switchPage('share',this)">
-    <i class="fa-solid fa-cloud-arrow-up"></i> شارك مع زملائك
+    <i class="fa-solid fa-cloud-arrow-up"></i>
+    <span class="nav-label">شارك مع زملائك</span>
   </button>
   <button class="nav-tab" onclick="switchPage('comments',this)">
-    <i class="fa-solid fa-comments"></i> آراء الطلاب
+    <i class="fa-solid fa-comments"></i>
+    <span class="nav-label">آراء الطلاب</span>
   </button>
 </nav>
 
@@ -774,24 +1204,61 @@
   <button id="mainBtn" onclick="toggleSubjects()">
     <i class="fa-solid fa-layer-group"></i>
     استعرض جميع المواد
-    <svg class="btn-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+    <i class="fa-solid fa-chevron-down btn-chevron"></i>
   </button>
 
   <div id="subjectsGrid">
-    <button class="subject-btn" data-subject="prog"       onclick="openSubject(this)"><div class="subj-icon"><i class="fa-solid fa-laptop-code"></i></div><span>برمجة متقدمة</span><span class="subj-count"></span></button>
-    <button class="subject-btn" data-subject="web"        onclick="openSubject(this)"><div class="subj-icon"><i class="fa-brands fa-html5"></i></div><span>برمجة مواقع نظري</span><span class="subj-count"></span></button>
-    <button class="subject-btn" data-subject="computer1"  onclick="openSubject(this)"><div class="subj-icon"><i class="fa-solid fa-book-open-reader"></i></div><span>حاسوب نظري</span><span class="subj-count"></span></button>
-    <button class="subject-btn" data-subject="computer2"  onclick="openSubject(this)"><div class="subj-icon"><i class="fa-solid fa-display"></i></div><span>حاسوب عملي</span><span class="subj-count"></span></button>
-    <button class="subject-btn" data-subject="statistics" onclick="openSubject(this)"><div class="subj-icon"><i class="fa-solid fa-chart-column"></i></div><span>مبادئ الإحصاء</span><span class="subj-count"></span></button>
-    <button class="subject-btn" data-subject="tca"        onclick="openSubject(this)"><div class="subj-icon"><i class="fa-solid fa-microchip"></i></div><span>تركيب حاسوب نظري</span><span class="subj-count"></span></button>
-    <button class="subject-btn" data-subject="pcac"       onclick="openSubject(this)"><div class="subj-icon"><i class="fa-solid fa-screwdriver-wrench"></i></div><span>تركيب حاسوب عملي</span><span class="subj-count"></span></button>
-    <button class="subject-btn" data-subject="arbic"      onclick="openSubject(this)"><div class="subj-icon"><i class="fa-solid fa-pen-fancy"></i></div><span>اللغة العربية</span><span class="subj-count"></span></button>
+    <button class="subject-btn" data-subject="prog"       onclick="openSubject(this)">
+      <div class="subj-icon"><i class="fa-solid fa-laptop-code"></i></div>
+      <span class="subj-name">برمجة متقدمة</span>
+      <span class="subj-count"></span>
+    </button>
+    <button class="subject-btn" data-subject="web"        onclick="openSubject(this)">
+      <div class="subj-icon"><i class="fa-brands fa-html5"></i></div>
+      <span class="subj-name">برمجة مواقع نظري</span>
+      <span class="subj-count"></span>
+    </button>
+    <button class="subject-btn" data-subject="computer1"  onclick="openSubject(this)">
+      <div class="subj-icon"><i class="fa-solid fa-book-open-reader"></i></div>
+      <span class="subj-name">حاسوب نظري</span>
+      <span class="subj-count"></span>
+    </button>
+    <button class="subject-btn" data-subject="computer2"  onclick="openSubject(this)">
+      <div class="subj-icon"><i class="fa-solid fa-display"></i></div>
+      <span class="subj-name">حاسوب عملي</span>
+      <span class="subj-count"></span>
+    </button>
+    <button class="subject-btn" data-subject="statistics" onclick="openSubject(this)">
+      <div class="subj-icon"><i class="fa-solid fa-chart-column"></i></div>
+      <span class="subj-name">مبادئ الإحصاء</span>
+      <span class="subj-count"></span>
+    </button>
+    <button class="subject-btn" data-subject="tca"        onclick="openSubject(this)">
+      <div class="subj-icon"><i class="fa-solid fa-microchip"></i></div>
+      <span class="subj-name">تركيب حاسوب نظري</span>
+      <span class="subj-count"></span>
+    </button>
+    <button class="subject-btn" data-subject="pcac"       onclick="openSubject(this)">
+      <div class="subj-icon"><i class="fa-solid fa-screwdriver-wrench"></i></div>
+      <span class="subj-name">تركيب حاسوب عملي</span>
+      <span class="subj-count"></span>
+    </button>
+    <button class="subject-btn" data-subject="arbic"      onclick="openSubject(this)">
+      <div class="subj-icon"><i class="fa-solid fa-pen-fancy"></i></div>
+      <span class="subj-name">اللغة العربية</span>
+      <span class="subj-count"></span>
+    </button>
   </div>
 
   <div id="filesPanel">
     <div class="files-header">
-      <i class="fa-solid fa-file-pdf"></i>
-      <div class="files-header-text"><h3 id="panelTitle">الملفات</h3><p id="panelSub">اختر ملفاً للتحميل</p></div>
+      <div class="files-header-icon">
+        <i class="fa-solid fa-file-pdf"></i>
+      </div>
+      <div class="files-header-text">
+        <h3 id="panelTitle">الملفات</h3>
+        <p id="panelSub">اختر ملفاً للتحميل</p>
+      </div>
       <span class="files-count" id="filesCount">0 ملف</span>
     </div>
     <div class="files-list" id="filesList"></div>
@@ -816,11 +1283,11 @@
   <div class="glass-card">
     <h3><i class="fa-solid fa-file-arrow-up"></i> رفع ملف جديد</h3>
     <div class="form-group">
-      <label>اسمك (اختياري)</label>
+      <label><i class="fa-regular fa-user" style="margin-left:5px;color:var(--teal)"></i>اسمك (اختياري)</label>
       <input type="text" id="uploader-name" placeholder="مثال: أحمد محمد — أو اترك فارغاً للنشر باسم مجهول"/>
     </div>
     <div class="form-group">
-      <label>المادة</label>
+      <label><i class="fa-solid fa-book" style="margin-left:5px;color:var(--teal)"></i>المادة</label>
       <select id="upload-subject">
         <option value="">— اختر المادة —</option>
         <option value="prog">برمجة متقدمة</option>
@@ -835,11 +1302,11 @@
       </select>
     </div>
     <div class="form-group">
-      <label>وصف الملف</label>
+      <label><i class="fa-regular fa-comment" style="margin-left:5px;color:var(--teal)"></i>وصف الملف</label>
       <textarea id="upload-desc" placeholder="مثال: ملخص محاضرات الفصل الأول — الدكتور عمر..."></textarea>
     </div>
     <div class="form-group">
-      <label>الملف</label>
+      <label><i class="fa-solid fa-paperclip" style="margin-left:5px;color:var(--teal)"></i>الملف</label>
       <div class="dropzone" id="dropzone">
         <i class="fa-solid fa-cloud-arrow-up"></i>
         <p>اسحب الملف هنا أو <span>اضغط للاختيار</span></p>
@@ -862,8 +1329,17 @@
   </div>
 
   <div class="student-files-section">
-    <h3><i class="fa-solid fa-users"></i> ملفات الطلاب المشارَكة <span style="font-size:0.68rem;background:rgba(3,105,161,0.2);color:#60a5fa;padding:3px 10px;border-radius:20px;font-weight:700;margin-right:8px;border:1px solid rgba(96,165,250,0.2);">GitHub Issues</span></h3>
-    <div id="student-files-list"><div class="loading-spinner"><i class="fa-solid fa-spinner"></i><p>جارٍ التحميل من GitHub...</p></div></div>
+    <h3>
+      <i class="fa-solid fa-users"></i>
+      ملفات الطلاب المشارَكة
+      <span style="font-size:0.68rem;background:rgba(3,105,161,0.15);color:#60a5fa;padding:3px 10px;border-radius:20px;font-weight:700;margin-right:8px;border:1px solid rgba(96,165,250,0.2);">GitHub Issues</span>
+    </h3>
+    <div id="student-files-list">
+      <div class="loading-spinner">
+        <i class="fa-solid fa-spinner"></i>
+        <p>جارٍ التحميل من GitHub...</p>
+      </div>
+    </div>
   </div>
 </div>
 </div>
@@ -877,9 +1353,18 @@
   </div>
 
   <div class="stats-bar">
-    <div class="stat-item"><div class="stat-num" id="stat-total">—</div><div class="stat-label">تعليق</div></div>
-    <div class="stat-item"><div class="stat-num" id="stat-avg">—</div><div class="stat-label">متوسط التقييم</div></div>
-    <div class="stat-item"><div class="stat-num" id="stat-five">—</div><div class="stat-label">تقييم 5 نجوم</div></div>
+    <div class="stat-item">
+      <div class="stat-num" id="stat-total">—</div>
+      <div class="stat-label"><i class="fa-regular fa-comment-dots" style="margin-left:4px"></i>تعليق</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num" id="stat-avg">—</div>
+      <div class="stat-label"><i class="fa-solid fa-star" style="margin-left:4px;color:#f59e0b"></i>متوسط التقييم</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num" id="stat-five">—</div>
+      <div class="stat-label"><i class="fa-solid fa-medal" style="margin-left:4px;color:#f59e0b"></i>تقييم 5 نجوم</div>
+    </div>
   </div>
 
   <div class="glass-card new-comment-card">
@@ -918,7 +1403,10 @@
   </div>
 
   <div class="comments-list" id="comments-list">
-    <div class="loading-spinner"><i class="fa-solid fa-spinner"></i><p>جارٍ تحميل التعليقات...</p></div>
+    <div class="loading-spinner">
+      <i class="fa-solid fa-spinner"></i>
+      <p>جارٍ تحميل التعليقات...</p>
+    </div>
   </div>
 </div>
 </div>
@@ -941,9 +1429,35 @@
   }
 })();
 
-/* ============================================================
-   ⚙️ GitHub Config
-   ============================================================ */
+/* ═══════════════════════════════════
+   THEME TOGGLE
+═══════════════════════════════════ */
+function toggleTheme() {
+  const body = document.body;
+  const icon = document.getElementById('themeIcon');
+  const label = document.getElementById('themeLabel');
+  body.classList.toggle('light-theme');
+  const isLight = body.classList.contains('light-theme');
+  icon.className = isLight ? 'fa-solid fa-moon' : 'fa-solid fa-sun';
+  label.textContent = isLight ? 'الوضع الداكن' : 'الوضع الفاتح';
+  localStorage.setItem('csm-theme', isLight ? 'light' : 'dark');
+}
+
+// Restore saved theme
+(function() {
+  const saved = localStorage.getItem('csm-theme');
+  if (saved === 'light') {
+    document.body.classList.add('light-theme');
+    const icon = document.getElementById('themeIcon');
+    const label = document.getElementById('themeLabel');
+    if(icon) icon.className = 'fa-solid fa-moon';
+    if(label) label.textContent = 'الوضع الداكن';
+  }
+})();
+
+/* ══════════════════════════════════
+   GitHub Config
+══════════════════════════════════ */
 const GH_OWNER = 'YOSSEFCS';
 const GH_REPO  = 'CS-Vault';
 const GH_API   = 'https://api.github.com';
@@ -952,9 +1466,9 @@ const LABEL_COMMENT = 'student-comment';
 
 let GH_TOKEN = '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';
 
-/* ============================================================
-   📂 بيانات الملازم الثابتة
-   ============================================================ */
+/* ══════════════════════════════════
+   بيانات الملازم الثابتة
+══════════════════════════════════ */
 const subjectsData = {
   prog: [
     { name:"ملزمة البرمجة المتقدمة — الأولى",  file:"prog1.pdf",  size:"847.9 KB" },
@@ -1020,108 +1534,23 @@ const subjectsData = {
 };
 
 const subjectLabels = {
-  prog:'برمجة متقدمة', web:'برمجة مواقع نظري', computer1:'حاسوب نظري',
-  computer2:'حاسوب عملي', statistics:'مبادئ الإحصاء', tca:'تركيب حاسوب نظري',
+  prog:'برمجة متقدمة', web:'برمجة مواقع نظري',
+  computer1:'حاسوب نظري', computer2:'حاسوب عملي',
+  statistics:'مبادئ الإحصاء', tca:'تركيب حاسوب نظري',
   pcac:'تركيب حاسوب عملي', arbic:'اللغة العربية', other:'أخرى'
 };
 
-/* ── Token ── */
-function updateTokenBadge() {
-  const badge = document.getElementById('tokenBadge');
-  if (GH_TOKEN) {
-    badge.textContent = '🟢 متصل بـ GitHub';
-    badge.className = 'token-indicator connected';
-  } else {
-    badge.textContent = '🔴 غير مرتبط';
-    badge.className = 'token-indicator disconnected';
-  }
-}
-
-async function saveToken() {
-  const val = document.getElementById('tokenInput').value.trim();
-  if (!val) { showTokenStatus('أدخل الـ Token أولاً', 'err'); return; }
-  showTokenStatus('جارٍ التحقق...', 'ok');
-  try {
-    const r = await fetch(`${GH_API}/repos/${GH_OWNER}/${GH_REPO}`, {
-      headers: { 'Authorization': `token ${val}`, 'Accept': 'application/vnd.github.v3+json' }
-    });
-    if (!r.ok) throw new Error('فشل');
-    GH_TOKEN = val;
-    localStorage.setItem('csm_gh_token', val);
-    await ensureLabels();
-    showTokenStatus('✅ تم الربط بنجاح!', 'ok');
-    setTimeout(() => {
-      document.getElementById('tokenOverlay').style.display = 'none';
-      updateTokenBadge(); updateGithubStatusBox();
-      renderStudentFiles(); renderComments();
-    }, 1200);
-  } catch(e) {
-    showTokenStatus('❌ Token غير صحيح أو لا يملك الصلاحية', 'err');
-  }
-}
-
-function skipToken() {
-  document.getElementById('tokenOverlay').style.display = 'none';
-  updateTokenBadge(); updateGithubStatusBox();
-  renderStudentFiles(); renderComments();
-}
-
-function showTokenStatus(msg, type) {
-  const el = document.getElementById('tokenStatus');
-  el.textContent = msg;
-  el.className = 'token-status ' + type;
-}
-
-function ghHeaders(write = false) {
-  const h = { 'Accept': 'application/vnd.github.v3+json' };
-  if (GH_TOKEN) h['Authorization'] = `token ${GH_TOKEN}`;
-  if (write) h['Content-Type'] = 'application/json';
-  return h;
-}
-
-async function ensureLabels() {
-  if (!GH_TOKEN) return;
-  for (const [name, color, desc] of [
-    [LABEL_FILE,    '7c3aed', 'ملف مرفوع من طالب'],
-    [LABEL_COMMENT, '1e4db7', 'تعليق طالب'],
-  ]) {
-    try {
-      const check = await fetch(`${GH_API}/repos/${GH_OWNER}/${GH_REPO}/labels/${encodeURIComponent(name)}`, { headers: ghHeaders() });
-      if (check.ok) continue;
-      await fetch(`${GH_API}/repos/${GH_OWNER}/${GH_REPO}/labels`, {
-        method: 'POST', headers: ghHeaders(true),
-        body: JSON.stringify({ name, color, description: desc })
-      });
-    } catch(e) {}
-  }
-}
-
 /* ── Navigation ── */
-function switchPage(name, btn) {
+function switchPage(name, tab) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
   document.getElementById('page-' + name).classList.add('active');
-  btn.classList.add('active');
-  if (name === 'share')    { updateGithubStatusBox(); renderStudentFiles(); }
-  if (name === 'comments') renderComments();
+  tab.classList.add('active');
+  if(name === 'share') renderStudentFiles();
+  if(name === 'comments') renderComments();
 }
 
-function updateGithubStatusBox() {
-  const box  = document.getElementById('githubStatusBox');
-  const text = document.getElementById('githubStatusText');
-  if (!box) return;
-  if (GH_TOKEN) {
-    box.className = 'info-box green';
-    box.querySelector('i').className = 'fa-brands fa-github';
-    text.textContent = `✅ متصل بـ GitHub — الملفات تُرفع مباشرة إلى ${GH_OWNER}/${GH_REPO} وتظهر لجميع الطلاب.`;
-  } else {
-    box.className = 'info-box';
-    box.querySelector('i').className = 'fa-solid fa-triangle-exclamation';
-    text.innerHTML = `⚠️ غير مرتبط بـ GitHub — <a href="#" onclick="document.getElementById('tokenOverlay').style.display='flex'" style="color:var(--teal)">أضف Token</a> لتتمكن من رفع الملفات.`;
-  }
-}
-
-/* ── Subjects ── */
+/* ── Subjects Toggle ── */
 function toggleSubjects() {
   const btn   = document.getElementById('mainBtn');
   const grid  = document.getElementById('subjectsGrid');
@@ -1138,53 +1567,135 @@ function toggleSubjects() {
   }
 }
 
+/* ── Open Subject Files ── */
 function openSubject(btn) {
   document.querySelectorAll('.subject-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
+
   const key   = btn.dataset.subject;
-  const label = btn.querySelector('span').textContent;
   const files = subjectsData[key] || [];
   const panel = document.getElementById('filesPanel');
   const list  = document.getElementById('filesList');
-  document.getElementById('panelTitle').textContent = 'مادة: ' + label;
-  document.getElementById('panelSub').textContent = 'المرحلة الأولى — قسم علوم الحاسوب';
-  document.getElementById('filesCount').textContent = files.length + ' ملف';
-  list.innerHTML = files.length === 0
-    ? `<div class="empty-state"><i class="fa-solid fa-circle-info"></i><p>لا توجد ملفات مضافة بعد</p></div>`
-    : files.map(f => `
-      <div class="file-item">
-        <div class="file-icon"><i class="fa-solid fa-file-pdf"></i></div>
+  const label = subjectLabels[key] || key;
+
+  document.getElementById('panelTitle').textContent  = 'مادة: ' + label;
+  document.getElementById('panelSub').textContent    = 'المرحلة الأولى — قسم علوم الحاسوب';
+  document.getElementById('filesCount').textContent  = files.length + ' ملف';
+
+  if (files.length === 0) {
+    list.innerHTML = `
+      <div class="empty-state">
+        <i class="fa-solid fa-circle-info"></i>
+        <p>لا توجد ملفات مضافة بعد لهذه المادة</p>
+      </div>`;
+  } else {
+    list.innerHTML = files.map((f,idx) => `
+      <a class="file-item" href="${f.file}" download="${f.name}" style="animation:fadeUp 0.3s ease ${idx*0.05}s both">
+        <div class="file-icon">
+          <i class="fa-solid fa-file-pdf"></i>
+        </div>
         <div class="file-info">
           <div class="file-name">${f.name}</div>
-          <div class="file-meta">PDF · ${f.size || ''}</div>
+          <div class="file-meta"><i class="fa-regular fa-file" style="margin-left:4px"></i>PDF &nbsp;·&nbsp; ${f.size || ''}</div>
         </div>
-        <a class="file-download" href="${f.file}" download="${f.name}"><i class="fa-solid fa-download"></i> تحميل</a>
-      </div>`).join('');
+        <span class="file-download">
+          <i class="fa-solid fa-download"></i>
+          تحميل
+        </span>
+      </a>`).join('');
+  }
+
   panel.classList.add('visible');
   setTimeout(() => panel.scrollIntoView({ behavior:'smooth', block:'nearest' }), 100);
 }
 
-/* ── Upload ── */
+/* ── GitHub Helpers ── */
+function ghHeaders(write=false) {
+  const h = { 'Accept':'application/vnd.github+json' };
+  if (GH_TOKEN) h['Authorization'] = 'Bearer ' + GH_TOKEN;
+  if (write) h['Content-Type'] = 'application/json';
+  return h;
+}
+
+function updateTokenBadge() {
+  const badge = document.getElementById('tokenBadge');
+  if (GH_TOKEN) {
+    badge.className = 'token-indicator connected';
+    badge.innerHTML = '<i class="fa-solid fa-circle-check"></i> مرتبط بـ GitHub';
+  } else {
+    badge.className = 'token-indicator disconnected';
+    badge.innerHTML = '<i class="fa-solid fa-circle-xmark"></i> غير مرتبط';
+  }
+}
+
+async function updateGithubStatusBox() {
+  const box  = document.getElementById('githubStatusBox');
+  const text = document.getElementById('githubStatusText');
+  if (!GH_TOKEN) {
+    box.className = 'info-box'; box.querySelector('i').className = 'fa-solid fa-triangle-exclamation';
+    text.textContent = 'لا يوجد GitHub Token — الرفع معطّل. أضف Token للمشاركة.';
+    return;
+  }
+  try {
+    const r = await fetch(`${GH_API}/repos/${GH_OWNER}/${GH_REPO}`, { headers: ghHeaders() });
+    if (r.ok) {
+      box.className = 'info-box green'; box.querySelector('i').className = 'fa-brands fa-github';
+      text.textContent = `✅ متصل بـ GitHub — ${GH_OWNER}/${GH_REPO}`;
+    } else {
+      box.className = 'info-box'; box.querySelector('i').className = 'fa-solid fa-triangle-exclamation';
+      text.textContent = `⚠️ فشل الاتصال (${r.status}) — تحقق من الـ Token`;
+    }
+  } catch(e) {
+    box.className = 'info-box'; box.querySelector('i').className = 'fa-solid fa-wifi';
+    text.textContent = 'تعذّر الاتصال بـ GitHub — تحقق من الشبكة';
+  }
+}
+
+async function ensureLabels() {
+  if (!GH_TOKEN) return;
+  const existing = await fetch(`${GH_API}/repos/${GH_OWNER}/${GH_REPO}/labels?per_page=100`, { headers: ghHeaders() });
+  if (!existing.ok) return;
+  const list = await existing.json();
+  const names = list.map(l => l.name);
+  for (const [name, color] of [[LABEL_FILE,'0075ca'],[LABEL_COMMENT,'e4e669']]) {
+    if (!names.includes(name)) {
+      await fetch(`${GH_API}/repos/${GH_OWNER}/${GH_REPO}/labels`, {
+        method:'POST', headers:ghHeaders(true),
+        body:JSON.stringify({name, color})
+      });
+    }
+  }
+}
+
+/* ── Token Management ── */
+function saveToken() {
+  const val = document.getElementById('tokenInput').value.trim();
+  const status = document.getElementById('tokenStatus');
+  if (!val.startsWith('ghp_') && !val.startsWith('github_pat_')) {
+    status.className='token-status err'; status.textContent='❌ Token غير صالح — يجب أن يبدأ بـ ghp_ أو github_pat_'; return;
+  }
+  GH_TOKEN = val;
+  localStorage.setItem('csm_gh_token', val);
+  status.className='token-status ok'; status.textContent='✅ تم حفظ الـ Token!';
+  setTimeout(() => {
+    document.getElementById('tokenOverlay').style.display='none';
+    updateTokenBadge(); updateGithubStatusBox(); ensureLabels();
+  }, 800);
+}
+
+function skipToken() {
+  document.getElementById('tokenOverlay').style.display='none';
+  updateTokenBadge(); updateGithubStatusBox();
+}
+
+/* ── File Upload ── */
 let selectedFile = null;
 
 function onFileSelected(input) {
-  const file = input.files[0];
-  if (!file) return;
-  if (file.size > 10 * 1024 * 1024) { showToast('⚠️ الملف أكبر من 10 MB'); return; }
-  selectedFile = file;
+  selectedFile = input.files[0];
+  if (!selectedFile) return;
+  document.getElementById('selected-file-name').textContent = selectedFile.name + ' (' + formatSize(selectedFile.size) + ')';
   document.getElementById('selected-file-info').style.display = 'flex';
-  document.getElementById('selected-file-name').textContent = file.name + ' (' + formatSize(file.size) + ')';
-}
-
-const dz = document.getElementById('dropzone');
-if (dz) {
-  dz.addEventListener('dragover',  e => { e.preventDefault(); dz.classList.add('dragover'); });
-  dz.addEventListener('dragleave', () => dz.classList.remove('dragover'));
-  dz.addEventListener('drop', e => {
-    e.preventDefault(); dz.classList.remove('dragover');
-    const f = e.dataTransfer.files[0];
-    if (f) { document.getElementById('file-input').files = e.dataTransfer.files; onFileSelected(document.getElementById('file-input')); }
-  });
 }
 
 function formatSize(bytes) {
@@ -1193,56 +1704,73 @@ function formatSize(bytes) {
   return (bytes/1048576).toFixed(1) + ' MB';
 }
 
+const dropzone = document.getElementById('dropzone');
+if(dropzone){
+  dropzone.addEventListener('dragover', e => { e.preventDefault(); dropzone.classList.add('dragover'); });
+  dropzone.addEventListener('dragleave', () => dropzone.classList.remove('dragover'));
+  dropzone.addEventListener('drop', e => {
+    e.preventDefault(); dropzone.classList.remove('dragover');
+    const f = e.dataTransfer.files[0];
+    if (f) { selectedFile = f; document.getElementById('selected-file-name').textContent = f.name + ' (' + formatSize(f.size) + ')'; document.getElementById('selected-file-info').style.display='flex'; }
+  });
+}
+
 async function uploadFile() {
+  if (!selectedFile) { showToast('⚠️ اختر ملفاً أولاً'); return; }
+  if (!GH_TOKEN) { showToast('❌ أضف GitHub Token أولاً من إعدادات الربط'); return; }
   const name    = document.getElementById('uploader-name').value.trim() || 'طالب مجهول';
   const subject = document.getElementById('upload-subject').value;
   const desc    = document.getElementById('upload-desc').value.trim();
-  if (!selectedFile) { showToast('⚠️ اختر ملفاً أولاً'); return; }
-  if (!subject)       { showToast('⚠️ اختر المادة أولاً'); return; }
+  if (!subject) { showToast('⚠️ اختر المادة'); return; }
+  if (selectedFile.size > 10 * 1024 * 1024) { showToast('❌ الملف أكبر من 10 MB'); return; }
+
   const btn = document.getElementById('upload-btn');
   const progressWrap = document.getElementById('progress-wrap');
   const progressFill = document.getElementById('progress-fill');
   const progressText = document.getElementById('progress-text');
   const resultEl     = document.getElementById('upload-result');
-  btn.disabled = true; progressWrap.style.display = 'block'; resultEl.style.display = 'none';
-  progressText.textContent = 'جارٍ قراءة الملف...'; progressFill.style.width = '20%';
+
+  btn.disabled = true;
+  progressWrap.style.display = 'block'; resultEl.style.display = 'none';
+  progressFill.style.width = '0%'; progressText.textContent = 'جارٍ قراءة الملف...';
+
   const reader = new FileReader();
   reader.onload = async () => {
     try {
       const base64 = reader.result.split(',')[1];
-      progressFill.style.width = '40%'; progressText.textContent = 'جارٍ رفع الملف إلى GitHub...';
-      const filePath = `student-uploads/${Date.now()}_${selectedFile.name.replace(/\s+/g,'_')}`;
-      const uploadResp = await fetch(`${GH_API}/repos/${GH_OWNER}/${GH_REPO}/contents/${filePath}`, {
-        method: 'PUT', headers: ghHeaders(true),
-        body: JSON.stringify({ message: `رفع ملف: ${selectedFile.name} من ${name}`, content: base64, branch: 'main' })
+      progressFill.style.width = '30%'; progressText.textContent = 'جارٍ رفع الملف إلى GitHub...';
+      const path = `uploads/${Date.now()}_${selectedFile.name.replace(/[^a-zA-Z0-9._-]/g,'_')}`;
+      const uploadResp = await fetch(`${GH_API}/repos/${GH_OWNER}/${GH_REPO}/contents/${path}`, {
+        method:'PUT', headers:ghHeaders(true),
+        body:JSON.stringify({ message:`📁 ${selectedFile.name}`, content:base64 })
       });
-      if (!uploadResp.ok) { const err = await uploadResp.json(); throw new Error(err.message || 'فشل رفع الملف'); }
+      if (!uploadResp.ok) throw new Error('فشل رفع الملف');
       const uploadData = await uploadResp.json();
-      const fileUrl    = uploadData.content.download_url;
+      const fileUrl = uploadData.content?.download_url || uploadData.content?.html_url || '';
       progressFill.style.width = '70%'; progressText.textContent = 'جارٍ تسجيل الملف...';
       const issueBody = [`**الاسم:** ${name}`,`**المادة:** ${subjectLabels[subject]||subject}`,`**الملف:** [${selectedFile.name}](${fileUrl})`,`**الحجم:** ${formatSize(selectedFile.size)}`,desc?`**الوصف:** ${desc}`:'',`**التاريخ:** ${new Date().toLocaleString('ar-IQ')}`,`<!-- CSM_FILE_META\nsubject:${subject}\nfileName:${selectedFile.name}\nfileSize:${formatSize(selectedFile.size)}\nfileUrl:${fileUrl}\nuploaderName:${name}\ndesc:${desc}\n-->`].filter(Boolean).join('\n\n');
       const issueResp = await fetch(`${GH_API}/repos/${GH_OWNER}/${GH_REPO}/issues`, {
-        method: 'POST', headers: ghHeaders(true),
-        body: JSON.stringify({ title:`📁 ${selectedFile.name} — ${subjectLabels[subject]||subject}`, body:issueBody, labels:[LABEL_FILE] })
+        method:'POST', headers:ghHeaders(true),
+        body:JSON.stringify({ title:`📁 ${selectedFile.name} — ${subjectLabels[subject]||subject}`, body:issueBody, labels:[LABEL_FILE] })
       });
       if (!issueResp.ok) throw new Error('فشل تسجيل الملف');
       progressFill.style.width = '100%'; progressText.textContent = 'تم!';
       setTimeout(() => {
-        progressWrap.style.display = 'none'; progressFill.style.width = '0%';
-        resultEl.style.display = 'block'; resultEl.className = 'upload-result success';
-        resultEl.innerHTML = `✅ تم رفع الملف بنجاح! <a href="${fileUrl}" target="_blank" style="color:#4ade80">فتح الملف</a>`;
-        btn.disabled = false; selectedFile = null;
-        document.getElementById('file-input').value = '';
-        document.getElementById('selected-file-info').style.display = 'none';
-        document.getElementById('uploader-name').value = '';
-        document.getElementById('upload-subject').value = '';
-        document.getElementById('upload-desc').value = '';
+        progressWrap.style.display='none'; progressFill.style.width='0%';
+        resultEl.style.display='block'; resultEl.className='upload-result success';
+        resultEl.innerHTML=`✅ تم رفع الملف بنجاح! <a href="${fileUrl}" target="_blank" style="color:#4ade80">فتح الملف</a>`;
+        btn.disabled=false; selectedFile=null;
+        document.getElementById('file-input').value='';
+        document.getElementById('selected-file-info').style.display='none';
+        document.getElementById('uploader-name').value='';
+        document.getElementById('upload-subject').value='';
+        document.getElementById('upload-desc').value='';
         showToast('✅ تم رفع الملف على GitHub!'); renderStudentFiles();
       }, 600);
     } catch(e) {
-      btn.disabled = false; progressWrap.style.display = 'none';
-      resultEl.style.display = 'block'; resultEl.className = 'upload-result error';
-      resultEl.innerHTML = `❌ خطأ: ${e.message}`;
+      btn.disabled=false; progressWrap.style.display='none';
+      resultEl.style.display='block'; resultEl.className='upload-result error';
+      resultEl.innerHTML=`❌ خطأ: ${e.message}`;
     }
   };
   reader.readAsDataURL(selectedFile);
@@ -1256,19 +1784,19 @@ async function renderStudentFiles() {
   try {
     const url = `${GH_API}/repos/${GH_OWNER}/${GH_REPO}/issues?labels=${encodeURIComponent(LABEL_FILE)}&state=open&per_page=50&sort=created&direction=desc`;
     const r = await fetch(url, { headers: ghHeaders() });
-    if (r.status === 404) { list.innerHTML = `<div class="empty-state"><i class="fa-solid fa-folder-open"></i><p>لم يتم رفع أي ملفات بعد — كن الأول!</p></div>`; return; }
+    if (r.status === 404) { list.innerHTML=`<div class="empty-state"><i class="fa-solid fa-folder-open"></i><p>لم يتم رفع أي ملفات بعد — كن الأول!</p></div>`; return; }
     if (!r.ok) throw new Error(`GitHub Error ${r.status}`);
     const issues = await r.json();
-    if (!issues.length) { list.innerHTML = `<div class="empty-state"><i class="fa-solid fa-folder-open"></i><p>لم يتم رفع أي ملفات بعد — كن الأول!</p></div>`; return; }
+    if (!issues.length) { list.innerHTML=`<div class="empty-state"><i class="fa-solid fa-folder-open"></i><p>لم يتم رفع أي ملفات بعد — كن الأول!</p></div>`; return; }
     list.innerHTML = issues.map(issue => {
-      const meta = parseFileMeta(issue.body);
-      const ext  = (meta.fileName||'').split('.').pop().toLowerCase();
-      const icon = ext==='pdf'?'fa-file-pdf':(ext==='doc'||ext==='docx')?'fa-file-word':'fa-file-image';
-      const badgeClass = ext==='pdf'?'pdf':(ext==='doc'||ext==='docx')?'doc':'img';
+      const meta=parseFileMeta(issue.body);
+      const ext=(meta.fileName||'').split('.').pop().toLowerCase();
+      const icon=ext==='pdf'?'fa-file-pdf':(ext==='doc'||ext==='docx')?'fa-file-word':'fa-file-image';
+      const badgeClass=ext==='pdf'?'pdf':(ext==='doc'||ext==='docx')?'doc':'img';
       return `<div class="student-file-card"><div class="sfc-icon"><i class="fa-solid ${icon}"></i></div><div class="sfc-info"><div class="sfc-title">${meta.fileName||issue.title}</div><div class="sfc-meta"><i class="fa-solid fa-user" style="margin-left:4px"></i>${meta.uploaderName||'مجهول'} &nbsp;·&nbsp; <i class="fa-solid fa-tag" style="margin-left:4px"></i>${subjectLabels[meta.subject]||meta.subject||'—'} &nbsp;·&nbsp; ${meta.fileSize||''}${meta.desc?`<br/><i class="fa-solid fa-quote-right" style="margin-left:4px;color:var(--teal)"></i>${meta.desc}`:''}</div></div><span class="sfc-badge ${badgeClass}">${ext.toUpperCase()}</span>${meta.fileUrl?`<a class="sfc-download" href="${meta.fileUrl}" target="_blank" download="${meta.fileName}"><i class="fa-solid fa-download"></i> تنزيل</a>`:''}</div>`;
     }).join('');
   } catch(e) {
-    list.innerHTML = `<div class="empty-state"><i class="fa-solid fa-triangle-exclamation"></i><p>تعذر التحميل: ${e.message}</p></div>`;
+    list.innerHTML=`<div class="empty-state"><i class="fa-solid fa-triangle-exclamation"></i><p>تعذر التحميل: ${e.message}</p></div>`;
   }
 }
 
@@ -1341,7 +1869,7 @@ async function renderComments() {
       const commentText=commentMatch?commentMatch[1].trim():'';
       const time=new Date(issue.created_at).toLocaleString('ar-IQ');
       const reactions=issue.reactions?issue.reactions['+1']||0:0;
-      return `<div class="comment-card"><div class="comment-card-header"><div class="comment-avatar">${initial}</div><div><div class="comment-author">${name}</div><div class="comment-time"><i class="fa-regular fa-clock" style="margin-left:4px"></i>${time}</div></div>${stars?`<div class="comment-stars">${stars}</div>`:''}<span class="comment-tag">${tag}</span></div><div class="comment-body">${commentText.replace(/\n/g,'<br/>')}</div><div class="comment-likes"><a class="like-btn" href="${issue.html_url}" target="_blank"><i class="fa-brands fa-github"></i> عرض على GitHub</a>${reactions?`<span style="font-size:0.75rem;color:rgba(255,255,255,0.35)">👍 ${reactions}</span>`:''}</div></div>`;
+      return `<div class="comment-card"><div class="comment-card-header"><div class="comment-avatar">${initial}</div><div><div class="comment-author">${name}</div><div class="comment-time"><i class="fa-regular fa-clock" style="margin-left:4px"></i>${time}</div></div>${stars?`<div class="comment-stars">${stars}</div>`:''}<span class="comment-tag">${tag}</span></div><div class="comment-body">${commentText.replace(/\n/g,'<br/>')}</div><div class="comment-likes"><a class="like-btn" href="${issue.html_url}" target="_blank"><i class="fa-brands fa-github"></i> عرض على GitHub</a>${reactions?`<span style="font-size:0.75rem;opacity:0.4">👍 ${reactions}</span>`:''}</div></div>`;
     }).join('');
   } catch(e) {
     list.innerHTML=`<div class="empty-state"><i class="fa-solid fa-triangle-exclamation"></i><p>تعذر تحميل التعليقات: ${e.message}</p></div>`;
@@ -1365,13 +1893,21 @@ function showToast(msg) {
 /* ── Init ── */
 document.addEventListener('DOMContentLoaded', async () => {
   document.getElementById('tokenOverlay').style.display = 'none';
+
+  // Restore token from localStorage
+  const saved = localStorage.getItem('csm_gh_token');
+  if (saved) GH_TOKEN = saved;
+
   updateTokenBadge(); updateGithubStatusBox();
   await ensureLabels();
   renderStudentFiles(); renderComments();
+
+  // Populate file counts
   document.querySelectorAll('.subject-btn').forEach(btn => {
     const key = btn.dataset.subject;
     const count = (subjectsData[key]||[]).length;
-    btn.querySelector('.subj-count').textContent = count + ' ملف';
+    const el = btn.querySelector('.subj-count');
+    if(el) el.textContent = count + ' ملف';
   });
 });
 </script>
