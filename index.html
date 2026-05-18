@@ -7,9 +7,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
   <style>
-    /* ═══════════════════════════════════════════
-       THEME VARIABLES
-    ═══════════════════════════════════════════ */
     :root {
       --navy: #0d1f5c;
       --blue: #1a3faa;
@@ -21,70 +18,32 @@
       --text-dark: #0a1840;
       --shadow: 0 4px 24px rgba(13,31,92,0.13);
       --shadow-strong: 0 8px 40px rgba(13,31,92,0.22);
-      --green: #16a34a;
-      --green-light: #dcfce7;
-      --red: #dc2626;
-      --accent: #f59e0b;
     }
 
     /* DARK THEME (default) */
     body {
       --bg-primary: #060e2e;
-      --bg-secondary: rgba(255,255,255,0.04);
       --bg-card: rgba(255,255,255,0.04);
-      --bg-header: rgba(255,255,255,0.04);
       --border-color: rgba(255,255,255,0.1);
       --border-teal: rgba(0,200,212,0.3);
       --text-primary: #ffffff;
       --text-secondary: rgba(255,255,255,0.55);
-      --text-muted: rgba(255,255,255,0.35);
-      --input-bg: rgba(255,255,255,0.06);
-      --input-color: #fff;
-      --nav-bg: rgba(255,255,255,0.03);
-      --subj-text: rgba(255,255,255,0.75);
-      --subj-bg: rgba(255,255,255,0.04);
-      --subj-count-bg: rgba(255,255,255,0.07);
-      --subj-count-color: rgba(255,255,255,0.4);
-      --file-item-bg: rgba(255,255,255,0.03);
-      --file-item-border: rgba(255,255,255,0.07);
       --file-name-color: #fff;
       --file-meta-color: rgba(255,255,255,0.4);
-      --hero-title-color: #ffffff;
-      --footer-color: rgba(255,255,255,0.3);
       --empty-color: rgba(255,255,255,0.3);
-      --panel-bg: rgba(255,255,255,0.03);
-      --header-text: #fff;
-      --glass-shadow: 0 16px 48px rgba(0,0,0,0.3);
     }
 
     /* LIGHT THEME */
     body.light-theme {
       --bg-primary: #f0f6ff;
-      --bg-secondary: #ffffff;
       --bg-card: #ffffff;
-      --bg-header: linear-gradient(135deg, #1a2e6e 0%, #1e4db7 60%, #00b8c4 100%);
       --border-color: #dde8f5;
       --border-teal: #00b8c4;
       --text-primary: #0a1840;
       --text-secondary: #5575a8;
-      --text-muted: #7a96c2;
-      --input-bg: #f8fbff;
-      --input-color: #0a1840;
-      --nav-bg: #ffffff;
-      --subj-text: #0a1840;
-      --subj-bg: #ffffff;
-      --subj-count-bg: #e2eaf8;
-      --subj-count-color: #5575a8;
-      --file-item-bg: #f0f6ff;
-      --file-item-border: #e2eaf8;
       --file-name-color: #0a1840;
       --file-meta-color: #7a96c2;
-      --hero-title-color: #1a2e6e;
-      --footer-color: #8099c2;
       --empty-color: #9ab0d0;
-      --panel-bg: #ffffff;
-      --header-text: #ffffff;
-      --glass-shadow: 0 8px 40px rgba(26,46,110,0.22);
     }
 
     * { margin:0; padding:0; box-sizing:border-box; }
@@ -98,47 +57,39 @@
       transition: background 0.4s ease, color 0.4s ease;
     }
 
-    /* ── Dark Background Effects ── */
+    /* Dark background effects */
     body:not(.light-theme)::before {
       content:'';
-      position: fixed;
-      inset: 0;
+      position: fixed; inset: 0;
       background:
         radial-gradient(ellipse 70% 50% at 20% 10%, rgba(0,200,212,0.18) 0%, transparent 60%),
         radial-gradient(ellipse 60% 40% at 80% 80%, rgba(26,63,170,0.25) 0%, transparent 60%),
         radial-gradient(ellipse 40% 40% at 50% 50%, rgba(13,31,92,0.4) 0%, transparent 70%);
-      pointer-events: none;
-      z-index: 0;
+      pointer-events: none; z-index: 0;
       animation: bgPulse 8s ease-in-out infinite alternate;
     }
-    /* ── Light Background Effects ── */
+
+    /* Light background effects */
     body.light-theme::before {
       content:'';
-      position: fixed;
-      inset: 0;
+      position: fixed; inset: 0;
       background:
         radial-gradient(ellipse 80% 60% at 50% 0%, rgba(0,184,196,0.10) 0%, transparent 70%),
         repeating-linear-gradient(135deg, rgba(30,77,183,0.025) 0px, rgba(30,77,183,0.025) 1px, transparent 1px, transparent 60px);
-      pointer-events: none;
-      z-index: 0;
+      pointer-events: none; z-index: 0;
     }
+
     @keyframes bgPulse {
       from { opacity: 0.8; }
       to   { opacity: 1; }
     }
 
-    /* Floating stars (dark only) */
-    .stars {
-      position: fixed; inset: 0;
-      pointer-events: none; z-index: 0; overflow: hidden;
-      transition: opacity 0.4s;
-    }
+    /* Stars */
+    .stars { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; transition: opacity 0.4s; }
     body.light-theme .stars { opacity: 0; pointer-events: none; }
     .star {
-      position: absolute;
-      width: 2px; height: 2px;
-      background: rgba(255,255,255,0.7);
-      border-radius: 50%;
+      position: absolute; width: 2px; height: 2px;
+      background: rgba(255,255,255,0.7); border-radius: 50%;
       animation: twinkle linear infinite;
     }
     @keyframes twinkle {
@@ -146,61 +97,39 @@
       50%       { opacity: 1; transform: scale(1.2); }
     }
 
-    /* ═══════════════════════════════════════════
-       THEME TOGGLE BUTTON
-    ═══════════════════════════════════════════ */
+    /* ── Theme Toggle ── */
     .theme-toggle {
-      position: fixed;
-      bottom: 28px;
-      left: 28px;
-      z-index: 9000;
-      width: 52px; height: 52px;
-      border-radius: 50%;
+      position: fixed; bottom: 28px; left: 28px; z-index: 9000;
+      width: 52px; height: 52px; border-radius: 50%;
       border: 2px solid rgba(0,200,212,0.5);
-      cursor: pointer;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 1.3rem;
-      transition: all 0.3s ease;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-      backdrop-filter: blur(12px);
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+      font-size: 1.3rem; transition: all 0.3s ease;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3); backdrop-filter: blur(12px);
     }
-    body:not(.light-theme) .theme-toggle {
-      background: rgba(255,255,255,0.08);
-      color: #fbbf24;
-    }
+    body:not(.light-theme) .theme-toggle { background: rgba(255,255,255,0.08); color: #fbbf24; }
     body.light-theme .theme-toggle {
-      background: rgba(26,46,110,0.9);
-      color: #67e8f9;
-      border-color: rgba(26,46,110,0.5);
-      box-shadow: 0 4px 20px rgba(26,46,110,0.3);
+      background: rgba(26,46,110,0.9); color: #67e8f9;
+      border-color: rgba(26,46,110,0.5); box-shadow: 0 4px 20px rgba(26,46,110,0.3);
     }
     .theme-toggle:hover { transform: scale(1.12) rotate(20deg); }
     .theme-toggle .tt-label {
-      position: absolute;
-      left: 60px;
-      background: rgba(0,0,0,0.75);
-      color: #fff;
+      position: absolute; left: 60px;
+      background: rgba(0,0,0,0.75); color: #fff;
       font-size: 0.72rem; font-weight: 700;
       padding: 4px 10px; border-radius: 8px;
-      white-space: nowrap;
-      opacity: 0; pointer-events: none;
-      transition: opacity 0.2s;
+      white-space: nowrap; opacity: 0; pointer-events: none; transition: opacity 0.2s;
     }
     .theme-toggle:hover .tt-label { opacity: 1; }
 
-    /* ═══════════════════════════════════════════
-       HEADER
-    ═══════════════════════════════════════════ */
+    /* ── Header ── */
     header {
       position: relative; z-index: 100;
       padding: 0 1.8rem;
       display: flex; align-items: center; justify-content: space-between;
-      height: 76px;
-      transition: all 0.4s ease;
+      height: 76px; transition: all 0.4s ease;
     }
     body:not(.light-theme) header {
-      background: rgba(255,255,255,0.04);
-      backdrop-filter: blur(20px);
+      background: rgba(255,255,255,0.04); backdrop-filter: blur(20px);
       border-bottom: 1px solid rgba(0,200,212,0.2);
       box-shadow: 0 4px 32px rgba(0,200,212,0.08);
     }
@@ -209,138 +138,60 @@
       box-shadow: 0 8px 40px rgba(26,46,110,0.22);
     }
     header::after {
-      content:'';
-      position: absolute;
-      bottom: 0; left: 0; right: 0;
-      height: 1.5px;
+      content:''; position: absolute; bottom: 0; left: 0; right: 0; height: 1.5px;
       background: linear-gradient(90deg, transparent, var(--teal), #60a5fa, var(--teal), transparent);
     }
-    .header-logo { display:flex; align-items:center; gap:14px; }
+    .header-logo { display: flex; align-items: center; gap: 14px; }
     .logo-wrap {
-      width:52px; height:52px; border-radius:50%;
+      width: 52px; height: 52px; border-radius: 50%;
       border: 2px solid rgba(0,200,212,0.5);
       background: linear-gradient(135deg, var(--navy), var(--teal));
-      display:flex; align-items:center; justify-content:center;
-      font-size:1.1rem; font-weight:900; color:#fff;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem; font-weight: 900; color: #fff;
       box-shadow: 0 0 16px rgba(0,200,212,0.3);
       overflow: hidden; flex-shrink: 0;
     }
-    .logo-wrap img { width:100%; height:100%; object-fit:cover; border-radius:50%; }
-    .header-text h1 { font-size:0.95rem; font-weight:900; color:#fff; line-height:1.3; }
-    .header-text p  { font-size:0.68rem; color:var(--teal-light); font-weight:500; opacity:0.85; }
-
-    .header-right { display:flex; align-items:center; gap:10px; }
-    .token-indicator {
-      font-size:0.68rem; padding:5px 12px;
-      border-radius:20px; font-weight:700;
-      display:flex; align-items:center; gap:6px;
-    }
-    .token-indicator.connected  { background:rgba(22,163,74,0.2); color:#4ade80; border:1px solid rgba(74,222,128,0.4); }
-    .token-indicator.disconnected { background:rgba(220,38,38,0.15); color:#f87171; border:1px solid rgba(248,113,113,0.3); }
-    .token-indicator i { font-size:0.65rem; }
+    .logo-wrap img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
+    .header-text h1 { font-size: 0.95rem; font-weight: 900; color: #fff; line-height: 1.3; }
+    .header-text p  { font-size: 0.68rem; color: var(--teal-light); font-weight: 500; opacity: 0.85; }
     .header-badge {
-      background: rgba(0,200,212,0.12);
-      border:1px solid rgba(0,200,212,0.35);
-      color:var(--teal-light);
-      font-size:0.7rem; font-weight:700;
-      padding:5px 14px; border-radius:20px;
-      letter-spacing:1px;
+      background: rgba(0,200,212,0.12); border: 1px solid rgba(0,200,212,0.35);
+      color: var(--teal-light); font-size: 0.7rem; font-weight: 700;
+      padding: 5px 14px; border-radius: 20px; letter-spacing: 1px;
     }
 
-    /* ═══════════════════════════════════════════
-       NAV
-    ═══════════════════════════════════════════ */
-    .main-nav {
-      position: relative; z-index: 10;
-      display: flex; justify-content: center;
-      gap: 4px; padding: 10px 16px;
-      transition: all 0.4s ease;
-    }
-    body:not(.light-theme) .main-nav {
-      background: rgba(255,255,255,0.03);
-      backdrop-filter: blur(16px);
-      border-bottom: 1px solid rgba(255,255,255,0.07);
-    }
-    body.light-theme .main-nav {
-      background: rgba(255,255,255,0.92);
-      backdrop-filter: blur(16px);
-      border-bottom: 1px solid var(--gray-light);
-      box-shadow: 0 2px 12px rgba(26,46,110,0.08);
-    }
-    .nav-tab {
-      padding: 10px 20px;
-      font-family:'Cairo',sans-serif;
-      font-size: 0.85rem; font-weight:700;
-      border: none; background: transparent;
-      cursor: pointer;
-      border-radius: 12px;
-      transition: all 0.22s;
-      display: flex; align-items:center; gap:8px;
-    }
-    body:not(.light-theme) .nav-tab { color: rgba(255,255,255,0.45); }
-    body:not(.light-theme) .nav-tab:hover { color:rgba(255,255,255,0.85); background:rgba(255,255,255,0.07); }
-    body:not(.light-theme) .nav-tab.active {
-      color:#fff;
-      background: linear-gradient(135deg, rgba(26,63,170,0.6), rgba(0,200,212,0.4));
-      border: 1px solid rgba(0,200,212,0.3);
-      box-shadow: 0 4px 16px rgba(0,200,212,0.15);
-    }
-    body.light-theme .nav-tab { color: #5575a8; }
-    body.light-theme .nav-tab:hover { color: #1a2e6e; background: rgba(26,46,110,0.06); }
-    body.light-theme .nav-tab.active {
-      color: #1a2e6e;
-      background: linear-gradient(135deg, rgba(0,184,196,0.12), rgba(30,77,183,0.08));
-      border: 1px solid rgba(0,184,196,0.3);
-      box-shadow: 0 4px 14px rgba(26,46,110,0.12);
-    }
-    .nav-tab i { font-size: 0.95rem; }
-
-    /* ═══════════════════════════════════════════
-       PAGES
-    ═══════════════════════════════════════════ */
-    .page { display:none; }
-    .page.active { display:block; }
-
-    /* ═══════════════════════════════════════════
-       HERO
-    ═══════════════════════════════════════════ */
+    /* ── Hero ── */
     .hero {
       position: relative; z-index: 1;
-      display: flex; flex-direction:column;
-      align-items:center; justify-content:center;
-      min-height: calc(100vh - 130px);
-      padding: 3rem 1.5rem;
-      text-align: center;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      min-height: calc(100vh - 76px);
+      padding: 3rem 1.5rem; text-align: center;
     }
+
     .hero-badge {
-      background: rgba(0,200,212,0.1);
-      border:1px solid rgba(0,200,212,0.3);
-      color:var(--teal);
-      font-size:0.78rem; font-weight:700;
-      padding:7px 20px; border-radius:30px;
-      margin-bottom:1.6rem;
-      display:inline-flex; align-items:center; gap:9px;
+      background: rgba(0,200,212,0.1); border: 1px solid rgba(0,200,212,0.3);
+      color: var(--teal); font-size: 0.78rem; font-weight: 700;
+      padding: 7px 20px; border-radius: 30px; margin-bottom: 1.6rem;
+      display: inline-flex; align-items: center; gap: 9px;
       animation: fadeDown 0.6s ease;
     }
     body.light-theme .hero-badge { background: rgba(0,184,196,0.08); color: #0d8f9a; border-color: rgba(0,184,196,0.3); }
     .hero-badge .dot {
-      width:7px; height:7px;
-      background:var(--teal);
-      border-radius:50%;
+      width: 7px; height: 7px; background: var(--teal); border-radius: 50%;
       animation: blink 1.5s ease-in-out infinite;
     }
     @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.2} }
 
     .hero-icon {
-      width:86px; height:86px;
-      border-radius:24px;
-      display:flex; align-items:center; justify-content:center;
-      margin-bottom:1.6rem;
+      width: 86px; height: 86px; border-radius: 24px;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 1.6rem;
       animation: float 3.5s ease-in-out infinite, fadeDown 0.5s ease;
     }
     body:not(.light-theme) .hero-icon {
       background: linear-gradient(135deg, rgba(26,63,170,0.8), rgba(0,200,212,0.6));
-      border:1px solid rgba(0,200,212,0.3);
+      border: 1px solid rgba(0,200,212,0.3);
       box-shadow: 0 0 40px rgba(0,200,212,0.25), 0 0 0 8px rgba(0,200,212,0.06);
     }
     body.light-theme .hero-icon {
@@ -355,760 +206,246 @@
       from { opacity:0; transform:translateY(-20px); }
       to   { opacity:1; transform:translateY(0); }
     }
-    .hero-icon svg { width:42px; height:42px; }
-
-    .hero-title {
-      font-size: clamp(1.8rem,4vw,2.7rem);
-      font-weight:900;
-      margin-bottom:0.6rem;
-      line-height:1.2;
-      animation: fadeUp 0.6s ease 0.1s both;
-    }
-    body:not(.light-theme) .hero-title { color:#fff; text-shadow: 0 0 40px rgba(0,200,212,0.3); }
-    body.light-theme .hero-title { color: #1a2e6e; }
-    .hero-title span { color:var(--teal); }
-    body.light-theme .hero-title span { color: #008c96; }
-
-    .hero-subtitle {
-      font-size:0.97rem;
-      margin-bottom:2.5rem;
-      max-width:440px; line-height:1.8;
-      animation: fadeUp 0.6s ease 0.2s both;
-    }
-    body:not(.light-theme) .hero-subtitle { color:rgba(255,255,255,0.5); }
-    body.light-theme .hero-subtitle { color: #5575a8; }
-
     @keyframes fadeUp {
       from { opacity:0; transform:translateY(20px); }
       to   { opacity:1; transform:translateY(0); }
     }
+    .hero-icon svg { width: 42px; height: 42px; }
 
-    /* ═══════════════════════════════════════════
-       MAIN BUTTON
-    ═══════════════════════════════════════════ */
+    .hero-title {
+      font-size: clamp(1.8rem,4vw,2.7rem); font-weight: 900;
+      margin-bottom: 0.6rem; line-height: 1.2;
+      animation: fadeUp 0.6s ease 0.1s both;
+    }
+    body:not(.light-theme) .hero-title { color: #fff; text-shadow: 0 0 40px rgba(0,200,212,0.3); }
+    body.light-theme .hero-title { color: #1a2e6e; }
+    .hero-title span { color: var(--teal); }
+    body.light-theme .hero-title span { color: #008c96; }
+
+    .hero-subtitle {
+      font-size: 0.97rem; margin-bottom: 2.5rem;
+      max-width: 440px; line-height: 1.8;
+      animation: fadeUp 0.6s ease 0.2s both;
+    }
+    body:not(.light-theme) .hero-subtitle { color: rgba(255,255,255,0.5); }
+    body.light-theme .hero-subtitle { color: #5575a8; }
+
+    /* ── Main Button ── */
     #mainBtn {
-      color:#fff; border-radius:16px;
-      font-family:'Cairo',sans-serif;
-      font-size:0.97rem; font-weight:800;
-      cursor:pointer;
-      position:relative; overflow:hidden;
-      transition:all 0.22s;
-      display:flex; align-items:center; gap:10px;
+      color: #fff; border-radius: 16px;
+      font-family: 'Cairo',sans-serif;
+      font-size: 0.97rem; font-weight: 800;
+      cursor: pointer; position: relative; overflow: hidden;
+      transition: all 0.22s; display: flex; align-items: center; gap: 10px;
       animation: fadeUp 0.6s ease 0.3s both;
     }
     body:not(.light-theme) #mainBtn {
       background: linear-gradient(135deg, rgba(26,63,170,0.7), rgba(0,200,212,0.5));
-      border:1px solid rgba(0,200,212,0.4);
-      padding:13px 36px;
-      backdrop-filter:blur(10px);
-      box-shadow:0 4px 24px rgba(0,200,212,0.2);
+      border: 1px solid rgba(0,200,212,0.4); padding: 13px 36px;
+      backdrop-filter: blur(10px); box-shadow: 0 4px 24px rgba(0,200,212,0.2);
     }
     body.light-theme #mainBtn {
       background: linear-gradient(135deg, #1a2e6e 0%, #1e4db7 60%, #00b8c4 100%);
-      border:none;
-      padding:16px 44px;
-      box-shadow:0 6px 28px rgba(26,46,110,0.35);
+      border: none; padding: 16px 44px;
+      box-shadow: 0 6px 28px rgba(26,46,110,0.35);
     }
     #mainBtn::before {
       content:''; position:absolute; inset:0;
-      background:linear-gradient(135deg,rgba(255,255,255,0.12) 0%,transparent 60%);
+      background: linear-gradient(135deg,rgba(255,255,255,0.12) 0%,transparent 60%);
     }
-    #mainBtn:hover {
-      transform:translateY(-3px);
-    }
-    body:not(.light-theme) #mainBtn:hover { box-shadow:0 8px 32px rgba(0,200,212,0.35); border-color:rgba(0,200,212,0.7); }
-    body.light-theme #mainBtn:hover { box-shadow:0 12px 36px rgba(26,46,110,0.45); }
+    #mainBtn:hover { transform: translateY(-3px); }
+    body:not(.light-theme) #mainBtn:hover { box-shadow: 0 8px 32px rgba(0,200,212,0.35); border-color: rgba(0,200,212,0.7); }
+    body.light-theme #mainBtn:hover { box-shadow: 0 12px 36px rgba(26,46,110,0.45); }
     #mainBtn i { font-size: 1.05rem; }
-    #mainBtn .btn-chevron { transition:transform 0.35s; font-size: 0.9rem; }
-    #mainBtn.open .btn-chevron { transform:rotate(180deg); }
+    #mainBtn .btn-chevron { transition: transform 0.35s; font-size: 0.9rem; }
+    #mainBtn.open .btn-chevron { transform: rotate(180deg); }
 
-    /* ═══════════════════════════════════════════
-       SUBJECTS GRID
-    ═══════════════════════════════════════════ */
+    /* ── Subjects Grid ── */
     #subjectsGrid {
-      display:none;
-      grid-template-columns:repeat(auto-fit,minmax(155px,1fr));
-      gap:14px;
-      max-width:840px; width:100%;
-      margin-top:2rem;
-      animation:fadeUp 0.4s ease;
+      display: none;
+      grid-template-columns: repeat(auto-fit,minmax(155px,1fr));
+      gap: 14px; max-width: 840px; width: 100%;
+      margin-top: 2rem; animation: fadeUp 0.4s ease;
     }
-    #subjectsGrid.visible { display:grid; }
+    #subjectsGrid.visible { display: grid; }
 
     .subject-btn {
-      border-radius:18px;
-      padding:20px 14px 16px;
-      cursor:pointer; text-align:center;
-      font-family:'Cairo',sans-serif;
-      font-size:0.88rem; font-weight:700;
-      transition:all 0.22s;
-      display:flex; flex-direction:column;
-      align-items:center; gap:10px;
-      position:relative; overflow:hidden;
+      border-radius: 18px; padding: 20px 14px 16px;
+      cursor: pointer; text-align: center;
+      font-family: 'Cairo',sans-serif; font-size: 0.88rem; font-weight: 700;
+      transition: all 0.22s; display: flex; flex-direction: column;
+      align-items: center; gap: 10px; position: relative; overflow: hidden;
     }
     body:not(.light-theme) .subject-btn {
-      background: rgba(255,255,255,0.04);
-      border:1px solid rgba(255,255,255,0.1);
-      color:rgba(255,255,255,0.8);
-      backdrop-filter:blur(10px);
-      box-shadow:0 4px 16px rgba(0,0,0,0.2);
+      background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1);
+      color: rgba(255,255,255,0.8); backdrop-filter: blur(10px);
+      box-shadow: 0 4px 16px rgba(0,0,0,0.2);
     }
     body.light-theme .subject-btn {
-      background: #ffffff;
-      border:2px solid var(--gray-light);
-      color: var(--text-dark);
-      box-shadow: 0 4px 24px rgba(26,46,110,0.10);
+      background: #ffffff; border: 2px solid var(--gray-light);
+      color: var(--text-dark); box-shadow: 0 4px 24px rgba(26,46,110,0.10);
     }
     .subject-btn::before {
       content:''; position:absolute; inset:0;
-      background:linear-gradient(135deg,rgba(0,200,212,0.1),transparent);
-      opacity:0; transition:opacity 0.22s;
+      background: linear-gradient(135deg,rgba(0,200,212,0.1),transparent);
+      opacity:0; transition: opacity 0.22s;
     }
     body:not(.light-theme) .subject-btn:hover {
-      border-color:rgba(0,200,212,0.5);
-      transform:translateY(-6px);
-      box-shadow:0 14px 32px rgba(0,200,212,0.18);
-      color:#fff;
+      border-color: rgba(0,200,212,0.5); transform: translateY(-6px);
+      box-shadow: 0 14px 32px rgba(0,200,212,0.18); color: #fff;
     }
     body.light-theme .subject-btn:hover {
-      border-color: var(--teal);
-      transform:translateY(-5px);
-      box-shadow:0 10px 30px rgba(0,184,196,0.2);
+      border-color: var(--teal); transform: translateY(-5px);
+      box-shadow: 0 10px 30px rgba(0,184,196,0.2);
     }
-    .subject-btn:hover::before { opacity:1; }
+    .subject-btn:hover::before { opacity: 1; }
     body:not(.light-theme) .subject-btn.active {
-      background:linear-gradient(135deg,rgba(26,63,170,0.75),rgba(0,200,212,0.55));
-      color:#fff;
-      border-color:rgba(0,200,212,0.7);
-      box-shadow:0 8px 30px rgba(0,200,212,0.3);
+      background: linear-gradient(135deg,rgba(26,63,170,0.75),rgba(0,200,212,0.55));
+      color: #fff; border-color: rgba(0,200,212,0.7);
+      box-shadow: 0 8px 30px rgba(0,200,212,0.3);
     }
     body.light-theme .subject-btn.active {
-      background:linear-gradient(135deg, #1a2e6e 0%, #1e4db7 70%, #00b8c4 100%);
-      color:#fff;
-      border-color:var(--teal);
-      box-shadow:0 8px 28px rgba(26,46,110,0.35);
+      background: linear-gradient(135deg, #1a2e6e 0%, #1e4db7 70%, #00b8c4 100%);
+      color: #fff; border-color: var(--teal);
+      box-shadow: 0 8px 28px rgba(26,46,110,0.35);
     }
 
-    /* Subject Icons — larger & clearer */
     .subj-icon {
-      width:58px; height:58px;
-      border-radius:16px;
-      display:flex; align-items:center; justify-content:center;
-      transition:all 0.22s;
-      position: relative;
+      width: 58px; height: 58px; border-radius: 16px;
+      display: flex; align-items: center; justify-content: center;
+      transition: all 0.22s; position: relative;
     }
-    body:not(.light-theme) .subj-icon { background:rgba(255,255,255,0.09); }
+    body:not(.light-theme) .subj-icon { background: rgba(255,255,255,0.09); }
     body.light-theme .subj-icon { background: linear-gradient(135deg, #e8f0fe, #d4eef9); }
-    .subj-icon i {
-      font-size: 1.55rem;
-      transition: all 0.22s;
-    }
+    .subj-icon i { font-size: 1.55rem; transition: all 0.22s; }
     body:not(.light-theme) .subj-icon i { color: var(--teal); }
     body.light-theme .subj-icon i { color: var(--blue); }
-    .subject-btn.active .subj-icon { background:rgba(255,255,255,0.18); }
-    .subject-btn.active .subj-icon i { color:#fff; }
+    .subject-btn.active .subj-icon { background: rgba(255,255,255,0.18); }
+    .subject-btn.active .subj-icon i { color: #fff; }
 
     .subj-name { font-size: 0.86rem; font-weight: 800; line-height: 1.3; }
-    .subj-count {
-      font-size:0.68rem; font-weight:700;
-      padding:3px 10px; border-radius:20px;
-    }
-    body:not(.light-theme) .subj-count { color:rgba(255,255,255,0.4); background:rgba(255,255,255,0.07); }
+    .subj-count { font-size: 0.68rem; font-weight: 700; padding: 3px 10px; border-radius: 20px; }
+    body:not(.light-theme) .subj-count { color: rgba(255,255,255,0.4); background: rgba(255,255,255,0.07); }
     body.light-theme .subj-count { color: #5575a8; background: #e2eaf8; }
-    .subject-btn.active .subj-count { background:rgba(255,255,255,0.15); color:rgba(255,255,255,0.85); }
+    .subject-btn.active .subj-count { background: rgba(255,255,255,0.15); color: rgba(255,255,255,0.85); }
 
-    /* Bottom accent bar */
     body.light-theme .subject-btn::after {
-      content:''; position:absolute;
-      bottom:0; left:0; right:0; height:3px;
-      background:linear-gradient(90deg, var(--blue), var(--teal));
-      transform:scaleX(0); transition:transform 0.25s;
-      transform-origin:right;
+      content:''; position:absolute; bottom:0; left:0; right:0; height:3px;
+      background: linear-gradient(90deg, var(--blue), var(--teal));
+      transform: scaleX(0); transition: transform 0.25s; transform-origin: right;
     }
-    body.light-theme .subject-btn:hover::after { transform:scaleX(1); transform-origin:left; }
-    body.light-theme .subject-btn.active::after { display:none; }
+    body.light-theme .subject-btn:hover::after { transform: scaleX(1); transform-origin: left; }
+    body.light-theme .subject-btn.active::after { display: none; }
 
-    /* ═══════════════════════════════════════════
-       FILES PANEL
-    ═══════════════════════════════════════════ */
+    /* ── Files Panel ── */
     #filesPanel {
-      display:none;
-      max-width:700px; width:100%;
-      margin-top:1.8rem;
-      border-radius:22px;
-      overflow:hidden;
-      animation:fadeUp 0.4s ease;
+      display: none; max-width: 700px; width: 100%;
+      margin-top: 1.8rem; border-radius: 22px; overflow: hidden;
+      animation: fadeUp 0.4s ease;
     }
-    #filesPanel.visible { display:block; }
+    #filesPanel.visible { display: block; }
     body:not(.light-theme) #filesPanel {
-      background:rgba(255,255,255,0.03);
-      border:1px solid rgba(255,255,255,0.1);
-      backdrop-filter:blur(16px);
-      box-shadow:0 16px 48px rgba(0,0,0,0.3);
+      background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1);
+      backdrop-filter: blur(16px); box-shadow: 0 16px 48px rgba(0,0,0,0.3);
     }
     body.light-theme #filesPanel {
-      background: #ffffff;
-      box-shadow: 0 8px 40px rgba(26,46,110,0.18);
+      background: #ffffff; box-shadow: 0 8px 40px rgba(26,46,110,0.18);
     }
 
     .files-header {
-      padding:18px 24px;
-      display:flex; align-items:center; gap:14px;
+      padding: 18px 24px; display: flex; align-items: center; gap: 14px;
     }
     body:not(.light-theme) .files-header {
-      background:linear-gradient(135deg,rgba(26,63,170,0.65),rgba(0,200,212,0.45));
-      border-bottom:1px solid rgba(255,255,255,0.08);
+      background: linear-gradient(135deg,rgba(26,63,170,0.65),rgba(0,200,212,0.45));
+      border-bottom: 1px solid rgba(255,255,255,0.08);
     }
     body.light-theme .files-header {
-      background:linear-gradient(135deg, #1a2e6e 0%, #1e4db7 70%, #00b8c4 100%);
+      background: linear-gradient(135deg, #1a2e6e 0%, #1e4db7 70%, #00b8c4 100%);
     }
     .files-header-icon {
-      width:42px; height:42px; border-radius:12px;
-      background:rgba(255,255,255,0.15);
-      display:flex; align-items:center; justify-content:center; flex-shrink:0;
+      width: 42px; height: 42px; border-radius: 12px;
+      background: rgba(255,255,255,0.15);
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
     }
-    .files-header-icon i { font-size:1.2rem; color:#fff; }
-    .files-header-text h3 { color:#fff; font-size:1rem; font-weight:800; }
-    .files-header-text p  { color:rgba(255,255,255,0.65); font-size:0.73rem; margin-top:2px; }
+    .files-header-icon i { font-size: 1.2rem; color: #fff; }
+    .files-header-text h3 { color: #fff; font-size: 1rem; font-weight: 800; }
+    .files-header-text p  { color: rgba(255,255,255,0.65); font-size: 0.73rem; margin-top: 2px; }
     .files-count {
-      margin-right:auto;
-      background:rgba(255,255,255,0.18);
-      color:#fff; font-size:0.73rem; font-weight:700;
-      padding:5px 14px; border-radius:20px;
-      border:1px solid rgba(255,255,255,0.2);
+      margin-right: auto; background: rgba(255,255,255,0.18);
+      color: #fff; font-size: 0.73rem; font-weight: 700;
+      padding: 5px 14px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.2);
     }
-    .files-list { padding:12px; display:flex; flex-direction:column; gap:8px; }
+    .files-list { padding: 12px; display: flex; flex-direction: column; gap: 8px; }
 
     .file-item {
-      display:flex; align-items:center; gap:14px;
-      padding:14px 16px; border-radius:14px;
-      transition:all 0.2s; text-decoration:none;
+      display: flex; align-items: center; gap: 14px;
+      padding: 14px 16px; border-radius: 14px;
+      transition: all 0.2s; text-decoration: none;
       color: var(--file-name-color);
     }
     body:not(.light-theme) .file-item {
-      border:1px solid rgba(255,255,255,0.07);
-      background:rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.07); background: rgba(255,255,255,0.03);
     }
     body.light-theme .file-item {
-      border:1.5px solid var(--gray-light);
-      background: var(--off-white);
+      border: 1.5px solid var(--gray-light); background: var(--off-white);
     }
     body:not(.light-theme) .file-item:hover {
-      border-color:rgba(0,200,212,0.45);
-      background:rgba(0,200,212,0.07);
-      transform:translateX(-4px);
+      border-color: rgba(0,200,212,0.45); background: rgba(0,200,212,0.07);
+      transform: translateX(-4px);
     }
     body.light-theme .file-item:hover {
-      border-color: var(--teal);
-      background:#e8f7ff;
-      transform:translateX(-4px);
-      box-shadow:0 4px 16px rgba(0,184,196,0.13);
+      border-color: var(--teal); background: #e8f7ff;
+      transform: translateX(-4px); box-shadow: 0 4px 16px rgba(0,184,196,0.13);
     }
     .file-icon {
-      width:46px; height:46px;
-      background:linear-gradient(135deg,#e53e3e,#c53030);
-      border-radius:12px;
-      display:flex; align-items:center; justify-content:center; flex-shrink:0;
-      box-shadow:0 3px 10px rgba(229,62,62,0.35);
+      width: 46px; height: 46px;
+      background: linear-gradient(135deg,#e53e3e,#c53030);
+      border-radius: 12px; display: flex; align-items: center;
+      justify-content: center; flex-shrink: 0;
+      box-shadow: 0 3px 10px rgba(229,62,62,0.35);
     }
-    .file-icon i { font-size:1.15rem; color:#fff; }
-    .file-info { flex:1; min-width:0; }
-    .file-name {
-      font-size:0.9rem; font-weight:700;
-      white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
-    }
-    body:not(.light-theme) .file-name { color:#fff; }
+    .file-icon i { font-size: 1.15rem; color: #fff; }
+    .file-info { flex: 1; min-width: 0; }
+    .file-name { font-size: 0.9rem; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    body:not(.light-theme) .file-name { color: #fff; }
     body.light-theme .file-name { color: var(--navy); }
-    .file-meta { font-size:0.72rem; margin-top:3px; }
-    body:not(.light-theme) .file-meta { color:rgba(255,255,255,0.4); }
+    .file-meta { font-size: 0.72rem; margin-top: 3px; }
+    body:not(.light-theme) .file-meta { color: rgba(255,255,255,0.4); }
     body.light-theme .file-meta { color: #7a96c2; }
     .file-download {
-      background:linear-gradient(135deg,var(--blue),var(--teal));
-      color:#fff; border:none;
-      padding:9px 18px; border-radius:10px;
-      font-family:'Cairo',sans-serif;
-      font-size:0.78rem; font-weight:700;
-      cursor:pointer; flex-shrink:0;
-      transition:all 0.18s;
-      display:flex; align-items:center; gap:7px;
-      text-decoration:none;
+      background: linear-gradient(135deg,var(--blue),var(--teal));
+      color: #fff; border: none; padding: 9px 18px; border-radius: 10px;
+      font-family: 'Cairo',sans-serif; font-size: 0.78rem; font-weight: 700;
+      cursor: pointer; flex-shrink: 0; transition: all 0.18s;
+      display: flex; align-items: center; gap: 7px; text-decoration: none;
     }
-    .file-download:hover { transform:scale(1.06); box-shadow:0 4px 16px rgba(0,200,212,0.35); }
-    .empty-state { text-align:center; padding:40px 20px; }
-    body:not(.light-theme) .empty-state { color:rgba(255,255,255,0.3); }
+    .file-download:hover { transform: scale(1.06); box-shadow: 0 4px 16px rgba(0,200,212,0.35); }
+    .empty-state { text-align: center; padding: 40px 20px; }
+    body:not(.light-theme) .empty-state { color: rgba(255,255,255,0.3); }
     body.light-theme .empty-state { color: #9ab0d0; }
-    .empty-state i { font-size:2.5rem; margin-bottom:12px; opacity:0.4; display:block; }
-    .empty-state p { font-size:0.9rem; font-weight:600; }
+    .empty-state i { font-size: 2.5rem; margin-bottom: 12px; opacity: 0.4; display: block; }
+    .empty-state p { font-size: 0.9rem; font-weight: 600; }
 
-    /* ═══════════════════════════════════════════
-       TOKEN OVERLAY
-    ═══════════════════════════════════════════ */
-    .token-setup-overlay {
-      position:fixed; inset:0;
-      background:rgba(6,14,46,0.88);
-      z-index:999;
-      display:flex; align-items:center; justify-content:center;
-      padding:1rem;
-      backdrop-filter:blur(10px);
-    }
-    .token-setup-box {
-      background:rgba(255,255,255,0.06);
-      border:1px solid rgba(0,200,212,0.25);
-      backdrop-filter:blur(20px);
-      border-radius:24px; padding:36px;
-      max-width:460px; width:100%;
-      box-shadow:0 24px 64px rgba(0,0,0,0.5);
-      text-align:center;
-    }
-    .token-setup-box .ts-icon {
-      width:68px; height:68px;
-      background:linear-gradient(135deg,var(--navy),var(--teal));
-      border-radius:50%;
-      display:flex; align-items:center; justify-content:center;
-      margin:0 auto 1.2rem;
-      box-shadow:0 0 28px rgba(0,200,212,0.35);
-    }
-    .token-setup-box .ts-icon i { font-size:1.8rem; color:#fff; }
-    .token-setup-box h2 { font-size:1.3rem; font-weight:900; color:#fff; margin-bottom:0.5rem; }
-    .token-setup-box p { font-size:0.82rem; color:rgba(255,255,255,0.55); line-height:1.7; margin-bottom:1.2rem; }
-    .token-steps {
-      text-align:right;
-      background:rgba(255,255,255,0.04);
-      border:1px solid rgba(255,255,255,0.08);
-      border-radius:12px; padding:14px 16px; margin-bottom:16px;
-    }
-    .token-steps p { font-size:0.77rem; color:rgba(255,255,255,0.6); line-height:2; font-weight:600; }
-    .token-steps a { color:var(--teal); }
-    .token-status { font-size:0.78rem; font-weight:700; padding:6px 12px; border-radius:8px; margin-bottom:10px; display:none; }
-    .token-status.ok  { background:rgba(22,163,74,0.15); color:#4ade80; display:block; }
-    .token-status.err { background:rgba(220,38,38,0.15); color:#f87171; display:block; }
-    .token-setup-box input {
-      width:100%; padding:12px 16px;
-      border:1px solid rgba(255,255,255,0.15); border-radius:10px;
-      font-family:'Cairo',sans-serif; font-size:0.88rem;
-      margin-bottom:10px; outline:none;
-      direction:ltr; text-align:left;
-      background:rgba(255,255,255,0.05); color:#fff;
-    }
-    .token-setup-box input:focus { border-color:var(--teal); }
-    .token-save-btn {
-      width:100%; padding:13px;
-      background:linear-gradient(135deg,var(--navy),var(--blue),var(--teal));
-      color:#fff; border:none; border-radius:12px;
-      font-family:'Cairo',sans-serif; font-size:1rem; font-weight:800;
-      cursor:pointer; transition:all 0.2s;
-    }
-    .token-save-btn:hover { transform:translateY(-2px); box-shadow:0 6px 20px rgba(0,200,212,0.35); }
-    .token-skip-btn {
-      background:none; border:none; color:rgba(255,255,255,0.3);
-      font-family:'Cairo',sans-serif; font-size:0.8rem;
-      cursor:pointer; margin-top:10px; display:block; width:100%;
-    }
-    .token-skip-btn:hover { color:rgba(255,255,255,0.6); }
-
-    /* ═══════════════════════════════════════════
-       UPLOAD PAGE
-    ═══════════════════════════════════════════ */
-    .upload-page {
-      position:relative; z-index:1;
-      max-width:700px; margin:0 auto;
-      padding:2.5rem 1.5rem;
-    }
-    .page-header { margin-bottom:2rem; }
-    .page-header h2 {
-      font-size:1.5rem; font-weight:900;
-      margin-bottom:0.4rem;
-      display:flex; align-items:center; gap:10px;
-    }
-    body:not(.light-theme) .page-header h2 { color:#fff; }
-    body.light-theme .page-header h2 { color: var(--navy); }
-    .page-header h2 i { color:var(--teal); }
-    .page-header .page-sub { font-size:0.88rem; }
-    body:not(.light-theme) .page-header .page-sub { color:rgba(255,255,255,0.45); }
-    body.light-theme .page-header .page-sub { color: #5575a8; }
-
-    .glass-card {
-      border-radius:20px;
-      padding:26px;
-      margin-bottom:18px;
-    }
-    body:not(.light-theme) .glass-card {
-      background:rgba(255,255,255,0.04);
-      border:1px solid rgba(255,255,255,0.1);
-      backdrop-filter:blur(16px);
-      box-shadow:0 8px 32px rgba(0,0,0,0.2);
-    }
-    body.light-theme .glass-card {
-      background: #ffffff;
-      border:1px solid var(--gray-light);
-      box-shadow: 0 4px 24px rgba(26,46,110,0.1);
-    }
-    .glass-card h3 {
-      font-size:1rem; font-weight:800;
-      margin-bottom:18px;
-      display:flex; align-items:center; gap:8px;
-    }
-    body:not(.light-theme) .glass-card h3 { color:#fff; }
-    body.light-theme .glass-card h3 { color: var(--navy); }
-    .glass-card h3 i { color:var(--teal); font-size:1.1rem; }
-
-    .form-group { margin-bottom:16px; }
-    .form-group label {
-      display:block; font-size:0.82rem; font-weight:700; margin-bottom:7px;
-    }
-    body:not(.light-theme) .form-group label { color:rgba(255,255,255,0.6); }
-    body.light-theme .form-group label { color: #5575a8; }
-    .form-group input, .form-group select, .form-group textarea {
-      width:100%; padding:11px 14px;
-      border-radius:10px;
-      font-family:'Cairo',sans-serif; font-size:0.86rem;
-      transition:border 0.2s; outline:none;
-    }
-    body:not(.light-theme) .form-group input,
-    body:not(.light-theme) .form-group select,
-    body:not(.light-theme) .form-group textarea {
-      border:1px solid rgba(255,255,255,0.12);
-      color:#fff;
-      background:rgba(255,255,255,0.06);
-    }
-    body:not(.light-theme) .form-group input:focus,
-    body:not(.light-theme) .form-group select:focus,
-    body:not(.light-theme) .form-group textarea:focus {
-      border-color:rgba(0,200,212,0.6); background:rgba(0,200,212,0.05);
-    }
-    body.light-theme .form-group input,
-    body.light-theme .form-group select,
-    body.light-theme .form-group textarea {
-      border:1.5px solid var(--gray-light);
-      color: var(--text-dark);
-      background: #f8fbff;
-    }
-    body.light-theme .form-group input:focus,
-    body.light-theme .form-group select:focus,
-    body.light-theme .form-group textarea:focus {
-      border-color: var(--teal); background:#f0fafc;
-    }
-    .form-group select option { background:#0d1f5c; color:#fff; }
-    body.light-theme .form-group select option { background:#fff; color:#0a1840; }
-    .form-group textarea { resize:vertical; min-height:80px; }
-
-    .dropzone {
-      border:2px dashed rgba(255,255,255,0.15);
-      border-radius:14px; padding:34px 20px;
-      text-align:center; cursor:pointer;
-      transition:all 0.22s;
-      position:relative;
-    }
-    body.light-theme .dropzone { border-color: var(--gray-light); background: #f8fbff; }
-    .dropzone:hover, .dropzone.dragover { border-color:rgba(0,200,212,0.6) !important; background:rgba(0,200,212,0.06) !important; }
-    .dropzone i { font-size:2.3rem; color:var(--teal); margin-bottom:10px; display:block; }
-    .dropzone p { font-size:0.87rem; font-weight:600; }
-    body:not(.light-theme) .dropzone p { color:rgba(255,255,255,0.5); }
-    body.light-theme .dropzone p { color: #5575a8; }
-    .dropzone p span { color:var(--teal); text-decoration:underline; cursor:pointer; }
-    .dropzone small { font-size:0.72rem; margin-top:6px; display:block; }
-    body:not(.light-theme) .dropzone small { color:rgba(255,255,255,0.3); }
-    body.light-theme .dropzone small { color: #9ab0d0; }
-    .dropzone input[type=file] { position:absolute; inset:0; opacity:0; cursor:pointer; }
-    .selected-file {
-      margin-top:10px; padding:10px 14px;
-      background:rgba(22,163,74,0.1);
-      border:1px solid rgba(74,222,128,0.2);
-      border-radius:10px;
-      align-items:center; gap:10px; display:none;
-    }
-    .selected-file i { color:#4ade80; font-size:1rem; }
-    .selected-file span { font-size:0.82rem; font-weight:700; color:#4ade80; flex:1; }
-
-    .upload-btn {
-      width:100%; padding:14px;
-      background:linear-gradient(135deg,var(--navy),var(--blue),var(--teal));
-      color:#fff; border:none; border-radius:12px;
-      font-family:'Cairo',sans-serif; font-size:0.97rem; font-weight:800;
-      cursor:pointer; transition:all 0.2s;
-      display:flex; align-items:center; justify-content:center; gap:10px;
-      box-shadow:0 4px 20px rgba(0,200,212,0.2);
-    }
-    .upload-btn:hover { transform:translateY(-2px); box-shadow:0 8px 28px rgba(0,200,212,0.35); }
-    .upload-btn:disabled { opacity:0.5; cursor:not-allowed; transform:none; }
-
-    .progress-bar-wrap { margin-top:12px; display:none; }
-    .progress-bar-wrap p { font-size:0.78rem; font-weight:700; color:var(--teal); margin-bottom:6px; }
-    .progress-bar { height:7px; background:rgba(255,255,255,0.1); border-radius:99px; overflow:hidden; }
-    body.light-theme .progress-bar { background: var(--gray-light); }
-    .progress-bar-fill { height:100%; background:linear-gradient(90deg,var(--blue),var(--teal)); border-radius:99px; width:0%; transition:width 0.4s; }
-
-    .upload-result { margin-top:12px; padding:12px 16px; border-radius:12px; display:none; font-size:0.85rem; font-weight:700; }
-    .upload-result.success { background:rgba(22,163,74,0.1); color:#4ade80; border:1px solid rgba(74,222,128,0.2); }
-    .upload-result.error   { background:rgba(220,38,38,0.1); color:#f87171; border:1px solid rgba(248,113,113,0.2); }
-
-    .info-box {
-      background:rgba(245,158,11,0.08);
-      border:1px solid rgba(245,158,11,0.25);
-      border-radius:12px; padding:12px 16px;
-      margin-bottom:16px;
-      display:flex; align-items:flex-start; gap:10px;
-    }
-    .info-box i { color:#f59e0b; margin-top:2px; flex-shrink:0; font-size:1rem; }
-    .info-box p { font-size:0.8rem; line-height:1.6; font-weight:600; }
-    body:not(.light-theme) .info-box p { color:rgba(255,255,255,0.6); }
-    body.light-theme .info-box p { color: #775500; }
-    .info-box.green { background:rgba(22,163,74,0.08); border-color:rgba(74,222,128,0.2); }
-    .info-box.green i { color:#4ade80; }
-    body.light-theme .info-box.green p { color: #16a34a; }
-
-    /* Student Files */
-    .student-files-section { margin-top:24px; }
-    .student-files-section h3 {
-      font-size:1rem; font-weight:900;
-      margin-bottom:14px;
-      display:flex; align-items:center; gap:8px;
-    }
-    body:not(.light-theme) .student-files-section h3 { color:#fff; }
-    body.light-theme .student-files-section h3 { color: var(--navy); }
-    .student-files-section h3 i { color:var(--teal); }
-
-    .student-file-card {
-      border-radius:14px;
-      padding:14px 16px; margin-bottom:8px;
-      display:flex; align-items:center; gap:12px;
-      transition:all 0.2s;
-    }
-    body:not(.light-theme) .student-file-card {
-      background:rgba(255,255,255,0.03);
-      border:1px solid rgba(255,255,255,0.08);
-      backdrop-filter:blur(8px);
-    }
-    body.light-theme .student-file-card {
-      background: #f8fbff;
-      border:1.5px solid var(--gray-light);
-    }
-    .student-file-card:hover { transform:translateY(-2px); border-color:rgba(0,200,212,0.3); box-shadow:0 8px 24px rgba(0,0,0,0.15); }
-    .sfc-icon { width:46px; height:46px; border-radius:12px; background:linear-gradient(135deg,#7c3aed,#6d28d9); display:flex; align-items:center; justify-content:center; flex-shrink:0; }
-    .sfc-icon i { color:#fff; font-size:1.15rem; }
-    .sfc-info { flex:1; min-width:0; }
-    .sfc-title { font-size:0.87rem; font-weight:800; }
-    body:not(.light-theme) .sfc-title { color:#fff; }
-    body.light-theme .sfc-title { color: var(--navy); }
-    .sfc-meta { font-size:0.69rem; margin-top:3px; line-height:1.8; }
-    body:not(.light-theme) .sfc-meta { color:rgba(255,255,255,0.4); }
-    body.light-theme .sfc-meta { color: #7a96c2; }
-    .sfc-badge { padding:3px 9px; border-radius:20px; font-size:0.65rem; font-weight:800; }
-    .sfc-badge.pdf { background:rgba(220,38,38,0.15); color:#f87171; border:1px solid rgba(248,113,113,0.2); }
-    .sfc-badge.doc { background:rgba(30,77,183,0.15); color:#60a5fa; border:1px solid rgba(96,165,250,0.2); }
-    .sfc-badge.img { background:rgba(22,163,74,0.15); color:#4ade80; border:1px solid rgba(74,222,128,0.2); }
-    .sfc-download {
-      background:linear-gradient(135deg,#7c3aed,var(--teal));
-      color:#fff; border:none; padding:8px 16px;
-      border-radius:8px; font-family:'Cairo',sans-serif;
-      font-size:0.75rem; font-weight:700; cursor:pointer;
-      text-decoration:none; display:flex; align-items:center; gap:5px;
-      transition:all 0.18s;
-    }
-    .sfc-download:hover { transform:scale(1.05); }
-
-    .loading-spinner { text-align:center; padding:28px; }
-    body:not(.light-theme) .loading-spinner { color:rgba(255,255,255,0.3); }
-    body.light-theme .loading-spinner { color: #9ab0d0; }
-    .loading-spinner i { font-size:1.8rem; animation:spin 1s linear infinite; margin-bottom:8px; display:block; color:var(--teal); opacity:0.7; }
-    @keyframes spin { to { transform:rotate(360deg); } }
-
-    /* ═══════════════════════════════════════════
-       COMMENTS PAGE
-    ═══════════════════════════════════════════ */
-    .comments-page {
-      position:relative; z-index:1;
-      max-width:700px; margin:0 auto;
-      padding:2.5rem 1.5rem;
-    }
-
-    .stats-bar {
-      border-radius:18px; padding:20px 24px;
-      margin-bottom:22px;
-      display:flex; align-items:center; justify-content:space-around;
-      gap:12px; flex-wrap:wrap;
-    }
-    body:not(.light-theme) .stats-bar {
-      background:linear-gradient(135deg,rgba(26,63,170,0.4),rgba(0,200,212,0.3));
-      border:1px solid rgba(0,200,212,0.2);
-      backdrop-filter:blur(12px);
-    }
-    body.light-theme .stats-bar {
-      background:linear-gradient(135deg, #1a2e6e 0%, #1e4db7 70%, #00b8c4 100%);
-      box-shadow: 0 6px 24px rgba(26,46,110,0.2);
-    }
-    .stat-item { text-align:center; }
-    .stat-num { font-size:1.6rem; font-weight:900; color:#fff; }
-    .stat-label { font-size:0.68rem; color:rgba(255,255,255,0.6); font-weight:600; margin-top:2px; }
-
-    .new-comment-card { margin-bottom:22px; }
-
-    .star-rating { display:flex; gap:6px; margin-bottom:14px; flex-direction:row-reverse; justify-content:flex-end; }
-    .star-rating input { display:none; }
-    .star-rating label { font-size:1.6rem; cursor:pointer; transition:color 0.15s; }
-    body:not(.light-theme) .star-rating label { color:rgba(255,255,255,0.2); }
-    body.light-theme .star-rating label { color: #d1d5db; }
-    .star-rating input:checked ~ label,
-    .star-rating label:hover,
-    .star-rating label:hover ~ label { color:#f59e0b; }
-
-    .comment-tag-select { display:flex; flex-wrap:wrap; gap:7px; margin-bottom:14px; }
-    .tag-btn {
-      padding:6px 16px; border-radius:20px;
-      font-family:'Cairo',sans-serif; font-size:0.78rem; font-weight:700;
-      cursor:pointer; transition:all 0.18s;
-    }
-    body:not(.light-theme) .tag-btn {
-      border:1px solid rgba(255,255,255,0.12);
-      background:rgba(255,255,255,0.04);
-      color:rgba(255,255,255,0.5);
-    }
-    body.light-theme .tag-btn {
-      border:1.5px solid var(--gray-light);
-      background: #f0f6ff;
-      color: #5575a8;
-    }
-    .tag-btn.selected, .tag-btn:hover {
-      background:linear-gradient(135deg,rgba(26,63,170,0.5),rgba(0,200,212,0.3));
-      color:#fff; border-color:rgba(0,200,212,0.4);
-    }
-    body.light-theme .tag-btn.selected,
-    body.light-theme .tag-btn:hover {
-      background: linear-gradient(135deg, #1a3faa, #00c8d4);
-    }
-
-    .submit-comment-btn {
-      background:linear-gradient(135deg,var(--navy),var(--blue),var(--teal));
-      color:#fff; border:none; padding:13px 30px;
-      border-radius:12px; font-family:'Cairo',sans-serif;
-      font-size:0.9rem; font-weight:800; cursor:pointer;
-      transition:all 0.2s; display:flex; align-items:center; gap:8px;
-      box-shadow: 0 4px 20px rgba(0,200,212,0.2);
-    }
-    .submit-comment-btn:hover { transform:translateY(-2px); box-shadow:0 6px 24px rgba(0,200,212,0.35); }
-    .submit-comment-btn:disabled { opacity:0.5; cursor:not-allowed; transform:none; }
-
-    .comments-list { display:flex; flex-direction:column; gap:12px; }
-    .comment-card {
-      border-radius:16px; padding:18px 20px;
-      transition:border-color 0.2s;
-    }
-    body:not(.light-theme) .comment-card {
-      background:rgba(255,255,255,0.03);
-      border:1px solid rgba(255,255,255,0.08);
-      backdrop-filter:blur(10px);
-    }
-    body.light-theme .comment-card {
-      background: #ffffff;
-      border:1.5px solid var(--gray-light);
-      box-shadow: 0 2px 12px rgba(26,46,110,0.06);
-    }
-    .comment-card:hover { border-color:rgba(0,200,212,0.3); }
-    .comment-card-header { display:flex; align-items:center; gap:10px; margin-bottom:12px; flex-wrap:wrap; }
-    .comment-avatar {
-      width:40px; height:40px; border-radius:50%;
-      background:linear-gradient(135deg,var(--navy),var(--teal));
-      display:flex; align-items:center; justify-content:center;
-      font-size:1rem; font-weight:900; color:#fff; flex-shrink:0;
-    }
-    .comment-author { font-size:0.88rem; font-weight:800; }
-    body:not(.light-theme) .comment-author { color:#fff; }
-    body.light-theme .comment-author { color: var(--navy); }
-    .comment-time { font-size:0.68rem; margin-top:2px; }
-    body:not(.light-theme) .comment-time { color:rgba(255,255,255,0.35); }
-    body.light-theme .comment-time { color: #9ab0d0; }
-    .comment-stars { color:#f59e0b; font-size:0.88rem; letter-spacing:1px; }
-    .comment-tag {
-      padding:3px 10px; border-radius:20px;
-      font-size:0.65rem; font-weight:700;
-    }
-    body:not(.light-theme) .comment-tag {
-      background:rgba(26,63,170,0.4);
-      color:rgba(255,255,255,0.8);
-      border:1px solid rgba(0,200,212,0.2);
-    }
-    body.light-theme .comment-tag {
-      background: rgba(0,184,196,0.1);
-      color: #008c96;
-      border:1px solid rgba(0,184,196,0.25);
-    }
-    .comment-body { font-size:0.85rem; line-height:1.75; }
-    body:not(.light-theme) .comment-body { color:rgba(255,255,255,0.65); }
-    body.light-theme .comment-body { color: #5575a8; }
-    .comment-likes { margin-top:10px; display:flex; align-items:center; gap:8px; }
-    .like-btn {
-      padding:5px 14px; border-radius:20px;
-      font-family:'Cairo',sans-serif; font-size:0.75rem; font-weight:700;
-      cursor:pointer; transition:all 0.18s;
-      display:flex; align-items:center; gap:5px; text-decoration:none;
-    }
-    body:not(.light-theme) .like-btn {
-      border:1px solid rgba(255,255,255,0.1);
-      background:rgba(255,255,255,0.04);
-      color:rgba(255,255,255,0.4);
-    }
-    body.light-theme .like-btn {
-      border:1.5px solid var(--gray-light);
-      background: #f0f6ff;
-      color: #7a96c2;
-    }
-    .like-btn:hover { background:rgba(220,38,38,0.1); color:#f87171; border-color:rgba(248,113,113,0.3); }
-
-    /* ═══════════════════════════════════════════
-       FOOTER
-    ═══════════════════════════════════════════ */
+    /* ── Footer ── */
     footer {
-      position:relative; z-index:1; text-align:center;
-      padding:24px; font-size:0.78rem;
-      transition: all 0.4s;
+      position: relative; z-index: 1; text-align: center;
+      padding: 24px; font-size: 0.78rem; transition: all 0.4s;
     }
     body:not(.light-theme) footer {
-      color:rgba(255,255,255,0.3);
-      border-top:1px solid rgba(255,255,255,0.07);
-      background:rgba(255,255,255,0.02);
+      color: rgba(255,255,255,0.3); border-top: 1px solid rgba(255,255,255,0.07);
+      background: rgba(255,255,255,0.02);
     }
     body.light-theme footer {
-      color: #8099c2;
-      border-top:1px solid var(--gray-light);
-      background:rgba(255,255,255,0.6);
+      color: #8099c2; border-top: 1px solid var(--gray-light);
+      background: rgba(255,255,255,0.6);
     }
-    footer span { color:var(--teal); font-weight:700; }
-    footer a { color:rgba(0,200,212,0.8); text-decoration:none; font-weight:700; }
-    footer a:hover { color:var(--teal); }
+    footer span { color: var(--teal); font-weight: 700; }
 
-    /* ═══════════════════════════════════════════
-       TOAST
-    ═══════════════════════════════════════════ */
-    .toast {
-      position:fixed; bottom:24px; left:50%;
-      transform:translateX(-50%) translateY(80px);
-      border:1px solid rgba(0,200,212,0.3);
-      color:#fff; padding:13px 26px;
-      border-radius:14px; font-size:0.85rem; font-weight:700;
-      box-shadow:0 8px 32px rgba(0,0,0,0.4);
-      z-index:9999; transition:transform 0.3s;
-      white-space:nowrap; backdrop-filter:blur(16px);
-    }
-    body:not(.light-theme) .toast { background:rgba(13,31,92,0.95); }
-    body.light-theme .toast { background:rgba(26,46,110,0.95); }
-    .toast.show { transform:translateX(-50%) translateY(0); }
-
-    /* ═══════════════════════════════════════════
-       GITHUB STATUS BOX
-    ═══════════════════════════════════════════ */
-    #githubStatusBox {
-      transition: all 0.4s;
-    }
-
-    /* ═══════════════════════════════════════════
-       RESPONSIVE
-    ═══════════════════════════════════════════ */
+    /* ── Responsive ── */
     @media(max-width:600px) {
-      #subjectsGrid { grid-template-columns:repeat(2,1fr); }
-      .header-badge { display:none; }
-      .nav-tab { padding:9px 10px; font-size:0.77rem; gap:5px; }
-      .nav-tab span.nav-label { display:none; }
-      .theme-toggle { bottom:20px; left:16px; width:46px; height:46px; }
+      #subjectsGrid { grid-template-columns: repeat(2,1fr); }
+      .header-badge { display: none; }
+      .theme-toggle { bottom: 20px; left: 16px; width: 46px; height: 46px; }
     }
   </style>
 </head>
@@ -1119,31 +456,9 @@
 
 <!-- Theme Toggle -->
 <button class="theme-toggle" onclick="toggleTheme()" title="تبديل المظهر">
-  <i class="fa-solid fa-moon" id="themeIcon"></i>
+  <i class="fa-solid fa-sun" id="themeIcon"></i>
   <span class="tt-label" id="themeLabel">الوضع الفاتح</span>
 </button>
-
-<!-- ===== TOKEN OVERLAY ===== -->
-<div class="token-setup-overlay" id="tokenOverlay">
-  <div class="token-setup-box">
-    <div class="ts-icon"><i class="fa-brands fa-github"></i></div>
-    <h2>ربط الموقع بـ GitHub</h2>
-    <p>لكي تعمل خاصية رفع الملفات والتعليقات مع جميع الأجهزة، أدخل GitHub Token الخاص بك.</p>
-    <div class="token-steps">
-      <p>
-        ① اذهب إلى <a href="https://github.com/settings/tokens/new" target="_blank">github.com/settings/tokens/new</a><br/>
-        ② اختر صلاحية <strong>repo</strong> كاملة<br/>
-        ③ اضغط Generate token وانسخه هنا
-      </p>
-    </div>
-    <div class="token-status" id="tokenStatus"></div>
-    <input type="password" id="tokenInput" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx" dir="ltr"/>
-    <button class="token-save-btn" onclick="saveToken()">
-      <i class="fa-solid fa-link"></i> ربط وحفظ
-    </button>
-    <button class="token-skip-btn" onclick="skipToken()">تخطي — استخدام الموقع بدون رفع ملفات</button>
-  </div>
-</div>
 
 <!-- ===== HEADER ===== -->
 <header>
@@ -1156,32 +471,10 @@
       <p>جامعة الموصل · University of Mosul · CSM</p>
     </div>
   </div>
-  <div class="header-right">
-    <span class="token-indicator disconnected" id="tokenBadge">
-      <i class="fa-solid fa-circle-xmark"></i> غير مرتبط
-    </span>
-    <div class="header-badge">CSM · 1999</div>
-  </div>
+  <div class="header-badge">CSM · 1999</div>
 </header>
 
-<!-- ===== NAV ===== -->
-<nav class="main-nav">
-  <button class="nav-tab active" onclick="switchPage('notes',this)">
-    <i class="fa-solid fa-book-open"></i>
-    <span class="nav-label">مكتبة الملازم</span>
-  </button>
-  <button class="nav-tab" onclick="switchPage('share',this)">
-    <i class="fa-solid fa-cloud-arrow-up"></i>
-    <span class="nav-label">شارك مع زملائك</span>
-  </button>
-  <button class="nav-tab" onclick="switchPage('comments',this)">
-    <i class="fa-solid fa-comments"></i>
-    <span class="nav-label">آراء الطلاب</span>
-  </button>
-</nav>
-
 <!-- ===== صفحة الملازم ===== -->
-<div id="page-notes" class="page active">
 <section class="hero">
 
   <div class="hero-badge">
@@ -1265,157 +558,10 @@
   </div>
 
 </section>
-</div>
-
-<!-- ===== صفحة المشاركة ===== -->
-<div id="page-share" class="page">
-<div class="upload-page">
-  <div class="page-header">
-    <h2><i class="fa-solid fa-cloud-arrow-up"></i> شارك ملخصاتك مع زملائك</h2>
-    <p class="page-sub">الملفات تُخزَّن على GitHub وتظهر لجميع الطلاب على كل الأجهزة</p>
-  </div>
-
-  <div class="info-box green" id="githubStatusBox">
-    <i class="fa-brands fa-github"></i>
-    <p id="githubStatusText">جارٍ التحقق من الاتصال بـ GitHub...</p>
-  </div>
-
-  <div class="glass-card">
-    <h3><i class="fa-solid fa-file-arrow-up"></i> رفع ملف جديد</h3>
-    <div class="form-group">
-      <label><i class="fa-regular fa-user" style="margin-left:5px;color:var(--teal)"></i>اسمك (اختياري)</label>
-      <input type="text" id="uploader-name" placeholder="مثال: أحمد محمد — أو اترك فارغاً للنشر باسم مجهول"/>
-    </div>
-    <div class="form-group">
-      <label><i class="fa-solid fa-book" style="margin-left:5px;color:var(--teal)"></i>المادة</label>
-      <select id="upload-subject">
-        <option value="">— اختر المادة —</option>
-        <option value="prog">برمجة متقدمة</option>
-        <option value="web">برمجة مواقع نظري</option>
-        <option value="computer1">حاسوب نظري</option>
-        <option value="computer2">حاسوب عملي</option>
-        <option value="statistics">مبادئ الإحصاء</option>
-        <option value="tca">تركيب حاسوب نظري</option>
-        <option value="pcac">تركيب حاسوب عملي</option>
-        <option value="arbic">اللغة العربية</option>
-        <option value="other">أخرى</option>
-      </select>
-    </div>
-    <div class="form-group">
-      <label><i class="fa-regular fa-comment" style="margin-left:5px;color:var(--teal)"></i>وصف الملف</label>
-      <textarea id="upload-desc" placeholder="مثال: ملخص محاضرات الفصل الأول — الدكتور عمر..."></textarea>
-    </div>
-    <div class="form-group">
-      <label><i class="fa-solid fa-paperclip" style="margin-left:5px;color:var(--teal)"></i>الملف</label>
-      <div class="dropzone" id="dropzone">
-        <i class="fa-solid fa-cloud-arrow-up"></i>
-        <p>اسحب الملف هنا أو <span>اضغط للاختيار</span></p>
-        <small>PDF · Word · صورة · حتى 10 MB</small>
-        <input type="file" id="file-input" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png,.txt" onchange="onFileSelected(this)"/>
-      </div>
-      <div class="selected-file" id="selected-file-info">
-        <i class="fa-solid fa-circle-check"></i>
-        <span id="selected-file-name"></span>
-      </div>
-    </div>
-    <button class="upload-btn" onclick="uploadFile()" id="upload-btn">
-      <i class="fa-brands fa-github"></i> رفع الملف على GitHub
-    </button>
-    <div class="progress-bar-wrap" id="progress-wrap">
-      <p id="progress-text">جارٍ الرفع...</p>
-      <div class="progress-bar"><div class="progress-bar-fill" id="progress-fill"></div></div>
-    </div>
-    <div class="upload-result" id="upload-result"></div>
-  </div>
-
-  <div class="student-files-section">
-    <h3>
-      <i class="fa-solid fa-users"></i>
-      ملفات الطلاب المشارَكة
-      <span style="font-size:0.68rem;background:rgba(3,105,161,0.15);color:#60a5fa;padding:3px 10px;border-radius:20px;font-weight:700;margin-right:8px;border:1px solid rgba(96,165,250,0.2);">GitHub Issues</span>
-    </h3>
-    <div id="student-files-list">
-      <div class="loading-spinner">
-        <i class="fa-solid fa-spinner"></i>
-        <p>جارٍ التحميل من GitHub...</p>
-      </div>
-    </div>
-  </div>
-</div>
-</div>
-
-<!-- ===== صفحة التعليقات ===== -->
-<div id="page-comments" class="page">
-<div class="comments-page">
-  <div class="page-header">
-    <h2><i class="fa-solid fa-comments"></i> آراء وتعليقات الطلاب</h2>
-    <p class="page-sub">تعليقاتك تُحفَظ على GitHub وتظهر للجميع</p>
-  </div>
-
-  <div class="stats-bar">
-    <div class="stat-item">
-      <div class="stat-num" id="stat-total">—</div>
-      <div class="stat-label"><i class="fa-regular fa-comment-dots" style="margin-left:4px"></i>تعليق</div>
-    </div>
-    <div class="stat-item">
-      <div class="stat-num" id="stat-avg">—</div>
-      <div class="stat-label"><i class="fa-solid fa-star" style="margin-left:4px;color:#f59e0b"></i>متوسط التقييم</div>
-    </div>
-    <div class="stat-item">
-      <div class="stat-num" id="stat-five">—</div>
-      <div class="stat-label"><i class="fa-solid fa-medal" style="margin-left:4px;color:#f59e0b"></i>تقييم 5 نجوم</div>
-    </div>
-  </div>
-
-  <div class="glass-card new-comment-card">
-    <h3><i class="fa-solid fa-pen-to-square"></i> أضف رأيك</h3>
-    <div class="form-group">
-      <label>اسمك (اختياري)</label>
-      <input type="text" id="comment-name" placeholder="اترك فارغاً للنشر باسم طالب مجهول"/>
-    </div>
-    <div class="form-group">
-      <label>تقييمك للموقع</label>
-      <div class="star-rating">
-        <input type="radio" name="rating" id="s5" value="5"/><label for="s5">★</label>
-        <input type="radio" name="rating" id="s4" value="4"/><label for="s4">★</label>
-        <input type="radio" name="rating" id="s3" value="3"/><label for="s3">★</label>
-        <input type="radio" name="rating" id="s2" value="2"/><label for="s2">★</label>
-        <input type="radio" name="rating" id="s1" value="1"/><label for="s1">★</label>
-      </div>
-    </div>
-    <div class="form-group">
-      <label>صنّف تعليقك</label>
-      <div class="comment-tag-select">
-        <button class="tag-btn selected" data-tag="عام" onclick="selectTag(this)">💬 عام</button>
-        <button class="tag-btn" data-tag="اقتراح" onclick="selectTag(this)">💡 اقتراح</button>
-        <button class="tag-btn" data-tag="شكر" onclick="selectTag(this)">🙏 شكر</button>
-        <button class="tag-btn" data-tag="سؤال" onclick="selectTag(this)">❓ سؤال</button>
-        <button class="tag-btn" data-tag="مشكلة تقنية" onclick="selectTag(this)">⚠️ مشكلة</button>
-      </div>
-    </div>
-    <div class="form-group">
-      <label>تعليقك</label>
-      <textarea id="comment-text" placeholder="اكتب رأيك أو اقتراحك هنا..." rows="4"></textarea>
-    </div>
-    <button class="submit-comment-btn" onclick="submitComment()" id="submit-comment-btn">
-      <i class="fa-brands fa-github"></i> نشر التعليق
-    </button>
-  </div>
-
-  <div class="comments-list" id="comments-list">
-    <div class="loading-spinner">
-      <i class="fa-solid fa-spinner"></i>
-      <p>جارٍ تحميل التعليقات...</p>
-    </div>
-  </div>
-</div>
-</div>
 
 <footer>
-  كلية علوم الحاسوب والرياضيات — جامعة الموصل &nbsp;|&nbsp; <span>CSM · 1999</span> &nbsp;|&nbsp;
-  مدعوم بـ <a href="https://github.com/YOSSEFCS/CS-Vault" target="_blank"><i class="fa-brands fa-github"></i> CS-Vault</a>
+  كلية علوم الحاسوب والرياضيات — جامعة الموصل &nbsp;|&nbsp; <span>CSM · 1999</span>
 </footer>
-<div class="toast" id="toast"></div>
 
 <script>
 /* ── Stars ── */
@@ -1429,46 +575,31 @@
   }
 })();
 
-/* ═══════════════════════════════════
-   THEME TOGGLE
-═══════════════════════════════════ */
+/* ── Theme Toggle ── */
 function toggleTheme() {
-  const body = document.body;
-  const icon = document.getElementById('themeIcon');
+  const body  = document.body;
+  const icon  = document.getElementById('themeIcon');
   const label = document.getElementById('themeLabel');
   body.classList.toggle('light-theme');
   const isLight = body.classList.contains('light-theme');
-  icon.className = isLight ? 'fa-solid fa-moon' : 'fa-solid fa-sun';
+  icon.className  = isLight ? 'fa-solid fa-moon' : 'fa-solid fa-sun';
   label.textContent = isLight ? 'الوضع الداكن' : 'الوضع الفاتح';
   localStorage.setItem('csm-theme', isLight ? 'light' : 'dark');
 }
 
-// Restore saved theme
-(function() {
+/* Restore saved theme */
+(function(){
   const saved = localStorage.getItem('csm-theme');
-  if (saved === 'light') {
+  if(saved === 'light'){
     document.body.classList.add('light-theme');
-    const icon = document.getElementById('themeIcon');
+    const icon  = document.getElementById('themeIcon');
     const label = document.getElementById('themeLabel');
-    if(icon) icon.className = 'fa-solid fa-moon';
+    if(icon)  icon.className    = 'fa-solid fa-moon';
     if(label) label.textContent = 'الوضع الداكن';
   }
 })();
 
-/* ══════════════════════════════════
-   GitHub Config
-══════════════════════════════════ */
-const GH_OWNER = 'YOSSEFCS';
-const GH_REPO  = 'CS-Vault';
-const GH_API   = 'https://api.github.com';
-const LABEL_FILE    = 'student-file';
-const LABEL_COMMENT = 'student-comment';
-
-let GH_TOKEN = '';
-
-/* ══════════════════════════════════
-   بيانات الملازم الثابتة
-══════════════════════════════════ */
+/* ── Subjects Data ── */
 const subjectsData = {
   prog: [
     { name:"ملزمة البرمجة المتقدمة — الأولى",  file:"prog1.pdf",  size:"847.9 KB" },
@@ -1478,13 +609,13 @@ const subjectsData = {
     { name:"ملزمة البرمجة المتقدمة — الخامسة", file:"prog5.pdf",  size:"738.4 KB" },
   ],
   web: [
-    { name:"ملزمة برمجة المواقع — الأولى",   file:"web1.pdf", size:"1.2 MB" },
-    { name:"ملزمة برمجة المواقع — الثانية",  file:"web2.pdf", size:"441.7 KB" },
-    { name:"ملزمة برمجة المواقع — الثالثة",  file:"web3.pdf", size:"630.9 KB" },
-    { name:"ملزمة برمجة المواقع — الرابعة",  file:"web4.pdf", size:"342.5 KB" },
-    { name:"ملزمة برمجة المواقع — الخامسة",  file:"web5.pdf", size:"230.3 KB" },
-    { name:"ملزمة برمجة المواقع — السادسة",  file:"web6.pdf", size:"399.7 KB" },
-    { name:"ملزمة برمجة المواقع — السابعة",  file:"web7.pdf", size:"211.8 KB" },
+    { name:"ملزمة برمجة المواقع — الأولى",  file:"web1.pdf", size:"1.2 MB" },
+    { name:"ملزمة برمجة المواقع — الثانية", file:"web2.pdf", size:"441.7 KB" },
+    { name:"ملزمة برمجة المواقع — الثالثة", file:"web3.pdf", size:"630.9 KB" },
+    { name:"ملزمة برمجة المواقع — الرابعة", file:"web4.pdf", size:"342.5 KB" },
+    { name:"ملزمة برمجة المواقع — الخامسة", file:"web5.pdf", size:"230.3 KB" },
+    { name:"ملزمة برمجة المواقع — السادسة", file:"web6.pdf", size:"399.7 KB" },
+    { name:"ملزمة برمجة المواقع — السابعة", file:"web7.pdf", size:"211.8 KB" },
   ],
   computer1: [
     { name:"ملزمة حاسوب نظري — الأولى والثانية", file:"computer 1ملزمة اولى وثانية.pdf", size:"1.6 MB" },
@@ -1495,12 +626,12 @@ const subjectsData = {
     { name:"ملزمة حاسوب نظري — السابعة",         file:"computer 1ملزمة سابعة.pdf",        size:"631.1 KB" },
   ],
   computer2: [
-    { name:"ملزمة حاسوب عملي — الأولى",   file:"computer 2ملزمة الاولى.pdf",  size:"1.3 MB" },
-    { name:"ملزمة حاسوب عملي — الثانية",  file:"computer 2ملزمة الثانية.pdf", size:"1.7 MB" },
-    { name:"ملزمة حاسوب عملي — الثالثة",  file:"computer 2ملزمة ثالثة.pdf",   size:"1.8 MB" },
-    { name:"ملزمة حاسوب عملي — الرابعة",  file:"computer 2ملزمة رابعة.pdf",   size:"1.2 MB" },
-    { name:"ملزمة حاسوب عملي — الخامسة",  file:"computer 2ملزمة خامسة.pdf",   size:"1.5 MB" },
-    { name:"ملزمة حاسوب عملي — السادسة",  file:"computer 2ملزمة سادسة.pdf",   size:"1.9 MB" },
+    { name:"ملزمة حاسوب عملي — الأولى",  file:"computer 2ملزمة الاولى.pdf",  size:"1.3 MB" },
+    { name:"ملزمة حاسوب عملي — الثانية", file:"computer 2ملزمة الثانية.pdf", size:"1.7 MB" },
+    { name:"ملزمة حاسوب عملي — الثالثة", file:"computer 2ملزمة ثالثة.pdf",   size:"1.8 MB" },
+    { name:"ملزمة حاسوب عملي — الرابعة", file:"computer 2ملزمة رابعة.pdf",   size:"1.2 MB" },
+    { name:"ملزمة حاسوب عملي — الخامسة", file:"computer 2ملزمة خامسة.pdf",   size:"1.5 MB" },
+    { name:"ملزمة حاسوب عملي — السادسة", file:"computer 2ملزمة سادسة.pdf",   size:"1.9 MB" },
   ],
   statistics: [
     { name:"ملزمة الإحصاء — 1",  file:"statistics1.pdf",  size:"868.3 KB" },
@@ -1537,25 +668,15 @@ const subjectLabels = {
   prog:'برمجة متقدمة', web:'برمجة مواقع نظري',
   computer1:'حاسوب نظري', computer2:'حاسوب عملي',
   statistics:'مبادئ الإحصاء', tca:'تركيب حاسوب نظري',
-  pcac:'تركيب حاسوب عملي', arbic:'اللغة العربية', other:'أخرى'
+  pcac:'تركيب حاسوب عملي', arbic:'اللغة العربية'
 };
 
-/* ── Navigation ── */
-function switchPage(name, tab) {
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
-  document.getElementById('page-' + name).classList.add('active');
-  tab.classList.add('active');
-  if(name === 'share') renderStudentFiles();
-  if(name === 'comments') renderComments();
-}
-
-/* ── Subjects Toggle ── */
+/* ── Toggle Subjects ── */
 function toggleSubjects() {
   const btn   = document.getElementById('mainBtn');
   const grid  = document.getElementById('subjectsGrid');
   const panel = document.getElementById('filesPanel');
-  if (grid.classList.contains('visible')) {
+  if(grid.classList.contains('visible')){
     grid.classList.remove('visible');
     panel.classList.remove('visible');
     btn.classList.remove('open');
@@ -1578,11 +699,11 @@ function openSubject(btn) {
   const list  = document.getElementById('filesList');
   const label = subjectLabels[key] || key;
 
-  document.getElementById('panelTitle').textContent  = 'مادة: ' + label;
-  document.getElementById('panelSub').textContent    = 'المرحلة الأولى — قسم علوم الحاسوب';
-  document.getElementById('filesCount').textContent  = files.length + ' ملف';
+  document.getElementById('panelTitle').textContent = 'مادة: ' + label;
+  document.getElementById('panelSub').textContent   = 'المرحلة الأولى — قسم علوم الحاسوب';
+  document.getElementById('filesCount').textContent = files.length + ' ملف';
 
-  if (files.length === 0) {
+  if(!files.length){
     list.innerHTML = `
       <div class="empty-state">
         <i class="fa-solid fa-circle-info"></i>
@@ -1591,16 +712,13 @@ function openSubject(btn) {
   } else {
     list.innerHTML = files.map((f,idx) => `
       <a class="file-item" href="${f.file}" download="${f.name}" style="animation:fadeUp 0.3s ease ${idx*0.05}s both">
-        <div class="file-icon">
-          <i class="fa-solid fa-file-pdf"></i>
-        </div>
+        <div class="file-icon"><i class="fa-solid fa-file-pdf"></i></div>
         <div class="file-info">
           <div class="file-name">${f.name}</div>
-          <div class="file-meta"><i class="fa-regular fa-file" style="margin-left:4px"></i>PDF &nbsp;·&nbsp; ${f.size || ''}</div>
+          <div class="file-meta"><i class="fa-regular fa-file" style="margin-left:4px"></i>PDF &nbsp;·&nbsp; ${f.size||''}</div>
         </div>
         <span class="file-download">
-          <i class="fa-solid fa-download"></i>
-          تحميل
+          <i class="fa-solid fa-download"></i> تحميل
         </span>
       </a>`).join('');
   }
@@ -1609,306 +727,12 @@ function openSubject(btn) {
   setTimeout(() => panel.scrollIntoView({ behavior:'smooth', block:'nearest' }), 100);
 }
 
-/* ── GitHub Helpers ── */
-function ghHeaders(write=false) {
-  const h = { 'Accept':'application/vnd.github+json' };
-  if (GH_TOKEN) h['Authorization'] = 'Bearer ' + GH_TOKEN;
-  if (write) h['Content-Type'] = 'application/json';
-  return h;
-}
-
-function updateTokenBadge() {
-  const badge = document.getElementById('tokenBadge');
-  if (GH_TOKEN) {
-    badge.className = 'token-indicator connected';
-    badge.innerHTML = '<i class="fa-solid fa-circle-check"></i> مرتبط بـ GitHub';
-  } else {
-    badge.className = 'token-indicator disconnected';
-    badge.innerHTML = '<i class="fa-solid fa-circle-xmark"></i> غير مرتبط';
-  }
-}
-
-async function updateGithubStatusBox() {
-  const box  = document.getElementById('githubStatusBox');
-  const text = document.getElementById('githubStatusText');
-  if (!GH_TOKEN) {
-    box.className = 'info-box'; box.querySelector('i').className = 'fa-solid fa-triangle-exclamation';
-    text.textContent = 'لا يوجد GitHub Token — الرفع معطّل. أضف Token للمشاركة.';
-    return;
-  }
-  try {
-    const r = await fetch(`${GH_API}/repos/${GH_OWNER}/${GH_REPO}`, { headers: ghHeaders() });
-    if (r.ok) {
-      box.className = 'info-box green'; box.querySelector('i').className = 'fa-brands fa-github';
-      text.textContent = `✅ متصل بـ GitHub — ${GH_OWNER}/${GH_REPO}`;
-    } else {
-      box.className = 'info-box'; box.querySelector('i').className = 'fa-solid fa-triangle-exclamation';
-      text.textContent = `⚠️ فشل الاتصال (${r.status}) — تحقق من الـ Token`;
-    }
-  } catch(e) {
-    box.className = 'info-box'; box.querySelector('i').className = 'fa-solid fa-wifi';
-    text.textContent = 'تعذّر الاتصال بـ GitHub — تحقق من الشبكة';
-  }
-}
-
-async function ensureLabels() {
-  if (!GH_TOKEN) return;
-  const existing = await fetch(`${GH_API}/repos/${GH_OWNER}/${GH_REPO}/labels?per_page=100`, { headers: ghHeaders() });
-  if (!existing.ok) return;
-  const list = await existing.json();
-  const names = list.map(l => l.name);
-  for (const [name, color] of [[LABEL_FILE,'0075ca'],[LABEL_COMMENT,'e4e669']]) {
-    if (!names.includes(name)) {
-      await fetch(`${GH_API}/repos/${GH_OWNER}/${GH_REPO}/labels`, {
-        method:'POST', headers:ghHeaders(true),
-        body:JSON.stringify({name, color})
-      });
-    }
-  }
-}
-
-/* ── Token Management ── */
-function saveToken() {
-  const val = document.getElementById('tokenInput').value.trim();
-  const status = document.getElementById('tokenStatus');
-  if (!val.startsWith('ghp_') && !val.startsWith('github_pat_')) {
-    status.className='token-status err'; status.textContent='❌ Token غير صالح — يجب أن يبدأ بـ ghp_ أو github_pat_'; return;
-  }
-  GH_TOKEN = val;
-  localStorage.setItem('csm_gh_token', val);
-  status.className='token-status ok'; status.textContent='✅ تم حفظ الـ Token!';
-  setTimeout(() => {
-    document.getElementById('tokenOverlay').style.display='none';
-    updateTokenBadge(); updateGithubStatusBox(); ensureLabels();
-  }, 800);
-}
-
-function skipToken() {
-  document.getElementById('tokenOverlay').style.display='none';
-  updateTokenBadge(); updateGithubStatusBox();
-}
-
-/* ── File Upload ── */
-let selectedFile = null;
-
-function onFileSelected(input) {
-  selectedFile = input.files[0];
-  if (!selectedFile) return;
-  document.getElementById('selected-file-name').textContent = selectedFile.name + ' (' + formatSize(selectedFile.size) + ')';
-  document.getElementById('selected-file-info').style.display = 'flex';
-}
-
-function formatSize(bytes) {
-  if (bytes < 1024) return bytes + ' B';
-  if (bytes < 1048576) return (bytes/1024).toFixed(1) + ' KB';
-  return (bytes/1048576).toFixed(1) + ' MB';
-}
-
-const dropzone = document.getElementById('dropzone');
-if(dropzone){
-  dropzone.addEventListener('dragover', e => { e.preventDefault(); dropzone.classList.add('dragover'); });
-  dropzone.addEventListener('dragleave', () => dropzone.classList.remove('dragover'));
-  dropzone.addEventListener('drop', e => {
-    e.preventDefault(); dropzone.classList.remove('dragover');
-    const f = e.dataTransfer.files[0];
-    if (f) { selectedFile = f; document.getElementById('selected-file-name').textContent = f.name + ' (' + formatSize(f.size) + ')'; document.getElementById('selected-file-info').style.display='flex'; }
-  });
-}
-
-async function uploadFile() {
-  if (!selectedFile) { showToast('⚠️ اختر ملفاً أولاً'); return; }
-  if (!GH_TOKEN) { showToast('❌ أضف GitHub Token أولاً من إعدادات الربط'); return; }
-  const name    = document.getElementById('uploader-name').value.trim() || 'طالب مجهول';
-  const subject = document.getElementById('upload-subject').value;
-  const desc    = document.getElementById('upload-desc').value.trim();
-  if (!subject) { showToast('⚠️ اختر المادة'); return; }
-  if (selectedFile.size > 10 * 1024 * 1024) { showToast('❌ الملف أكبر من 10 MB'); return; }
-
-  const btn = document.getElementById('upload-btn');
-  const progressWrap = document.getElementById('progress-wrap');
-  const progressFill = document.getElementById('progress-fill');
-  const progressText = document.getElementById('progress-text');
-  const resultEl     = document.getElementById('upload-result');
-
-  btn.disabled = true;
-  progressWrap.style.display = 'block'; resultEl.style.display = 'none';
-  progressFill.style.width = '0%'; progressText.textContent = 'جارٍ قراءة الملف...';
-
-  const reader = new FileReader();
-  reader.onload = async () => {
-    try {
-      const base64 = reader.result.split(',')[1];
-      progressFill.style.width = '30%'; progressText.textContent = 'جارٍ رفع الملف إلى GitHub...';
-      const path = `uploads/${Date.now()}_${selectedFile.name.replace(/[^a-zA-Z0-9._-]/g,'_')}`;
-      const uploadResp = await fetch(`${GH_API}/repos/${GH_OWNER}/${GH_REPO}/contents/${path}`, {
-        method:'PUT', headers:ghHeaders(true),
-        body:JSON.stringify({ message:`📁 ${selectedFile.name}`, content:base64 })
-      });
-      if (!uploadResp.ok) throw new Error('فشل رفع الملف');
-      const uploadData = await uploadResp.json();
-      const fileUrl = uploadData.content?.download_url || uploadData.content?.html_url || '';
-      progressFill.style.width = '70%'; progressText.textContent = 'جارٍ تسجيل الملف...';
-      const issueBody = [`**الاسم:** ${name}`,`**المادة:** ${subjectLabels[subject]||subject}`,`**الملف:** [${selectedFile.name}](${fileUrl})`,`**الحجم:** ${formatSize(selectedFile.size)}`,desc?`**الوصف:** ${desc}`:'',`**التاريخ:** ${new Date().toLocaleString('ar-IQ')}`,`<!-- CSM_FILE_META\nsubject:${subject}\nfileName:${selectedFile.name}\nfileSize:${formatSize(selectedFile.size)}\nfileUrl:${fileUrl}\nuploaderName:${name}\ndesc:${desc}\n-->`].filter(Boolean).join('\n\n');
-      const issueResp = await fetch(`${GH_API}/repos/${GH_OWNER}/${GH_REPO}/issues`, {
-        method:'POST', headers:ghHeaders(true),
-        body:JSON.stringify({ title:`📁 ${selectedFile.name} — ${subjectLabels[subject]||subject}`, body:issueBody, labels:[LABEL_FILE] })
-      });
-      if (!issueResp.ok) throw new Error('فشل تسجيل الملف');
-      progressFill.style.width = '100%'; progressText.textContent = 'تم!';
-      setTimeout(() => {
-        progressWrap.style.display='none'; progressFill.style.width='0%';
-        resultEl.style.display='block'; resultEl.className='upload-result success';
-        resultEl.innerHTML=`✅ تم رفع الملف بنجاح! <a href="${fileUrl}" target="_blank" style="color:#4ade80">فتح الملف</a>`;
-        btn.disabled=false; selectedFile=null;
-        document.getElementById('file-input').value='';
-        document.getElementById('selected-file-info').style.display='none';
-        document.getElementById('uploader-name').value='';
-        document.getElementById('upload-subject').value='';
-        document.getElementById('upload-desc').value='';
-        showToast('✅ تم رفع الملف على GitHub!'); renderStudentFiles();
-      }, 600);
-    } catch(e) {
-      btn.disabled=false; progressWrap.style.display='none';
-      resultEl.style.display='block'; resultEl.className='upload-result error';
-      resultEl.innerHTML=`❌ خطأ: ${e.message}`;
-    }
-  };
-  reader.readAsDataURL(selectedFile);
-}
-
-/* ── Student Files ── */
-async function renderStudentFiles() {
-  const list = document.getElementById('student-files-list');
-  if (!list) return;
-  list.innerHTML = '<div class="loading-spinner"><i class="fa-solid fa-spinner"></i><p>جارٍ التحميل من GitHub...</p></div>';
-  try {
-    const url = `${GH_API}/repos/${GH_OWNER}/${GH_REPO}/issues?labels=${encodeURIComponent(LABEL_FILE)}&state=open&per_page=50&sort=created&direction=desc`;
-    const r = await fetch(url, { headers: ghHeaders() });
-    if (r.status === 404) { list.innerHTML=`<div class="empty-state"><i class="fa-solid fa-folder-open"></i><p>لم يتم رفع أي ملفات بعد — كن الأول!</p></div>`; return; }
-    if (!r.ok) throw new Error(`GitHub Error ${r.status}`);
-    const issues = await r.json();
-    if (!issues.length) { list.innerHTML=`<div class="empty-state"><i class="fa-solid fa-folder-open"></i><p>لم يتم رفع أي ملفات بعد — كن الأول!</p></div>`; return; }
-    list.innerHTML = issues.map(issue => {
-      const meta=parseFileMeta(issue.body);
-      const ext=(meta.fileName||'').split('.').pop().toLowerCase();
-      const icon=ext==='pdf'?'fa-file-pdf':(ext==='doc'||ext==='docx')?'fa-file-word':'fa-file-image';
-      const badgeClass=ext==='pdf'?'pdf':(ext==='doc'||ext==='docx')?'doc':'img';
-      return `<div class="student-file-card"><div class="sfc-icon"><i class="fa-solid ${icon}"></i></div><div class="sfc-info"><div class="sfc-title">${meta.fileName||issue.title}</div><div class="sfc-meta"><i class="fa-solid fa-user" style="margin-left:4px"></i>${meta.uploaderName||'مجهول'} &nbsp;·&nbsp; <i class="fa-solid fa-tag" style="margin-left:4px"></i>${subjectLabels[meta.subject]||meta.subject||'—'} &nbsp;·&nbsp; ${meta.fileSize||''}${meta.desc?`<br/><i class="fa-solid fa-quote-right" style="margin-left:4px;color:var(--teal)"></i>${meta.desc}`:''}</div></div><span class="sfc-badge ${badgeClass}">${ext.toUpperCase()}</span>${meta.fileUrl?`<a class="sfc-download" href="${meta.fileUrl}" target="_blank" download="${meta.fileName}"><i class="fa-solid fa-download"></i> تنزيل</a>`:''}</div>`;
-    }).join('');
-  } catch(e) {
-    list.innerHTML=`<div class="empty-state"><i class="fa-solid fa-triangle-exclamation"></i><p>تعذر التحميل: ${e.message}</p></div>`;
-  }
-}
-
-function parseFileMeta(body) {
-  const meta={};
-  const block=(body||'').match(/<!-- CSM_FILE_META\n([\s\S]*?)-->/);
-  if(block){block[1].trim().split('\n').forEach(line=>{const idx=line.indexOf(':');if(idx>-1)meta[line.slice(0,idx).trim()]=line.slice(idx+1).trim();});}
-  return meta;
-}
-
-/* ── Comments ── */
-let selectedTag = 'عام';
-
-function selectTag(btn) {
-  document.querySelectorAll('.tag-btn').forEach(b => b.classList.remove('selected'));
-  btn.classList.add('selected');
-  selectedTag = btn.dataset.tag;
-}
-
-async function submitComment() {
-  const name    = document.getElementById('comment-name').value.trim() || 'طالب مجهول';
-  const text    = document.getElementById('comment-text').value.trim();
-  const ratingEl= document.querySelector('input[name="rating"]:checked');
-  const rating  = ratingEl ? parseInt(ratingEl.value) : 0;
-  if (!text) { showToast('⚠️ اكتب تعليقاً أولاً'); return; }
-  const btn = document.getElementById('submit-comment-btn');
-  btn.disabled = true; btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> جارٍ النشر...';
-  const stars = rating ? '⭐'.repeat(rating) : '';
-  const issueBody = [`**الطالب:** ${name}`,rating?`**التقييم:** ${stars} (${rating}/5)`:'',`**الصنف:** ${selectedTag}`,`**التعليق:**\n\n${text}`,`**التاريخ:** ${new Date().toLocaleString('ar-IQ')}`,`<!-- CSM_COMMENT_META\ncommenterName:${name}\nrating:${rating}\ntag:${selectedTag}\n-->`].filter(Boolean).join('\n\n');
-  try {
-    const r = await fetch(`${GH_API}/repos/${GH_OWNER}/${GH_REPO}/issues`, {
-      method:'POST', headers:ghHeaders(true),
-      body:JSON.stringify({ title:`💬 تعليق من ${name} — ${selectedTag}`, body:issueBody, labels:[LABEL_COMMENT] })
-    });
-    if (!r.ok) throw new Error('فشل النشر');
-    document.getElementById('comment-name').value=''; document.getElementById('comment-text').value='';
-    if(ratingEl) ratingEl.checked=false;
-    selectTag(document.querySelector('.tag-btn[data-tag="عام"]'));
-    showToast('✅ تم نشر تعليقك!'); renderComments();
-  } catch(e) { showToast('❌ فشل النشر: '+e.message); }
-  btn.disabled=false; btn.innerHTML='<i class="fa-brands fa-github"></i> نشر التعليق';
-}
-
-async function renderComments() {
-  const list = document.getElementById('comments-list');
-  if (!list) return;
-  list.innerHTML = '<div class="loading-spinner"><i class="fa-solid fa-spinner"></i><p>جارٍ تحميل التعليقات...</p></div>';
-  try {
-    const url = `${GH_API}/repos/${GH_OWNER}/${GH_REPO}/issues?labels=${encodeURIComponent(LABEL_COMMENT)}&state=open&per_page=100&sort=created&direction=desc`;
-    const r = await fetch(url, { headers: ghHeaders() });
-    if(r.status===404){document.getElementById('stat-total').textContent='0';document.getElementById('stat-avg').textContent='—';document.getElementById('stat-five').textContent='0';list.innerHTML=`<div class="empty-state"><i class="fa-regular fa-comment-dots"></i><p>لا توجد تعليقات بعد — كن أول من يشارك رأيه!</p></div>`;return;}
-    if(!r.ok) throw new Error(`GitHub Error ${r.status}`);
-    const issues = await r.json();
-    const total=issues.length;
-    const rated=issues.filter(i=>{const m=parseCommentMeta(i.body);return m.rating>0;});
-    const avg=rated.length?(rated.reduce((s,i)=>s+parseCommentMeta(i.body).rating*1,0)/rated.length).toFixed(1):'—';
-    const five=rated.filter(i=>parseCommentMeta(i.body).rating==5).length;
-    document.getElementById('stat-total').textContent=total;
-    document.getElementById('stat-avg').textContent=avg==='—'?'—':avg+' ★';
-    document.getElementById('stat-five').textContent=five;
-    if(!total){list.innerHTML=`<div class="empty-state"><i class="fa-regular fa-comment-dots"></i><p>لا توجد تعليقات بعد!</p></div>`;return;}
-    list.innerHTML = issues.map(issue => {
-      const meta=parseCommentMeta(issue.body);
-      const name=meta.commenterName||'طالب مجهول';
-      const rating=parseInt(meta.rating)||0;
-      const tag=meta.tag||'عام';
-      const stars=rating?'★'.repeat(rating)+'☆'.repeat(5-rating):'';
-      const initial=name.charAt(0);
-      const commentMatch=issue.body.match(/\*\*التعليق:\*\*\n\n([\s\S]*?)(?:\n\n\*\*التاريخ|<!--|$)/);
-      const commentText=commentMatch?commentMatch[1].trim():'';
-      const time=new Date(issue.created_at).toLocaleString('ar-IQ');
-      const reactions=issue.reactions?issue.reactions['+1']||0:0;
-      return `<div class="comment-card"><div class="comment-card-header"><div class="comment-avatar">${initial}</div><div><div class="comment-author">${name}</div><div class="comment-time"><i class="fa-regular fa-clock" style="margin-left:4px"></i>${time}</div></div>${stars?`<div class="comment-stars">${stars}</div>`:''}<span class="comment-tag">${tag}</span></div><div class="comment-body">${commentText.replace(/\n/g,'<br/>')}</div><div class="comment-likes"><a class="like-btn" href="${issue.html_url}" target="_blank"><i class="fa-brands fa-github"></i> عرض على GitHub</a>${reactions?`<span style="font-size:0.75rem;opacity:0.4">👍 ${reactions}</span>`:''}</div></div>`;
-    }).join('');
-  } catch(e) {
-    list.innerHTML=`<div class="empty-state"><i class="fa-solid fa-triangle-exclamation"></i><p>تعذر تحميل التعليقات: ${e.message}</p></div>`;
-  }
-}
-
-function parseCommentMeta(body) {
-  const meta={};
-  const block=(body||'').match(/<!-- CSM_COMMENT_META\n([\s\S]*?)-->/);
-  if(block){block[1].trim().split('\n').forEach(line=>{const idx=line.indexOf(':');if(idx>-1)meta[line.slice(0,idx).trim()]=line.slice(idx+1).trim();});}
-  return meta;
-}
-
-/* ── Toast ── */
-function showToast(msg) {
-  const t = document.getElementById('toast');
-  t.textContent = msg; t.classList.add('show');
-  setTimeout(() => t.classList.remove('show'), 3500);
-}
-
-/* ── Init ── */
-document.addEventListener('DOMContentLoaded', async () => {
-  document.getElementById('tokenOverlay').style.display = 'none';
-
-  // Restore token from localStorage
-  const saved = localStorage.getItem('csm_gh_token');
-  if (saved) GH_TOKEN = saved;
-
-  updateTokenBadge(); updateGithubStatusBox();
-  await ensureLabels();
-  renderStudentFiles(); renderComments();
-
-  // Populate file counts
-  document.querySelectorAll('.subject-btn').forEach(btn => {
-    const key = btn.dataset.subject;
-    const count = (subjectsData[key]||[]).length;
-    const el = btn.querySelector('.subj-count');
-    if(el) el.textContent = count + ' ملف';
-  });
+/* ── Init: populate file counts ── */
+document.querySelectorAll('.subject-btn').forEach(btn => {
+  const key   = btn.dataset.subject;
+  const count = (subjectsData[key]||[]).length;
+  const el    = btn.querySelector('.subj-count');
+  if(el) el.textContent = count + ' ملف';
 });
 </script>
 </body>
